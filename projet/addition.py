@@ -1,5 +1,3 @@
-print("Hello world !")
-
 def addition(x,y):
     """
     computing the sum of x and y
@@ -10,9 +8,14 @@ def addition(x,y):
         float : sum
     >>> addition(3,4)
     7
-    >>> addition(2.3,7.1)
-    9.4
+    >>> addition(2,7.1)
+    9.1
     """
     return(x+y)
 
-print(addition(6.7,8.9))
+if __name__ == "__main__" :
+    print("Fonction addition")
+    print(addition(5,8))
+
+    import doctest
+    doctest.testmod(verbose = True)
