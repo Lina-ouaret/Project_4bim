@@ -12,16 +12,17 @@ def addition(x,y):
 
     >>> addition(3,4)
     7
-    
-    >>> addition(2,7.1)
-    9.1
+
+    >>> addition(2.3,7.1)
+    8
 
     """
     return(x+y)
 
 if __name__ == "__main__" :
+    import doctest
     print("Fonction addition")
     print(addition(5,8))
 
-    import doctest
+
     doctest.testmod(verbose = True)

@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import random
+from itertools import combinations
+
 
 def convert_attributes_into_pandas(filename):
     """
@@ -12,8 +14,8 @@ def convert_attributes_into_pandas(filename):
     Returns :
         df_attributes (pandas.array) :  matrix
 
-    >>> convert_attributes_into_pandas(test_attributes)
-    ?
+    >>> type(convert_attributes_into_pandas("test_attributes.csv"))
+    <class 'pandas.core.frame.DataFrame'>
 
     """
     return pd.read_csv(filename)
@@ -29,15 +31,15 @@ def matrix_reduction(df_attributes,fixed_attributes):
     Returns :
         reduced_matrix (pandas.array) :
 
-    >>> matrix_reduction(*,*)
-    ?
+    >>> matrix_reduction(attributes_matrix,fixed_attributes)
+
 
     """
     attributes = list(fixed_attributes.keys())
     values = list(fixed_attributes.values())
     for i in range(len(attributes)):
         df_attributes.drop(df_attributes.index[df_attributes[attributes[i]]!= values[i]],inplace=True)
-    return df_attributes
+    return df_attributes.index.tolist()
 
 def get_attributes_from_ID(df_attributes,photo_id):
     """
@@ -74,3 +76,17 @@ def delete_photos(df_attributes,photos_ids):
     for i in range(len(photos_ids)):
         df_attributes.drop(df_attributes[df_attributes.ID == str(photos_ids[i])].index,inplace=True)
     return df_attributes
+
+#################
+#TESTS UNITAIRES#
+#################
+
+if __name__ == "__main__" :
+    import doctest
+
+    attributes_matrix = convert_attributes_into_pandas("test_attributes.csv")
+    fixed_attributes = {"Pale_Skin":-1}
+    matrix_reduction(attributes_matrix,fixed_attributes)
+
+
+    doctest.testmod(verbose = True)
