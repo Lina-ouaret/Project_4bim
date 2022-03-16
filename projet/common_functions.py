@@ -31,9 +31,11 @@ def matrix_reduction(df_attributes,fixed_attributes):
     Returns :
         reduced_matrix (pandas.array) :
 
-    >>> matrix_reduction(attributes_matrix,fixed_attributes)
+    >>> matrix_reduction(df_test,fixed_attributes_test)
+    [18, 47, 88]
 
-
+    >>> matrix_reduction(df_test,{"Male":-1, "Young":-1})
+    [17, 65, 83, 93]
     """
     attributes = list(fixed_attributes.keys())
     values = list(fixed_attributes.values())
@@ -84,9 +86,9 @@ def delete_photos(df_attributes,photos_ids):
 if __name__ == "__main__" :
     import doctest
 
-    attributes_matrix = convert_attributes_into_pandas("test_attributes.csv")
-    fixed_attributes = {"Pale_Skin":-1}
-    matrix_reduction(attributes_matrix,fixed_attributes)
+    df_test = convert_attributes_into_pandas("test_attributes.csv")
+    fixed_attributes_test = {"Pale_Skin":1}
+    df_test_list = matrix_reduction(df_test,fixed_attributes_test)
 
 
     doctest.testmod(verbose = True)
