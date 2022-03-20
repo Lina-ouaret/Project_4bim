@@ -50,7 +50,10 @@ def model (original_dim, hidden_encoding_dim, encoding_dim,
     (keras.engine.functional.Functional) : decoder
     (keras.engine.functional.Functional) : autoencoder
 
-  >>>
+  >>> type(encoder); type(decoder); type(autoencoder);
+  <keras.engine.functional.Functional>
+  >>> look the the learning curve
+      the training and the loss curve tends to a low same constant
 
   '''
   # "encoded" is the encoded representation of the input
