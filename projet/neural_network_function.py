@@ -1,5 +1,3 @@
-%matplotlib inline
-
 import numpy as np                   # advanced math library
 import matplotlib.pyplot as plt      # plotting routines
 import keras
@@ -18,14 +16,18 @@ from PIL.Image import *
 def split_dataset(dataset, attribut):
   '''
   Split the dataset into train and test
-  args :
+
+  Args :
     pixel (array) : X
     attributs (array) : y
-  returns :
+  Returns :
     (array) : X_train
     (array) : X_test
     (array) : y_train
     (array) : y_test
+
+  >>>
+
   '''
   X_train, X_test, y_train, y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
   return X_train, X_test, y_train, y_test
@@ -36,16 +38,20 @@ def model (original_dim, hidden_encoding_dim, encoding_dim,
            dropout_level, hidden_decoding_dim):
   '''
   Model of neural network
-  args :
+
+  Args :
     original_dim (int)
     hidden_encoding_dim (int)
     encoding_dim (int)
     dropout_level (float)
     hidden_decoding_dim (int)
-  returns :
+  Returns :
     (keras.engine.functional.Functional) : encoder
     (keras.engine.functional.Functional) : decoder
     (keras.engine.functional.Functional) : autoencoder
+
+  >>>
+
   '''
   # "encoded" is the encoded representation of the input
   input_img = keras.Input(shape=(original_dim,))
@@ -77,15 +83,19 @@ def model (original_dim, hidden_encoding_dim, encoding_dim,
 def save_reconstruction(n,decoded):
   '''
   Save the input images and their reconstruction after being decoded
-  args :
+
+  Args :
     decoded (array)
     n (int) : number of faces we will display
-  returns :
+  Returns :
     None
+
+  >>>
+
   '''
   for i in range(n):
     plt.imshow(decoded[i].reshape(64,64))
     plt.axis('off')
     plt.gray()
-    plt.savefig("imgs"+str(i)+".png")
+    plt.savefig("pictures_showed/imgs"+str(i)+".png")
   return None
