@@ -20,28 +20,29 @@ def convert_attributes_into_pandas(filename):
     """
     return pd.read_csv(filename)
 
-def matrix_reduction(df_attributes,fixed_attributes):
+def matrix_reduction(df,fixed_att):
     """
     Reduces the matrix based on the traits specified by the witness and deletes all columns corresponding to the specified traits.
 
     Args :
-        df_attributes (pandas.array) : attributes matrix to reduce
-        fixed_attributes (dict) : attributes that have been selected by witness to reduce our matrixby columns
+        df (pandas.array) : attributes matrix to reduce
+        fixed_att (dict) : attributes that have been selected by witness to reduce our matrixby columns
 
     Returns :
         reduced_matrix (pandas.array) :
 
+    >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
+    >>> fixed_attributes_test = {"Pale_Skin":1}
+    >>> df_test_list = matrix_reduction(df_test,fixed_attributes_test)
     >>> matrix_reduction(df_test,fixed_attributes_test)
     [18, 47, 88]
-
-    >>> matrix_reduction(df_test,{"Male":-1, "Young":-1})
-    [17, 65, 83, 93]
     """
-    attributes = list(fixed_attributes.keys())
-    values = list(fixed_attributes.values())
+    new_df = df
+    attributes = list(fixed_att.keys())
+    values = list(fixed_att.values())
     for i in range(len(attributes)):
-        df_attributes.drop(df_attributes.index[df_attributes[attributes[i]]!= values[i]],inplace=True)
-    return df_attributes.index.tolist()
+        df.drop(df.index[df[attributes[i]]!= values[i]],inplace=True)
+    return new_df.index.tolist()
 
 def get_attributes_from_ID(df_attributes,photo_id):
     """
@@ -85,10 +86,4 @@ def delete_photos(df_attributes,photos_ids):
 
 if __name__ == "__main__" :
     import doctest
-
-    df_test = convert_attributes_into_pandas("test_attributes.csv")
-    fixed_attributes_test = {"Pale_Skin":1}
-    df_test_list = matrix_reduction(df_test,fixed_attributes_test)
-
-
     doctest.testmod(verbose = True)
