@@ -55,13 +55,14 @@ def get_attributes_from_ID(df_attributes,photo_id):
     Returns :
         photo_attributes (pandas.array) :
 
-    >>> get_attributes_from_ID(*,*)
-    ?
+    >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
+    >>> type(get_attributes_from_ID(df_test,'000018.jpg'))
+    <class 'pandas.core.frame.DataFrame'>
 
     """
     return pd.DataFrame(df_attributes.loc[df_attributes['ID'] == photo_id])
 
-def delete_photos(df_attributes,photos_ids):
+def delete_photos(df,photos_ids_list):
     """
     Function that deletes photos from the database attribute matrix containing all the photos.
 
@@ -72,13 +73,18 @@ def delete_photos(df_attributes,photos_ids):
     Returns :
         reduced_df_attributes (panda.array) : same matrix as the arg one but without lines corresponding to photo_ids
 
-    >>> delete_photos(*,*)
-    ?
+    >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
+    >>> list_id = ['000018.jpg','000066.jpg']  
+    >>> len(delete_photos(df_test,list_id))
+    96
+    
+    # = len(df_test)-len(list_id)
 
     """
-    for i in range(len(photos_ids)):
-        df_attributes.drop(df_attributes[df_attributes.ID == str(photos_ids[i])].index,inplace=True)
-    return df_attributes
+    new_df = df
+    for i in range(len(photos_ids_list)):
+        df.drop(df[df.ID == str(photos_ids_list[i])].index,inplace=True)
+    return new_df
 
 #################
 #TESTS UNITAIRES#
