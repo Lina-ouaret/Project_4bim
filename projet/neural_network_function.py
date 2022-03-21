@@ -102,3 +102,25 @@ def save_reconstruction(n,decoded):
     plt.gray()
     plt.savefig("pictures_showed/imgs"+str(i)+".png")
   return None
+
+
+# Plot the learning curve to test the model
+def loss_test(autoencoder):
+    '''
+    Save the input images and their reconstruction after being decoded
+
+    Args :
+        autoencoder(keras.engine.functional.Functional)
+    Returns :
+        None
+
+    >>>
+    
+    '''
+    history = autoencoder.history.history
+    plt.plot(history['val_loss'],label="test")
+    plt.plot(history['loss'],label="training")
+    plt.xlabel("epochs")
+    plt.ylabel("Loss")
+    plt.legend()
+    return None
