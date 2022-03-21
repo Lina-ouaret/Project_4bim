@@ -14,12 +14,19 @@ def randomly_choose_photos(df,n):
     Returns :
         photos_names (list(str)) :  list of photo names looking like XXXXXX.png
 
-    >>> randomly_choose_photos(*)
-    ?
+    >>> df_test = cf.convert_attributes_into_pandas("test_attributes.csv")
+    >>> fixed_attributes_test = {"Male":1,"Young":-1}
+    >>> df_test_list = cf.matrix_reduction(df_test,fixed_attributes_test)
+    >>> random.seed(2)
+    >>> randomly_choose_photos(df_test_list,6)
+    [78, 14, 20, 68, 50, 29]
+
+    >>> random.seed(3)
+    >>> len(randomly_choose_photos(df_test_list,10))
+    10
 
     """
-    list_ID = df.index.tolist()
-    return random.sample(list_ID,n)
+    return random.sample(df,n) 
 
 def crossover_pixels(parents,pc):
     """
@@ -66,8 +73,6 @@ def crossover_attributes(parent1,parent2,pc):
     Returns :
         offspring (pandas.array) : offspring of 2 previous parents/photos
 
-    >>> crossover(*,*,*)
-    ?
 
     """
     list1 = parent1.columns.tolist()
@@ -102,8 +107,14 @@ def mutation_pixels(parents,pm):
     Returns :
         offspring (pandas.array) : offspring of 2 previous parents/photos
 
-    >>> mutation_pixels(*,*,*)
-    ?
+    >>> encoded_imgs_test = np.load('encoded_imgs_test.npy')
+    >>> random.seed(4)
+    >>> new_parents = mutation_pixels(encoded_imgs_test,0.5)
+    >>> print(new_parents[0][:10])
+    [ 52.   0.  46. 205.   0.  30. 184.  88.   0.  13.]
+
+    >>> encoded_imgs_test.shape == new_parents.shape
+    True
 
     """
     muted_parents = parents
@@ -124,8 +135,6 @@ def mutation_attributes(offspring,pm):
     Returns :
         offspring (pandas.array) : offspring of 2 previous parents/photos
 
-    >>> crossover(*,*,*)
-    ?
 
     """
     muted_offspring = offspring
