@@ -26,7 +26,7 @@ def randomly_choose_photos(df,n):
     10
 
     """
-    return random.sample(df,n) 
+    return random.sample(df,n)
 
 def crossover_pixels(parents,pc):
     """
@@ -119,10 +119,10 @@ def mutation_pixels(parents,pm):
     """
     muted_parents = parents
     for j in range(len(parents)):
-        for i in range(parents[0].size) :
+        for i in range(len(parents[0])) :
             r = random.random()
             if r < pm :
-                muted_parents[j][i] = random.randint(0, 255)
+                muted_parents[j][i] = round(random.uniform(0, 7),2)
     return muted_parents
 
 def mutation_attributes(offspring,pm):

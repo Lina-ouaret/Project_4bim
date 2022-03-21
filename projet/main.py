@@ -19,10 +19,12 @@ if __name__ == "__main__" :
 
     # load model
     decoder_=keras.models.load_model('decoder.h5')
+    #decoder_ = keras.Sequential()
 
     # load encoded_imgs
     encoded_imgs = np.load('encoded_imgs.npy')
     decoded_imgs = np.load('decoded_imgs.npy')
+    #encoded_imgs.tolist()
 
     # Upload photos
     from sklearn.datasets import fetch_olivetti_faces # Olivetti faces dataset
@@ -45,18 +47,47 @@ if __name__ == "__main__" :
     decoded=[None]*n
     for i in range(n):
         decoded[i]=decoded_imgs[index[i]]
-    nn.save_reconstruction(n, decoded) # dans pictures_showed
+    #nn.save_reconstruction(n, decoded) # dans pictures_showed
 
     # Choix de l'utilisateur : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    new_index=random.sample(index, n)
+    encoded_choix=[None]*n
+    for i in range(n):
+        encoded_choix[i]=encoded_imgs[new_index[i]]
+
+    # Algo genetique1 : crossover
+    print(type(encoded_choix))
+    print(type(encoded_choix[0]))
+    #np.save('encoded_choix', encoded_choix)
+    encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
+    decoded_ag = decoder_.predict(encoded_ag)
+    #nn.save_reconstruction(12, decoded_ag)
+
+    # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    mylist = list(range(0,12,1))
+    index = random.sample(mylist, 4)
     new_index=random.sample(index, 4)
     encoded_choix=[None]*4
     for i in range(4):
-        encoded_choix[i]=encoded_imgs[new_index[i]]
+        encoded_choix[i]=np.array(encoded_ag[new_index[i]])
 
-    # Algo genetique
+    # Algo genetique2 : crossover
+    print(type(encoded_choix))
+    print(type(encoded_choix[0]))
     encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
-    #print(len(encoded_ag))
+    print(type(encoded_ag[0]))
     decoded_ag = decoder_.predict(encoded_ag)
-    nn.save_reconstruction(8, decoded_ag)
+    #nn.save_reconstruction(12, decoded_ag)
 
-    
+    # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    new_index=random.sample(index, 4)
+    encoded_choix=[None]*4
+    for i in range(4):
+        encoded_choix[i]=encoded_ag[new_index[i]]
+
+    # Algo genetique : mutation
+    encoded_ag = ag.mutation_pixels(encoded_choix, 0.3)
+
+    print(type(encoded_ag[0]))
+    decoded_ag = decoder_.predict(encoded_ag)
+    nn.save_reconstruction(4, decoded_ag)

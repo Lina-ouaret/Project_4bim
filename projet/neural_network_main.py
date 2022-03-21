@@ -42,7 +42,7 @@ if __name__ == "__main__" :
     # Plot reconstruction
     encoded_imgs = encoder_.predict(X_test_)
     decoded_imgs = decoder_.predict(encoded_imgs)
-    nn.save_reconstruction(9, decoded_imgs)
+    nn.save_reconstruction(1, decoded_imgs)
 
     # save model
     np.save('encoded_imgs', encoded_imgs)

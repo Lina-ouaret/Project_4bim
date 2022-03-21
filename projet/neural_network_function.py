@@ -100,7 +100,7 @@ def save_reconstruction(n,decoded):
     plt.imshow(decoded[i].reshape(64,64))
     plt.axis('off')
     plt.gray()
-    plt.savefig("pictures_showed/imgs"+str(i)+".png")
+    plt.savefig("pictures_showed/img"+str(i)+".png")
   return None
 
 
@@ -115,7 +115,7 @@ def loss_test(autoencoder):
         None
 
     >>>
-    
+
     '''
     history = autoencoder.history.history
     plt.plot(history['val_loss'],label="test")
