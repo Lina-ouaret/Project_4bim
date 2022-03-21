@@ -47,13 +47,8 @@ if __name__ == "__main__" :
     decoded_imgs = decoder_.predict(encoded_imgs)
     nn.save_reconstruction(9, decoded_imgs)
 
-    # Plot the learning curve
-    # history = autoencoder_.history.history
-    # plt.plot(history['val_loss'],label="test")
-    # plt.plot(history['loss'],label="training")
-    # plt.xlabel("epochs")
-    # plt.ylabel("Loss")
-    # plt.legend()
+    # Plot the learning curve to test the model
+    loss_test(autoencoder_)
 
     np.save('encoded_imgs.npy', encoded_imgs)
     #a2 = np.load('encoded_imgs.npy')
