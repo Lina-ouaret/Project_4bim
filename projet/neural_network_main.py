@@ -1,6 +1,7 @@
 import neural_network_function as nn
 import common_functions as cf
 import numpy as np
+import keras
 
 if __name__ == "__main__" :
 
@@ -23,10 +24,6 @@ if __name__ == "__main__" :
                                                 hidden_encoding_dim, encoding_dim,
                                                 dropout_level, hidden_decoding_dim)
 
-    # save model
-    decoder_.save('decoder.h5')
-
-    print('Decoder Saved!')
 
     # load model
     #savedDecoder=load_model('decoder.h5')
@@ -47,8 +44,17 @@ if __name__ == "__main__" :
     decoded_imgs = decoder_.predict(encoded_imgs)
     nn.save_reconstruction(9, decoded_imgs)
 
-    # Plot the learning curve to test the model
-    loss_test(autoencoder_)
+    # save model
+    np.save('encoded_imgs', encoded_imgs)
+    np.save('decoded_imgs', decoded_imgs)
+    decoder_.save('decoder.h5')
 
-    np.save('encoded_imgs.npy', encoded_imgs)
+
+
+    # Plot the learning curve to test the model
+    #loss_test(autoencoder_)
+
+    #np.save('encoded_imgs.npy', encoded_imgs)
+    #np.save('decoded_imgs.npy', decoded_imgs)
+
     #a2 = np.load('encoded_imgs.npy')
