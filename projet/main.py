@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 from PIL.Image import *
 import os
+import glob
 
 if __name__ == "__main__" :
 
@@ -47,7 +48,10 @@ if __name__ == "__main__" :
     decoded=[None]*n
     for i in range(n):
         decoded[i]=decoded_imgs[index[i]]
-    #nn.save_reconstruction(n, decoded) # dans pictures_showed
+    nn.save_reconstruction(n, decoded) # dans pictures_showed
+    py_files = glob.glob("pictures_showed/img*.png")
+    for py_file in py_files:
+        os.remove(py_file)
 
     # Choix de l'utilisateur : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     new_index=random.sample(index, n)
@@ -79,6 +83,7 @@ if __name__ == "__main__" :
     decoded_ag = decoder_.predict(encoded_ag)
     #nn.save_reconstruction(12, decoded_ag)
 
+
     # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     new_index=random.sample(index, 4)
     encoded_choix=[None]*4
@@ -90,4 +95,4 @@ if __name__ == "__main__" :
 
     print(type(encoded_ag[0]))
     decoded_ag = decoder_.predict(encoded_ag)
-    nn.save_reconstruction(4, decoded_ag)
+    #nn.save_reconstruction(4, decoded_ag)
