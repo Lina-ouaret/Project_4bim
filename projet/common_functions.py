@@ -12,7 +12,7 @@ def convert_attributes_into_pandas(filename):
         filename (str) : path to csv file
 
     Returns :
-        df_attributes (pandas.array) :  matrix
+        df_attributes (pandas.array) :  matrix of attributes that will be reduced to choose photos
 
     >>> type(convert_attributes_into_pandas("test_attributes.csv"))
     <class 'pandas.core.frame.DataFrame'>

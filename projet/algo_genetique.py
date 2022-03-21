@@ -1,15 +1,16 @@
 import numpy as np
 import pandas as pd
 import random
+import common_functions as cf
 from itertools import combinations
 
-def randomly_choose_photos(df_attributes,n):
+def randomly_choose_photos(df,n):
     """
     Function that randomly chooses n photos from the current reduced matrix, in order to display them so one or two can be selected by the witness
 
     Args :
         number_photos (int) : number of photo to be selected
-        df_attributes (pandas.array) : database from where the photo are selected
+        df (pandas.array) : database from where the photo are selected
     Returns :
         photos_names (list(str)) :  list of photo names looking like XXXXXX.png
 
@@ -17,7 +18,7 @@ def randomly_choose_photos(df_attributes,n):
     ?
 
     """
-    list_ID = df_attributes.index.tolist()
+    list_ID = df.index.tolist()
     return random.sample(list_ID,n)
 
 def crossover_pixels(parents,pc):
@@ -26,14 +27,21 @@ def crossover_pixels(parents,pc):
     It takes a proportion pc of attributes from one parent and 1-pc from the other.
 
     Args :
-        parents (list(pandas.array)) : list of arrays representing the reduced pixel matrix of the parents we will use for the
-
+        parents (list(pandas.array)) : list of arrays representing the reduced pixel matrix of the parents we will use for the crossover
         pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
     Returns :
         offspring (pandas.array) : offspring of 2 previous parents/photos
 
-    >>> crossover(*,*,*)
-    ?
+    >>> encoded_imgs_test = np.load('encoded_imgs_test.npy')
+    >>> random.seed(1)
+    >>> offsprings = crossover_pixels(encoded_imgs_test,0.3)
+    >>> offsprings[0][:10]
+    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.843132019042969, 2.2844715118408203]
+
+    >>> random.seed(5)
+    >>> offsprings2 = crossover_pixels(encoded_imgs_test,0.5)
+    >>> offsprings2[0][:10]
+    [0.358284056186676, 0.0, 2.050474166870117, 0.0, 0.0, 0.5806276202201843, 0.0, 0.23518957197666168, 0.0, 0.0]
 
     """
     index_parents = list(range(0,len(parents)))
