@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 import common_functions as cf
-from itertools import combinations
+from itertools import permutations
 
 def randomly_choose_photos(df,n):
     """
@@ -52,7 +52,7 @@ def crossover_pixels(parents,pc):
 
     """
     index_parents = list(range(0,len(parents)))
-    p_combinations = list(combinations(index_parents,2))
+    p_combinations = list(permutations(index_parents,2))
     offsprings = []
     for i in range(len(p_combinations)):
         parent_1 = (parents[p_combinations[i][0]]).tolist()
