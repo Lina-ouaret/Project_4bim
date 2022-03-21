@@ -30,14 +30,15 @@ def randomly_choose_photos(df,n):
 
 def crossover_pixels(parents,pc):
     """
-    Function that crosses the reduced pixel matrix (encoded by neural network) of the both parents to make an offspring.
-    It takes a proportion pc of attributes from one parent and 1-pc from the other.
+    Function that crosses the vectors of pixels from n parents to make an offspring. 
+    For all possible combinations of two parents, it creates an offspring taking a proportion pc of the pixels from one parent and 1-pc from the other
+    and another one taking the inverse proportions.
 
     Args :
-        parents (list(pandas.array)) : list of arrays representing the reduced pixel matrix of the parents we will use for the crossover
+        parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover
         pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
     Returns :
-        offspring (pandas.array) : offspring of 2 previous parents/photos
+        offsprings (list(lists)) : offspring of 2 previous parents/photos
 
     >>> encoded_imgs_test = np.load('encoded_imgs_test.npy')
     >>> random.seed(1)
@@ -101,11 +102,11 @@ def mutation_pixels(parents,pm):
     It takes a proportion pc of attributes from one parent and 1-pc from the other.
 
     Args :
-        parents (list(pandas.array)) : list of arrays representing the reduced pixel matrix of the parents we will use for the
+        parents(list(list)) : list of arrays representing the reduced pixel matrix of the parents we will use for the
 
         pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
     Returns :
-        offspring (pandas.array) : offspring of 2 previous parents/photos
+        offspring(list(list)) : offspring of 2 previous parents/photos
 
     >>> encoded_imgs_test = np.load('encoded_imgs_test.npy')
     >>> random.seed(4)
