@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from PIL.Image import *
+import cv2
 
 
 ## Split dataset definition
@@ -101,12 +102,13 @@ def save_reconstruction(n,decoded):
     plt.axis('off')
     plt.gray()
     j=i+1
-    plt.savefig("show/"+str(j)+".png")
+    plt.savefig("son/"+str(j)+".png")
 
-    img_array=plt.imread("show/"+str(j)+".png")[160:480,30:300]
-    plt.imshow(img_array)
-    plt.axis('off')
-    plt.show()
+    img_=cv2.imread("son/"+str(j)+".png")
+    img_2=cv2.resize(img_,(100,100))
+    print(img_2)
+    cv2.imwrite('son/'+str(j)+'.png', img_2)
+
   return None
 
 

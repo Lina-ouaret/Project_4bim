@@ -163,15 +163,15 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.photo_1.setPixmap(QtGui.QPixmap("show/1.png"))
-        self.photo_2.setPixmap(QtGui.QPixmap("show/2.png"))
-        self.photo_3.setPixmap(QtGui.QPixmap("show/3.png"))
-        self.photo_4.setPixmap(QtGui.QPixmap("show/4.png"))
-        self.photo_5.setPixmap(QtGui.QPixmap("show/5.png"))
-        self.photo_6.setPixmap(QtGui.QPixmap("show/6.png"))
-        self.photo_7.setPixmap(QtGui.QPixmap("show/7.png"))
-        self.photo_8.setPixmap(QtGui.QPixmap("show/8.png"))
-        self.photo_9.setPixmap(QtGui.QPixmap("show/9.png"))
+        self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
+        self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
+        self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
+        self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
+        self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
+        self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
+        self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+        self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+        self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
 
 
 
@@ -208,7 +208,7 @@ class Ui_MainWindow(object):
 
     def saveChoice(self):
         button_name = QtWidgets.QWidget().sender().objectName()
-        source = "show/" + button_name[-1] + ".png"
+        source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
         copyfile(source, destination)
 
@@ -233,13 +233,60 @@ class Ui_MainWindow(object):
             self.photo_c2.setPixmap(QtGui.QPixmap())
             self.photo_c3.setPixmap(QtGui.QPixmap())
             self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_c1.setPixmap(QtGui.QPixmap())
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
     def swich(self):
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
+        # load model
+        decoder_=keras.models.load_model('decoder.h5')
+        encoded_img = np.load('encoded_imgs.npy')
         if num_png == 4:
+            # # Suppression images dans répertoires pictures_showed
+            # py_files = glob.glob("show/*.png")
+            # for py_file in py_files:
+            #     os.remove(py_file)
+
+            # Choix de l'utilisateur :
+            files = os.listdir("choice/")  # 读入文件夹
+            num_png = len(files)  # 统计文件夹中的文件个数
+            num_p =[]
+            for i in files:
+                print(i)
+                num_p.append(int(i[0])-1)
+
+            # new_index=random.sample(index, n)
+            n=4
+            encoded_choix=[None]*n
+            for i in range(n):
+                encoded_choix[i]=encoded_img[num_p[i]]
+
+            # Algo genetique1 : crossover
+            # print(type(encoded_choix))
+            # print(type(encoded_choix[0]))
+            #np.save('encoded_choix', encoded_choix)
+            encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
+            decoded_ag = decoder_.predict(encoded_ag)
+            nn.save_reconstruction(12, decoded_ag)
+            np.save('encoded_choix', encoded_choix)
+            np.save('encoded_ag', encoded_ag)
+            files = os.listdir("choice/")
+            rmtree('father/')
+            os.mkdir('father/')
+            for i in files:
+                fil = os.listdir("father/")
+
+                source = "choice/" + i
+                destination = "father/" + str(len(fil))+".png"
+                copyfile(source, destination)
+
+
+
+
+
             self.switch_window.emit()
+
 
         else :
             QtWidgets.QMessageBox.critical(self, "error", "please select 4 photos")

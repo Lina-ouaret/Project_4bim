@@ -9,7 +9,32 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from shutil import copyfile
+from shutil import rmtree
 import os
+from PyQt5 import QtWidgets,QtCore
+import sys
+from shutil import copyfile
+
+import algo_genetique as ag
+import common_functions as cf
+import neural_network_function as nn
+
+import numpy as np
+import random
+import matplotlib.pyplot as plt      # plotting routines
+import keras
+from keras.models import Model       # Model type to be used
+from keras.layers.core import Dense, Dropout, Activation # Types of layers to be used in our model
+from keras.utils import np_utils                         # NumPy related tools
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+import pandas as pd
+from PIL.Image import *
+import os
+import glob
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -48,12 +73,12 @@ class Ui_MainWindow(object):
         self.photo_4.setText("")
         self.photo_4.setObjectName("photo_4")
         self.gridLayout_4.addWidget(self.photo_4, 2, 0, 1, 1)
-        self.suspect2_2 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
-        self.suspect2_2.setObjectName("suspect2_2")
-        self.gridLayout_4.addWidget(self.suspect2_2, 1, 1, 1, 1)
-        self.suspect3_2 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
-        self.suspect3_2.setObjectName("suspect3_2")
-        self.gridLayout_4.addWidget(self.suspect3_2, 1, 2, 1, 1)
+        self.suspect2 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.suspect2.setObjectName("suspect2")
+        self.gridLayout_4.addWidget(self.suspect2, 1, 1, 1, 1)
+        self.suspect3 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.suspect3.setObjectName("suspect3")
+        self.gridLayout_4.addWidget(self.suspect3, 1, 2, 1, 1)
         self.photo_6 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_6.setText("")
         self.photo_6.setObjectName("photo_6")
@@ -62,9 +87,9 @@ class Ui_MainWindow(object):
         self.photo_5.setText("")
         self.photo_5.setObjectName("photo_5")
         self.gridLayout_4.addWidget(self.photo_5, 2, 1, 1, 1)
-        self.suspect4_2 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
-        self.suspect4_2.setObjectName("suspect4_2")
-        self.gridLayout_4.addWidget(self.suspect4_2, 3, 0, 1, 1)
+        self.suspect4 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.suspect4.setObjectName("suspect4")
+        self.gridLayout_4.addWidget(self.suspect4, 3, 0, 1, 1)
         self.photo_9 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_9.setText("")
         self.photo_9.setObjectName("photo_9")
@@ -77,9 +102,9 @@ class Ui_MainWindow(object):
         self.photo_7.setText("")
         self.photo_7.setObjectName("photo_7")
         self.gridLayout_4.addWidget(self.photo_7, 4, 0, 1, 1)
-        self.suspect1_2 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
-        self.suspect1_2.setObjectName("suspect1_2")
-        self.gridLayout_4.addWidget(self.suspect1_2, 1, 0, 1, 1)
+        self.suspect1 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
+        self.suspect1.setObjectName("suspect1")
+        self.gridLayout_4.addWidget(self.suspect1, 1, 0, 1, 1)
         self.suspect7 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
         self.suspect7.setObjectName("suspect7")
         self.gridLayout_4.addWidget(self.suspect7, 5, 0, 1, 1)
@@ -182,33 +207,33 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.photo_1.setPixmap(QtGui.QPixmap("show/1.png"))
-        self.photo_2.setPixmap(QtGui.QPixmap("show/2.png"))
-        self.photo_3.setPixmap(QtGui.QPixmap("show/3.png"))
-        self.photo_4.setPixmap(QtGui.QPixmap("show/4.png"))
-        self.photo_5.setPixmap(QtGui.QPixmap("show/5.png"))
-        self.photo_6.setPixmap(QtGui.QPixmap("show/6.png"))
-        self.photo_7.setPixmap(QtGui.QPixmap("show/7.png"))
-        self.photo_8.setPixmap(QtGui.QPixmap("show/8.png"))
-        self.photo_9.setPixmap(QtGui.QPixmap("show/9.png"))
+        self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
+        self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
+        self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
+        self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
+        self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
+        self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
+        self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+        self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+        self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
         files = os.listdir("choice/")  # 读入文件夹
         names = []
         for i in files:
             names.append("choice/"+i)
         print(names)
-        self.suspect1_2.clicked.connect(self.saveChoice)
-        self.suspect2_2.clicked.connect(self.saveChoice)
-        self.suspect3_2.clicked.connect(self.saveChoice)
-        self.suspect4_2.clicked.connect(self.saveChoice)
+        self.suspect1.clicked.connect(self.saveChoice)
+        self.suspect2.clicked.connect(self.saveChoice)
+        self.suspect3.clicked.connect(self.saveChoice)
+        self.suspect4.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
         self.suspect7.clicked.connect(self.saveChoice)
         self.suspect8.clicked.connect(self.saveChoice)
         self.suspect9.clicked.connect(self.saveChoice)
-        self.suspect1_f.clicked.connect(self.saveChoice)
-        self.suspect2_f.clicked.connect(self.saveChoice)
-        self.suspect3_f.clicked.connect(self.saveChoice)
-        self.suspect4_f.clicked.connect(self.saveChoice)
+        self.suspect1_f.clicked.connect(self.saveChoice_f)
+        self.suspect2_f.clicked.connect(self.saveChoice_f)
+        self.suspect3_f.clicked.connect(self.saveChoice_f)
+        self.suspect4_f.clicked.connect(self.saveChoice_f)
         self.stop.clicked.connect(self.saveChoice)
 
 
@@ -227,10 +252,10 @@ class Ui_MainWindow(object):
         self.label1.setText(_translate("MainWindow", "chose four image that look like the suspect, untill you found suspect"))
         self.suspect5.setText(_translate("MainWindow", "suspect5"))
         self.suspect6.setText(_translate("MainWindow", "suspect6"))
-        self.suspect2_2.setText(_translate("MainWindow", "suspect2"))
-        self.suspect3_2.setText(_translate("MainWindow", "suspect3"))
-        self.suspect4_2.setText(_translate("MainWindow", "suspect4"))
-        self.suspect1_2.setText(_translate("MainWindow", "suspect1"))
+        self.suspect2.setText(_translate("MainWindow", "suspect2"))
+        self.suspect3.setText(_translate("MainWindow", "suspect3"))
+        self.suspect4.setText(_translate("MainWindow", "suspect4"))
+        self.suspect1.setText(_translate("MainWindow", "suspect1"))
         self.suspect7.setText(_translate("MainWindow", "suspect7"))
         self.suspect8.setText(_translate("MainWindow", "suspect8"))
         self.suspect9.setText(_translate("MainWindow", "suspect9"))
@@ -242,72 +267,85 @@ class Ui_MainWindow(object):
         self.stop.setText(_translate("MainWindow", "i found suspect"))
         self.next.setText(_translate("MainWindow", "next"))
         self.label_3.setText(_translate("MainWindow", "your choice"))
-    def saveChoice(self):
+
+
+    def saveChoice_f(self):
         button_name = QtWidgets.QWidget().sender().objectName()
-        source = "show/" + button_name[-1] + ".png"
-        destination = "choice/" + button_name[-1] + ".png"
+        source = "father/" + button_name[-3] + "f.png"
+        destination = "choice/" + button_name[-3] + "f.png"
         copyfile(source, destination)
+
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
-        num_p =[]
-        for i in files:
-            num_p.append(i[7]-1)
-        # # Suppression images dans répertoires pictures_showed
-        # py_files = glob.glob("show/img*.png")
-        # for py_file in py_files:
-        #     os.remove(py_file)
-        #
-        # # Choix de l'utilisateur :
-        # files = os.listdir("choice/")  # 读入文件夹
-        # num_png = len(files)  # 统计文件夹中的文件个数
-        # num_p =[]
-        # for i in files:
-        #     num_p.append(i[7]-1)
-        #
-        # # new_index=random.sample(index, n)
-        # # encoded_choix=[None]*n
-        # for i in range(n):
-        #     encoded_choix[i]=encoded_imgs[num_p[i]]
-        #
-        # # Algo genetique1 : crossover
-        # print(type(encoded_choix))
-        # print(type(encoded_choix[0]))
-        # #np.save('encoded_choix', encoded_choix)
-        # encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
-        # decoded_ag = decoder_.predict(encoded_ag)
-        # nn.save_reconstruction(12, decoded_ag)
-        #
-        # # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        # mylist = list(range(0,12,1))
-        # index = random.sample(mylist, 4)
-        # new_index=random.sample(index, 4)
-        # encoded_choix=[None]*4
-        # for i in range(4):
-        #     encoded_choix[i]=np.array(encoded_ag[new_index[i]])
-        #
-        # # Algo genetique2 : crossover
-        # print(type(encoded_choix))
-        # print(type(encoded_choix[0]))
-        # encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
-        # print(type(encoded_ag[0]))
-        # decoded_ag = decoder_.predict(encoded_ag)
-        # #nn.save_reconstruction(12, decoded_ag)
-        #
-        #
-        # # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!
-        # mylist = list(range(0,12,1))
-        # index = random.sample(mylist, 4)
-        # new_index=random.sample(index, 4)
-        # encoded_choix=[None]*4
-        # for i in range(4):
-        #     encoded_choix[i]=np.array(encoded_ag[new_index[i]])
+        if num_png ==1:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+        elif num_png ==2:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 3:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 4:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
+        elif num_png >= 5:
+            QtWidgets.QApplication.processEvents()
+            rmtree('choice/')
+            os.mkdir('choice/')
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
-        app = QtWidgets.QApplication(sys.argv)
-        #MainWindow = QMainWindow()
-        main=QtWidgets.QWidget()
-        latout = QtWidgets.QHBoxLayout()
-        main.setLayout(latout)
+        if num_png ==1:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+        elif num_png ==2:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 3:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 4:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
+        elif num_png >= 5:
+            QtWidgets.QApplication.processEvents()
+            rmtree('choice/')
+            os.mkdir('choice/')
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+    def saveChoice(self):
+        button_name = QtWidgets.QWidget().sender().objectName()
+        source = "father/" + button_name[-1] + ".png"
+        destination = "choice/" + button_name[-1] + ".png"
+        copyfile(source, destination)
 
+        files = os.listdir("choice/")  # 读入文件夹
+        num_png = len(files)  # 统计文件夹中的文件个数
+        if num_png ==1:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+        elif num_png ==2:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 3:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 4:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
+        elif num_png >= 5:
+            QtWidgets.QApplication.processEvents()
+            rmtree('choice/')
+            os.mkdir('choice/')
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
         if num_png ==1:
             QtWidgets.QApplication.processEvents()

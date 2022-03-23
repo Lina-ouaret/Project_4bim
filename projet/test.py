@@ -3,4 +3,4 @@ import numpy as np
 
 decoded_imgs = np.load('decoded_imgs.npy')
 n=1
-save_reconstruction(n,decoded_imgs)
+nn.save_reconstruction(n,decoded_imgs)
