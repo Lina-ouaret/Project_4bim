@@ -37,6 +37,7 @@ import glob
 
 
 class Ui_MainWindow(object):
+    switch_window = QtCore.pyqtSignal()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(700, 657)
@@ -220,7 +221,7 @@ class Ui_MainWindow(object):
         names = []
         for i in files:
             names.append("choice/"+i)
-        print(names)
+        #print(names)
         self.suspect1.clicked.connect(self.saveChoice)
         self.suspect2.clicked.connect(self.saveChoice)
         self.suspect3.clicked.connect(self.saveChoice)
@@ -234,6 +235,7 @@ class Ui_MainWindow(object):
         self.suspect2_f.clicked.connect(self.saveChoice_f)
         self.suspect3_f.clicked.connect(self.saveChoice_f)
         self.suspect4_f.clicked.connect(self.saveChoice_f)
+        self.next.clicked.connect(self.nextf)
         self.stop.clicked.connect(self.saveChoice)
 
 
@@ -271,8 +273,8 @@ class Ui_MainWindow(object):
 
     def saveChoice_f(self):
         button_name = QtWidgets.QWidget().sender().objectName()
-        source = "father/" + button_name[-3] + "f.png"
-        destination = "choice/" + button_name[-3] + "f.png"
+        source = "father/" + str(int(button_name[-3])) + ".png"
+        destination = "choice/" + str(int(button_name[-3])) + "f.png"
         copyfile(source, destination)
 
         files = os.listdir("choice/")  # 读入文件夹
@@ -320,10 +322,9 @@ class Ui_MainWindow(object):
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
     def saveChoice(self):
         button_name = QtWidgets.QWidget().sender().objectName()
-        source = "father/" + button_name[-1] + ".png"
+        source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
         copyfile(source, destination)
-
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
         if num_png ==1:
@@ -367,3 +368,86 @@ class Ui_MainWindow(object):
             self.photo_c3.setPixmap(QtGui.QPixmap())
             self.photo_c4.setPixmap(QtGui.QPixmap())
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+    def nextf(self):
+        files = os.listdir("choice/")  # 读入文件夹
+        num_png = len(files)  # 统计文件夹中的文件个数
+        # load model
+        decoder_=keras.models.load_model('decoder.h5')
+        encoded_son = np.load('encoded_ag.npy')
+        encoded_choice = np.load('encoded_choix.npy')
+        if num_png == 4:
+            # # Suppression images dans répertoires pictures_showed
+            # py_files = glob.glob("show/*.png")
+            # for py_file in py_files:
+            #     os.remove(py_file)
+
+            # Choix de l'utilisateur :
+            files = os.listdir("choice/")  # 读入文件夹
+            num_png = len(files)  # 统计文件夹中的文件个数
+            num_p =[]
+            for i in files:
+                #print(i)
+                num_p.append(int(i[0])-1)
+
+            # new_index=random.sample(index, n)
+            n=4
+            encoded_father=[None]*n
+            for i in range(n):
+                if files[i][1]=='f':
+                    encoded_father[i]=encoded_choice[num_p[i]]
+                    print(encoded_father[i])
+                else:
+                    encoded_father[i]=encoded_son[num_p[i]]
+                    print(encoded_father[i])
+
+            # Algo genetique1 : crossover
+            # print(type(encoded_choix))
+            # print(type(encoded_choix[0]))
+            #np.save('encoded_choix', encoded_choix)
+            encoded_ag = ag.crossover_pixels(encoded_father, 0.3)
+            decoded_ag = decoder_.predict(encoded_ag)
+            nn.save_reconstruction(12, decoded_ag)
+            np.save('encoded_choix', encoded_father)
+            np.save('encoded_ag', encoded_ag)
+            files = os.listdir("choice/")
+            rmtree('father/')
+            os.mkdir('father/')
+            for i in files:
+                fil = os.listdir("father/")
+
+                source = "choice/" + i
+                destination = "father/" + str(len(fil)+1)+".png"
+                copyfile(source, destination)
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap())
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_1.setPixmap(QtGui.QPixmap())
+            self.photo_2.setPixmap(QtGui.QPixmap())
+            self.photo_3.setPixmap(QtGui.QPixmap())
+            self.photo_4.setPixmap(QtGui.QPixmap())
+            self.photo_5.setPixmap(QtGui.QPixmap())
+            self.photo_6.setPixmap(QtGui.QPixmap())
+            self.photo_7.setPixmap(QtGui.QPixmap())
+            self.photo_8.setPixmap(QtGui.QPixmap())
+            self.photo_9.setPixmap(QtGui.QPixmap())
+            names = []
+            for i in files:
+                names.append("choice/"+i)
+            self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
+            self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
+            self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
+            self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
+            self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
+            self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
+            self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+            self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+            self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
+            self.photo_f1.setPixmap(QtGui.QPixmap(names[0]))
+            self.photo_f2.setPixmap(QtGui.QPixmap(names[1]))
+            self.photo_f3.setPixmap(QtGui.QPixmap(names[2]))
+            self.photo_f4.setPixmap(QtGui.QPixmap(names[3]))
+            rmtree('choice/')
+            os.mkdir('choice/')
+            self.switch_window.emit()

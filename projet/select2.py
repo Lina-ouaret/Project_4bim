@@ -9,8 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-
+from shutil import copyfile
+from shutil import rmtree
+import os
 
 class Ui_MainWindow(object):
 
@@ -162,5 +163,7 @@ class Ui_MainWindow(object):
         print(rd)
 
     def press3(self):
+        if os.path.exists('choice/'):
+            rmtree('choice/')
+        os.mkdir('choice/')
         self.switch_window.emit()
-

@@ -106,7 +106,7 @@ def save_reconstruction(n,decoded):
 
     img_=cv2.imread("son/"+str(j)+".png")
     img_2=cv2.resize(img_,(100,100))
-    print(img_2)
+    #print(img_2)
     cv2.imwrite('son/'+str(j)+'.png', img_2)
 
   return None

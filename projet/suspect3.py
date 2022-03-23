@@ -278,12 +278,8 @@ class Ui_MainWindow(object):
                 fil = os.listdir("father/")
 
                 source = "choice/" + i
-                destination = "father/" + str(len(fil))+".png"
+                destination = "father/" + str(len(fil)+1)+".png"
                 copyfile(source, destination)
-
-
-
-
 
             self.switch_window.emit()
 

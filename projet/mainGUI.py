@@ -60,6 +60,7 @@ class Controller:
     def show_window_two(self):
         self.window_two = mywindow3()
         self.window.close()
+        self.window.switch_window.connect(self.show_window_two)
         self.window_two.show()
 
 
