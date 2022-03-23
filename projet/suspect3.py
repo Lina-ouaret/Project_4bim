@@ -12,7 +12,28 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from shutil import copyfile
 from shutil import rmtree
 import os
+from PyQt5 import QtWidgets,QtCore
+import sys
+from shutil import copyfile
 
+import algo_genetique as ag
+import common_functions as cf
+import neural_network_function as nn
+
+import numpy as np
+import random
+import matplotlib.pyplot as plt      # plotting routines
+import keras
+from keras.models import Model       # Model type to be used
+from keras.layers.core import Dense, Dropout, Activation # Types of layers to be used in our model
+from keras.utils import np_utils                         # NumPy related tools
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+import pandas as pd
+from PIL.Image import *
+import os
+import glob
 
 
 
@@ -219,6 +240,7 @@ class Ui_MainWindow(object):
         num_png = len(files)  # 统计文件夹中的文件个数
         if num_png == 4:
             self.switch_window.emit()
+
         else :
             QtWidgets.QMessageBox.critical(self, "error", "please select 4 photos")
             rmtree('choice/')
@@ -228,6 +250,3 @@ class Ui_MainWindow(object):
             self.photo_c2.setPixmap(QtGui.QPixmap())
             self.photo_c3.setPixmap(QtGui.QPixmap())
             self.photo_c4.setPixmap(QtGui.QPixmap())
-
-
-

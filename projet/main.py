@@ -1,6 +1,8 @@
 import algo_genetique as ag
 import common_functions as cf
 import neural_network_function as nn
+import
+
 import numpy as np
 import random
 import matplotlib.pyplot as plt      # plotting routines
@@ -48,16 +50,30 @@ if __name__ == "__main__" :
     decoded=[None]*n
     for i in range(n):
         decoded[i]=decoded_imgs[index[i]]
+
     nn.save_reconstruction(n, decoded) # dans pictures_showed
-    py_files = glob.glob("pictures_showed/img*.png")
+
+
+
+
+
+
+    # Suppression images dans répertoires pictures_showed
+    py_files = glob.glob("show/img*.png")
     for py_file in py_files:
         os.remove(py_file)
 
-    # Choix de l'utilisateur : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    new_index=random.sample(index, n)
-    encoded_choix=[None]*n
+    # Choix de l'utilisateur :
+    files = os.listdir("choice/")  # 读入文件夹
+    num_png = len(files)  # 统计文件夹中的文件个数
+    num_p =[]
+    for i in files:
+        num_p.append(i[7]-1)
+
+    # new_index=random.sample(index, n)
+    # encoded_choix=[None]*n
     for i in range(n):
-        encoded_choix[i]=encoded_imgs[new_index[i]]
+        encoded_choix[i]=encoded_imgs[num_p[i]]
 
     # Algo genetique1 : crossover
     print(type(encoded_choix))
@@ -65,7 +81,7 @@ if __name__ == "__main__" :
     #np.save('encoded_choix', encoded_choix)
     encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
     decoded_ag = decoder_.predict(encoded_ag)
-    #nn.save_reconstruction(12, decoded_ag)
+    nn.save_reconstruction(12, decoded_ag)
 
     # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     mylist = list(range(0,12,1))

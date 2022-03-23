@@ -52,8 +52,8 @@ def model (original_dim, hidden_encoding_dim, encoding_dim,
 
   >>> type(encoder); type(decoder); type(autoencoder);
   <keras.engine.functional.Functional>
-  >>> look the the learning curve
-      the training and the loss curve tends to a low same constant
+  >>> look the the learning curve :
+      the training and the loss curve tend to 0 without ever reaching it
 
   '''
   # "encoded" is the encoded representation of the input
@@ -100,7 +100,13 @@ def save_reconstruction(n,decoded):
     plt.imshow(decoded[i].reshape(64,64))
     plt.axis('off')
     plt.gray()
-    plt.savefig("pictures_showed/img"+str(i)+".png")
+    j=i+1
+    plt.savefig("show/"+str(j)+".png")
+
+    img_array=plt.imread("show/"+str(j)+".png")[160:480,30:300]
+    plt.imshow(img_array)
+    plt.axis('off')
+    plt.show()
   return None
 
 
@@ -113,8 +119,6 @@ def loss_test(autoencoder):
         autoencoder(keras.engine.functional.Functional)
     Returns :
         None
-
-    >>>
 
     '''
     history = autoencoder.history.history

@@ -1,7 +1,16 @@
 import neural_network_function as nn
 import common_functions as cf
 import numpy as np
-import keras
+# import matplotlib.pyplot as plt      # plotting routines
+# import keras
+# from keras.models import Model       # Model type to be used
+# from keras.layers.core import Dense, Dropout, Activation # Types of layers to be used in our model
+# from keras.utils import np_utils                         # NumPy related tools
+# import tensorflow as tf
+# import matplotlib.pyplot as plt
+# from sklearn.model_selection import train_test_split
+# import pandas as pd
+# from PIL.Image import *
 
 if __name__ == "__main__" :
 
@@ -24,11 +33,6 @@ if __name__ == "__main__" :
                                                 hidden_encoding_dim, encoding_dim,
                                                 dropout_level, hidden_decoding_dim)
 
-
-    # load model
-    #savedDecoder=load_model('decoder.h5')
-    #savedDecoder.summary()
-
     # Compile the model
     autoencoder_.compile(optimizer='adam', loss='binary_crossentropy')
 
@@ -49,10 +53,12 @@ if __name__ == "__main__" :
     np.save('decoded_imgs', decoded_imgs)
     decoder_.save('decoder.h5')
 
-
+    # load model
+    #savedDecoder=load_model('decoder.h5')
+    #savedDecoder.summary()
 
     # Plot the learning curve to test the model
-    #loss_test(autoencoder_)
+    nn.loss_test(autoencoder_)
 
     #np.save('encoded_imgs.npy', encoded_imgs)
     #np.save('decoded_imgs.npy', decoded_imgs)

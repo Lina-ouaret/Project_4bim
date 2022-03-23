@@ -196,10 +196,10 @@ class Ui_MainWindow(object):
         for i in files:
             names.append("choice/"+i)
         print(names)
-        self.suspect1.clicked.connect(self.saveChoice)
-        self.suspect2.clicked.connect(self.saveChoice)
-        self.suspect3.clicked.connect(self.saveChoice)
-        self.suspect4.clicked.connect(self.saveChoice)
+        self.suspect1_2.clicked.connect(self.saveChoice)
+        self.suspect2_2.clicked.connect(self.saveChoice)
+        self.suspect3_2.clicked.connect(self.saveChoice)
+        self.suspect4_2.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
         self.suspect7.clicked.connect(self.saveChoice)
@@ -249,6 +249,66 @@ class Ui_MainWindow(object):
         copyfile(source, destination)
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
+        num_p =[]
+        for i in files:
+            num_p.append(i[7]-1)
+        # # Suppression images dans répertoires pictures_showed
+        # py_files = glob.glob("show/img*.png")
+        # for py_file in py_files:
+        #     os.remove(py_file)
+        #
+        # # Choix de l'utilisateur :
+        # files = os.listdir("choice/")  # 读入文件夹
+        # num_png = len(files)  # 统计文件夹中的文件个数
+        # num_p =[]
+        # for i in files:
+        #     num_p.append(i[7]-1)
+        #
+        # # new_index=random.sample(index, n)
+        # # encoded_choix=[None]*n
+        # for i in range(n):
+        #     encoded_choix[i]=encoded_imgs[num_p[i]]
+        #
+        # # Algo genetique1 : crossover
+        # print(type(encoded_choix))
+        # print(type(encoded_choix[0]))
+        # #np.save('encoded_choix', encoded_choix)
+        # encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
+        # decoded_ag = decoder_.predict(encoded_ag)
+        # nn.save_reconstruction(12, decoded_ag)
+        #
+        # # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # mylist = list(range(0,12,1))
+        # index = random.sample(mylist, 4)
+        # new_index=random.sample(index, 4)
+        # encoded_choix=[None]*4
+        # for i in range(4):
+        #     encoded_choix[i]=np.array(encoded_ag[new_index[i]])
+        #
+        # # Algo genetique2 : crossover
+        # print(type(encoded_choix))
+        # print(type(encoded_choix[0]))
+        # encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
+        # print(type(encoded_ag[0]))
+        # decoded_ag = decoder_.predict(encoded_ag)
+        # #nn.save_reconstruction(12, decoded_ag)
+        #
+        #
+        # # Choix de l'utilisateur2 : PUJIAN!!!!!!!!!!!!!!!!
+        # mylist = list(range(0,12,1))
+        # index = random.sample(mylist, 4)
+        # new_index=random.sample(index, 4)
+        # encoded_choix=[None]*4
+        # for i in range(4):
+        #     encoded_choix[i]=np.array(encoded_ag[new_index[i]])
+
+        app = QtWidgets.QApplication(sys.argv)
+        #MainWindow = QMainWindow()
+        main=QtWidgets.QWidget()
+        latout = QtWidgets.QHBoxLayout()
+        main.setLayout(latout)
+
+
         if num_png ==1:
             QtWidgets.QApplication.processEvents()
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
@@ -269,4 +329,3 @@ class Ui_MainWindow(object):
             self.photo_c3.setPixmap(QtGui.QPixmap())
             self.photo_c4.setPixmap(QtGui.QPixmap())
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        def
