@@ -23,6 +23,7 @@ def convert_attributes_into_pandas(filename):
 def matrix_reduction(df,fixed_att):
     """
     Reduces the matrix based on the traits specified by the witness and deletes all columns corresponding to the specified traits.
+    We will be able later to choose more accurately random photos that corresponds at least with thoses parameters.
 
     Args :
         df (pandas.array) : attributes matrix to reduce
@@ -36,6 +37,7 @@ def matrix_reduction(df,fixed_att):
     >>> df_test_list = matrix_reduction(df_test,fixed_attributes_test)
     >>> matrix_reduction(df_test,fixed_attributes_test)
     [18, 47, 88]
+
     """
     new_df = df
     attributes = list(fixed_att.keys())
@@ -44,12 +46,12 @@ def matrix_reduction(df,fixed_att):
         df.drop(df.index[df[attributes[i]]!= values[i]],inplace=True)
     return new_df.index.tolist()
 
-def get_attributes_from_ID(df_attributes,photo_id):
+def get_attributes_from_ID(df,photo_id):
     """
     Get the corresponding array with all the attributes from the specified string photo name.
 
     Args :
-        df_attributes (panda.array) : attributes matrix with all photos
+        df (panda.array) : attributes matrix with all photos
         photo_id (str) : XXXXXX.png name of the photo
 
     Returns :
@@ -60,18 +62,18 @@ def get_attributes_from_ID(df_attributes,photo_id):
     <class 'pandas.core.frame.DataFrame'>
 
     """
-    return pd.DataFrame(df_attributes.loc[df_attributes['ID'] == photo_id])
+    return pd.DataFrame(df.loc[df['ID'] == photo_id])
 
 def delete_photos(df,photos_ids_list):
     """
     Function that deletes photos from the database attribute matrix containing all the photos.
 
     Args :
-        photo_ids list((str)) : list of photos names that look like XXXXXX.png
-        df_attributes (panda.array) :
+        df (panda.array) : attributes matrix with all photos 
+        photo_ids list((str)) : list of photos names that look like [ 'XXXXXX.png' , 'YYYYYY.png' , ...]
 
     Returns :
-        reduced_df_attributes (panda.array) : same matrix as the arg one but without lines corresponding to photo_ids
+        reduced_df_attributes (panda.array) : same matrix as the arg one but without lines matching the photo_ids_list elements.
 
     >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
     >>> list_id = ['000018.jpg','000066.jpg']  

@@ -74,7 +74,7 @@ def crossover_attributes(parent1,parent2,pc):
     Returns :
         offspring (pandas.array) : offspring of 2 previous parents/photos
 
-
+    #UNITSTEST TO DO IF WE USE THIS FUNCTION
     """
     list1 = parent1.columns.tolist()
     list1.remove('ID')
@@ -135,7 +135,7 @@ def mutation_attributes(offspring,pm):
     Returns :
         offspring (pandas.array) : offspring of 2 previous parents/photos
 
-
+    #UNITSTEST TO DO IF WE USE THIS FUNCTION
     """
     muted_offspring = offspring
     for i in range(offspring.shape[1]) :
