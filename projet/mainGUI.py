@@ -5,6 +5,8 @@ from shutil import copyfile
 from select2 import Ui_MainWindow as Ui1
 from suspect3 import Ui_MainWindow as Ui2
 from suspect2_2 import Ui_MainWindow as Ui3
+from lastphoto import Ui_MainWindow as Ui4
+
 import algo_genetique as ag
 import common_functions as cf
 import neural_network_function as nn
@@ -41,6 +43,17 @@ class mywindow3(QtWidgets.QMainWindow,Ui3):
     def __init__(self):
         super(mywindow3,self).__init__()
         self.setupUi(self)
+
+class mywindow3(QtWidgets.QMainWindow,Ui3):
+    def __init__(self):
+        super(mywindow3,self).__init__()
+        self.setupUi(self)
+
+class mywindow4(QtWidgets.QMainWindow,Ui4):
+    def __init__(self):
+        super(mywindow4,self).__init__()
+        self.setupUi(self)
+
 class Controller:
 
     def __init__(self):
@@ -61,7 +74,13 @@ class Controller:
         self.window_two = mywindow3()
         self.window.close()
         self.window.switch_window.connect(self.show_window_two)
+        self.window_two.switch_window2.connect(self.show_window_lastphoto)
         self.window_two.show()
+
+    def show_window_lastphoto(self):
+        self.window_three = mywindow4()
+        self.window_two.close()
+        self.window_three.show()
 
 
 if __name__ == "__main__" :

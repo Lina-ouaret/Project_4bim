@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import os
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -20,7 +20,14 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(70, 0, 101, 161))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("choice/6.png"))
+        files = os.listdir("choice/")  # 读入文件夹
+        names = []
+        u =0
+        for i in files:
+            names.append("choice/"+i)
+        for i in range(len(names)):
+            print(str(i)+names[i])
+        self.label.setPixmap(QtGui.QPixmap(names[0]))
         self.label.setObjectName("label")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 160, 216, 80))
@@ -43,6 +50,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.pushButton_2.clicked.connect(self.yes)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -51,6 +60,16 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "yes"))
         self.pushButton_2.setText(_translate("MainWindow", "cancel"))
+    def yes(self):
+        files = os.listdir("choice/")  # 读入文件夹
+        names = []
+        u =0
+        for i in files:
+            names.append("choice/"+i)
+        for i in range(len(names)):
+            print(str(i)+names[i])
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

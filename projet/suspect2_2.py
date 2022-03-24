@@ -38,6 +38,7 @@ import glob
 
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()
+    switch_window2 = QtCore.pyqtSignal()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(700, 657)
@@ -236,7 +237,7 @@ class Ui_MainWindow(object):
         self.suspect3_f.clicked.connect(self.saveChoice_f)
         self.suspect4_f.clicked.connect(self.saveChoice_f)
         self.next.clicked.connect(self.nextf)
-        self.stop.clicked.connect(self.saveChoice)
+        self.stop.clicked.connect(self.b_stop)
 
 
 
@@ -247,6 +248,7 @@ class Ui_MainWindow(object):
         self.photo_f4.setPixmap(QtGui.QPixmap(names[3]))
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    stopGUI = False
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -272,10 +274,19 @@ class Ui_MainWindow(object):
 
 
     def saveChoice_f(self):
+
+
         button_name = QtWidgets.QWidget().sender().objectName()
         source = "father/" + str(int(button_name[-3])) + ".png"
         destination = "choice/" + str(int(button_name[-3])) + "f.png"
+        if self.stopGUI == True :
+            rmtree('choice/')
+            os.mkdir('choice/')
+            copyfile(source, destination)
+            self.switch_window2.emit()
         copyfile(source, destination)
+
+
 
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
@@ -324,6 +335,11 @@ class Ui_MainWindow(object):
         button_name = QtWidgets.QWidget().sender().objectName()
         source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
+        if self.stopGUI == True :
+            rmtree('choice/')
+            os.mkdir('choice/')
+            copyfile(source, destination)
+            self.switch_window2.emit()
         copyfile(source, destination)
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
@@ -458,3 +474,6 @@ class Ui_MainWindow(object):
             rmtree('choice/')
             os.mkdir('choice/')
             self.switch_window.emit()
+    def b_stop(self):
+        self.stopGUI = True
+        ##self.switch_window2.emit()
