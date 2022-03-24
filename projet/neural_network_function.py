@@ -16,40 +16,41 @@ import cv2
 
 def split_dataset(dataset, attribut):
   '''
-  Split the dataset into train and test
+  Split the dataset into train and test, in order to train the neural network
 
   Args :
-    pixel (array) : X
-    attributs (array) : y
+    pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)
+    attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc 
+
   Returns :
-    (array) : X_train
-    (array) : X_test
-    (array) : y_train
-    (array) : y_test
+    X_train (array) : portion of the db used to train the neural network - input
+    X_test (array) : portion of the db used to test the neural network - output
+    Y_train (array) : portion of the db used to train the neural network - input
+    Y_test (array) : portion of the db used to test the neural network - output
 
   >>>
 
   '''
-  X_train, X_test, y_train, y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
-  return X_train, X_test, y_train, y_test
+  X_train, X_test, Y_train, Y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
+  return X_train, X_test, Y_train, Y_test
 
 ## Model definition
 
-def model (original_dim, hidden_encoding_dim, encoding_dim,
+def model(original_dim, hidden_encoding_dim, encoding_dim,
            dropout_level, hidden_decoding_dim):
   '''
   Model of neural network
 
   Args :
-    original_dim (int)
-    hidden_encoding_dim (int)
-    encoding_dim (int)
-    dropout_level (float)
-    hidden_decoding_dim (int)
+    original_dim (int) :
+    hidden_encoding_dim (int) : 
+    encoding_dim (int) :
+    dropout_level (float) :
+    hidden_decoding_dim (int) :
   Returns :
-    (keras.engine.functional.Functional) : encoder
-    (keras.engine.functional.Functional) : decoder
-    (keras.engine.functional.Functional) : autoencoder
+    encoder (keras.engine.functional.Functional) : 
+    decoder (keras.engine.functional.Functional) : 
+    autoencoder (keras.engine.functional.Functional) : 
 
   >>> type(encoder); type(decoder); type(autoencoder);
   <keras.engine.functional.Functional>
