@@ -376,37 +376,44 @@ class Ui_MainWindow(object):
         encoded_son = np.load('encoded_ag.npy')
         encoded_choice = np.load('encoded_choix.npy')
         if num_png == 4:
-            # # Suppression images dans répertoires pictures_showed
-            # py_files = glob.glob("show/*.png")
-            # for py_file in py_files:
-            #     os.remove(py_file)
 
             # Choix de l'utilisateur :
-            files = os.listdir("choice/")  # 读入文件夹
-            num_png = len(files)  # 统计文件夹中的文件个数
+            files = os.listdir("choice/")
+            num_png = len(files)
             num_p =[]
             for i in files:
-                #print(i)
                 num_p.append(int(i[0])-1)
 
-            # new_index=random.sample(index, n)
             n=4
             encoded_father=[None]*n
+            encoded_ag=[]
+            encoded_cross=[]
+            encoded_mut=[]
             for i in range(n):
                 if files[i][1]=='f':
                     encoded_father[i]=encoded_choice[num_p[i]]
-                    print(encoded_father[i])
+                    for m in range(3):
+                        encoded_mut.append(ag.mutation_pixels(encoded_father[i],0.3))
                 else:
                     encoded_father[i]=encoded_son[num_p[i]]
-                    print(encoded_father[i])
+                    encoded_cross.append(encoded_father[i])
+            encoded_cross2=ag.crossover_pixels(encoded_cross, 0.3)
+            for k in range(len(encoded_mut)):
+                encoded_ag.append(encoded_mut[k].tolist())
+            for j in range(len(encoded_cross2)):
+                res=encoded_cross2[j]
+                encoded_ag.append(res)
+
 
             # Algo genetique1 : crossover
-            # print(type(encoded_choix))
-            # print(type(encoded_choix[0]))
             #np.save('encoded_choix', encoded_choix)
-            encoded_ag = ag.crossover_pixels(encoded_father, 0.3)
+            # encoded_ag = ag.crossover_pixels(encoded_father, 0.3)
+            print(len(encoded_ag))
+            print(len(encoded_ag[0]))
+            print(type(encoded_ag))
+            print(type(encoded_ag[0]))
             decoded_ag = decoder_.predict(encoded_ag)
-            nn.save_reconstruction(12, decoded_ag)
+            nn.save_reconstruction(9, decoded_ag)
             np.save('encoded_choix', encoded_father)
             np.save('encoded_ag', encoded_ag)
             files = os.listdir("choice/")

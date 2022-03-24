@@ -30,7 +30,7 @@ def randomly_choose_photos(df,n):
 
 def crossover_pixels(parents,pc):
     """
-    Function that crosses the vectors of pixels from n parents to make an offspring. 
+    Function that crosses the vectors of pixels from n parents to make an offspring.
     For all possible combinations of two parents, it creates an offspring taking a proportion pc of the pixels from one parent and 1-pc from the other
     and another one taking the inverse proportions.
 
@@ -96,7 +96,7 @@ def crossover_attributes(parent1,parent2,pc):
     #creating offspring as dataframe
     return pd.DataFrame(values,attributes).transpose()
 
-def mutation_pixels(parents,pm):
+def mutation_pixels(parent,pm):
     """
     Function that crosses the reduced pixel matrix (encoded by neural network) of the both parents to make an offspring.
     It takes a proportion pc of attributes from one parent and 1-pc from the other.
@@ -118,13 +118,12 @@ def mutation_pixels(parents,pm):
     True
 
     """
-    muted_parents = parents
-    for j in range(len(parents)):
-        for i in range(len(parents[0])) :
-            r = random.random()
-            if r < pm :
-                muted_parents[j][i] = round(random.uniform(0, 7),2)
-    return muted_parents
+    muted_parent = parent
+    for i in range(len(parent)):
+        r = random.random()
+        if r < pm :
+            muted_parent[i] = round(random.uniform(0, 7),2)
+    return muted_parent
 
 def mutation_attributes(offspring,pm):
     """
