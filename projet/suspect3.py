@@ -243,10 +243,6 @@ class Ui_MainWindow(object):
         decoder_=keras.models.load_model('decoder.h5')
         encoded_img = np.load('encoded_imgs.npy')
         if num_png == 4:
-            # # Suppression images dans répertoires pictures_showed
-            # py_files = glob.glob("show/*.png")
-            # for py_file in py_files:
-            #     os.remove(py_file)
 
             # Choix de l'utilisateur :
             files = os.listdir("choice/")  # 读入文件夹
