@@ -20,7 +20,7 @@ def split_dataset(dataset, attribut):
 
   Args :
     pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)
-    attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc 
+    attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc
 
   Returns :
     X_train (array) : portion of the db used to train the neural network - input
@@ -43,20 +43,27 @@ def model(original_dim, hidden_encoding_dim, encoding_dim,
 
   Args :
     original_dim (int) :
-    hidden_encoding_dim (int) : 
+    hidden_encoding_dim (int) :
     encoding_dim (int) :
     dropout_level (float) :
     hidden_decoding_dim (int) :
   Returns :
-    encoder (keras.engine.functional.Functional) : 
-    decoder (keras.engine.functional.Functional) : 
-    autoencoder (keras.engine.functional.Functional) : 
+    encoder (keras.engine.functional.Functional) :
+    decoder (keras.engine.functional.Functional) :
+    autoencoder (keras.engine.functional.Functional) :
 
   >>> type(encoder); type(decoder); type(autoencoder);
   <keras.engine.functional.Functional>
-  >>> look the the learning curve :
-      the training and the loss curve tend to 0 without ever reaching it
-
+  >>> Verify that loss and val loss never reach 0:
+      history = autoencoder.history.history
+      for i in range(len(history['val_loss'])):
+            if history['val_loss'][i]==0:
+                print("test failed")
+                break
+      for i in range(len(history['loss'])):
+            if history['loss'][i]==0:
+                print("test failed")
+                break
   '''
   # "encoded" is the encoded representation of the input
   input_img = keras.Input(shape=(original_dim,))
@@ -123,6 +130,11 @@ def loss_test(autoencoder):
     Returns :
         None
 
+    >>> epochs=300 #parameters of autoencoder_.fit(...)
+        history['val_loss']==epochs
+        <True>
+        history['loss']==epochs
+        <True>
     '''
     history = autoencoder.history.history
     plt.plot(history['val_loss'],label="test")
