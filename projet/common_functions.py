@@ -44,7 +44,22 @@ def matrix_reduction(df,fixed_att):
     values = list(fixed_att.values())
     for i in range(len(attributes)):
         df.drop(df.index[df[attributes[i]]!= values[i]],inplace=True)
-    return new_df.index.tolist()
+    list_index = new_df.index.tolist()
+    new_list_index = []
+    for i in range(len(list_index)): 
+        new_list_index.append(str(list_index[i]))
+        if len(new_list_index[i])==1:
+            new_list_index[i] = '00000' + new_list_index[i]
+        if len(new_list_index[i])==2:
+            new_list_index[i] = '0000' + new_list_index[i]
+        if len(new_list_index[i])==3:
+            new_list_index[i] = '000' + new_list_index[i]
+        if len(new_list_index[i])==4:
+            new_list_index[i] = '00' + new_list_index[i]
+        if len(new_list_index[i])==5:
+            new_list_index[i] = '0' + new_list_index[i]
+            
+    return new_list_index
 
 def get_attributes_from_ID(df,photo_id):
     """
