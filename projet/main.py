@@ -1,7 +1,6 @@
 import algo_genetique as ag
 import common_functions as cf
 import neural_network_function as nn
-import
 
 import numpy as np
 import random
