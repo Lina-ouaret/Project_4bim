@@ -30,13 +30,13 @@ def matrix_reduction(df,fixed_att):
         fixed_att (dict) : attributes that have been selected by witness to reduce our matrixby columns
 
     Returns :
-        reduced_matrix (pandas.array) :
+        list_names : return a string list of the photo containing the fixed_att attributes
 
     >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
-    >>> fixed_attributes_test = {"Pale_Skin":1}
+    >>> fixed_attributes_test = {"Pale_Skin":-1,"Young":1,"Male":1,"Attractive":1,"Bags_Under_Eyes":1}
     >>> df_test_list = matrix_reduction(df_test,fixed_attributes_test)
     >>> matrix_reduction(df_test,fixed_attributes_test)
-    [18, 47, 88]
+    ['000006', '000011', '000037', '000075', '000079', '000081']
 
     """
     new_df = df
