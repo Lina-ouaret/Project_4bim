@@ -84,18 +84,15 @@ if __name__ == "__main__" :
     nn.save_reconstruction(1, decoded_imgs)
 
     # save model
-    np.save('encoded_imgs1', encoded_imgs)
-    np.save('decoded_imgs1', decoded_imgs)
-    decoder_.save('decoder1.h5')
+    np.save('clusters/encoded_imgs1', encoded_imgs)
+    np.save('clusters/decoded_imgs1', decoded_imgs)
+    decoder_.save('decoders/decoder1.h5')
 
     # load model
-    savedDecoder=load_model('decoder1.h5')
+    #savedDecoder=load_model('decoders/decoder1.h5')
     #savedDecoder.summary()
 
     # Plot the learning curve to test the model
     nn.loss_test(autoencoder_)
-
-    np.save('encoded_imgs1.npy', encoded_imgs)
-    np.save('decoded_imgs1.npy', decoded_imgs)
 
     #a2 = np.load('encoded_imgs.npy')
