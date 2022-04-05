@@ -11,7 +11,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 
+
 class Ui_MainWindow(object):
+    switch_window = QtCore.pyqtSignal()#Convert back to fist page method
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(234, 267)
@@ -20,13 +23,13 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(70, 0, 101, 161))
         self.label.setText("")
-        files = os.listdir("choice/")  # 读入文件夹
+        files = os.listdir("choice/")
         names = []
-        u =0
+        u = 0
         for i in files:
-            names.append("choice/"+i)
+            names.append("choice/" + i)
         for i in range(len(names)):
-            print(str(i)+names[i])
+            print(str(i) + names[i])
         self.label.setPixmap(QtGui.QPixmap(names[0]))
         self.label.setObjectName("label")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -49,8 +52,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
-        self.pushButton_2.clicked.connect(self.yes)
+        self.pushButton.clicked.connect(self.yes)
+        self.pushButton_2.clicked.connect(self.no)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -60,18 +63,23 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "yes"))
         self.pushButton_2.setText(_translate("MainWindow", "cancel"))
+
     def yes(self):
+        self.switch_window.emit()
+
+    def no(self):
         files = os.listdir("choice/")  # 读入文件夹
         names = []
-        u =0
+        u = 0
         for i in files:
-            names.append("choice/"+i)
+            names.append("choice/" + i)
         for i in range(len(names)):
-            print(str(i)+names[i])
+            print(str(i) + names[i])
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

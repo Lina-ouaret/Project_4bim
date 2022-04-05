@@ -9,38 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from shutil import copyfile
-from shutil import rmtree
-import os
-from PyQt5 import QtWidgets, QtCore
-import sys
-from shutil import copyfile
-
-import algo_genetique as ag
-import common_functions as cf
-import neural_network_function as nn
-
-import numpy as np
-import random
-import matplotlib.pyplot as plt  # plotting routines
-import keras
-from keras.models import Model  # Model type to be used
-from keras.layers.core import Dense, Dropout, Activation  # Types of layers to be used in our model
-from keras.utils import np_utils  # NumPy related tools
-import tensorflow as tf
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-import pandas as pd
-from PIL.Image import *
-import os
-import glob
 
 
 class Ui_MainWindow(object):
-    switch_window = QtCore.pyqtSignal()  # Convert to suspect selection page2 method
-
-    # Label, button position, size setting， show photos
-    def setupUi2(self, MainWindow):
+    def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -71,6 +43,7 @@ class Ui_MainWindow(object):
         self.photo_5.setEnabled(True)
         self.photo_5.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_5.setText("")
+        self.photo_5.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_5.setObjectName("photo_5")
         self.gridLayout_4.addWidget(self.photo_5, 2, 1, 1, 1)
         self.suspect8 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
@@ -81,12 +54,14 @@ class Ui_MainWindow(object):
         self.photo_6.setEnabled(True)
         self.photo_6.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_6.setText("")
+        self.photo_6.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_6.setObjectName("photo_6")
         self.gridLayout_4.addWidget(self.photo_6, 2, 2, 1, 1)
         self.photo_4 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_4.setEnabled(True)
         self.photo_4.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_4.setText("")
+        self.photo_4.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_4.setObjectName("photo_4")
         self.gridLayout_4.addWidget(self.photo_4, 2, 0, 1, 1)
         self.suspect3 = QtWidgets.QPushButton(self.gridLayoutWidget_3)
@@ -113,36 +88,42 @@ class Ui_MainWindow(object):
         self.photo_7.setEnabled(True)
         self.photo_7.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_7.setText("")
+        self.photo_7.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_7.setObjectName("photo_7")
         self.gridLayout_4.addWidget(self.photo_7, 4, 0, 1, 1)
         self.photo_8 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_8.setEnabled(True)
         self.photo_8.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_8.setText("")
+        self.photo_8.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_8.setObjectName("photo_8")
         self.gridLayout_4.addWidget(self.photo_8, 4, 1, 1, 1)
         self.photo_9 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_9.setEnabled(True)
         self.photo_9.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_9.setText("")
+        self.photo_9.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_9.setObjectName("photo_9")
         self.gridLayout_4.addWidget(self.photo_9, 4, 2, 1, 1)
         self.photo_1 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_1.setEnabled(True)
         self.photo_1.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_1.setText("")
+        self.photo_1.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_1.setObjectName("photo_1")
         self.gridLayout_4.addWidget(self.photo_1, 0, 0, 1, 1)
         self.photo_2 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_2.setEnabled(True)
         self.photo_2.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_2.setText("")
+        self.photo_2.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_2.setObjectName("photo_2")
         self.gridLayout_4.addWidget(self.photo_2, 0, 1, 1, 1)
         self.photo_3 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_3.setEnabled(True)
         self.photo_3.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_3.setText("")
+        self.photo_3.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_3.setObjectName("photo_3")
         self.gridLayout_4.addWidget(self.photo_3, 0, 2, 1, 1)
         self.suspect1_3 = QtWidgets.QPushButton(self.centralwidget)
@@ -160,24 +141,28 @@ class Ui_MainWindow(object):
         self.photo_c2.setEnabled(True)
         self.photo_c2.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_c2.setText("")
+        self.photo_c2.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_c2.setObjectName("photo_c2")
         self.gridLayout_2.addWidget(self.photo_c2, 0, 1, 1, 1)
         self.photo_c1 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.photo_c1.setEnabled(True)
         self.photo_c1.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_c1.setText("")
+        self.photo_c1.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_c1.setObjectName("photo_c1")
         self.gridLayout_2.addWidget(self.photo_c1, 0, 0, 1, 1)
         self.photo_c3 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.photo_c3.setEnabled(True)
         self.photo_c3.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_c3.setText("")
+        self.photo_c3.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_c3.setObjectName("photo_c3")
         self.gridLayout_2.addWidget(self.photo_c3, 1, 0, 1, 1)
         self.photo_c4 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.photo_c4.setEnabled(True)
         self.photo_c4.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_c4.setText("")
+        self.photo_c4.setPixmap(QtGui.QPixmap("50-500535_animal-figure-hd-png-download.jpeg"))
         self.photo_c4.setObjectName("photo_c4")
         self.gridLayout_2.addWidget(self.photo_c4, 1, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_2)
@@ -193,132 +178,21 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        # son frame photo display
-        self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
-        self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
-        self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
-        self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
-        self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
-        self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
-        self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
-        self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
-        self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
-
-        # Connect the buttons to the corresponding functions
-        self.suspect1.clicked.connect(self.saveChoice)
-        self.suspect2.clicked.connect(self.saveChoice)
-        self.suspect3.clicked.connect(self.saveChoice)
-        self.suspect4.clicked.connect(self.saveChoice)
-        self.suspect5.clicked.connect(self.saveChoice)
-        self.suspect6.clicked.connect(self.saveChoice)
-        self.suspect7.clicked.connect(self.saveChoice)
-        self.suspect8.clicked.connect(self.saveChoice)
-        self.suspect9.clicked.connect(self.saveChoice)
-        self.suspect1_3.clicked.connect(self.swich)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    # Text display on buttons and labels
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label1.setText(_translate("MainWindow", "Please select 4 images that look most like the criminal'"))
-        self.suspect5.setText(_translate("MainWindow", "suspect5"))
+        self.label1.setText(_translate("MainWindow", "chose four image that look like the suspect"))
         self.suspect6.setText(_translate("MainWindow", "suspect6"))
-        self.suspect9.setText(_translate("MainWindow", "suspect9"))
         self.suspect7.setText(_translate("MainWindow", "suspect7"))
-        self.suspect3.setText(_translate("MainWindow", "suspect3"))
-        self.suspect2.setText(_translate("MainWindow", "suspect2"))
         self.suspect4.setText(_translate("MainWindow", "suspect4"))
         self.suspect8.setText(_translate("MainWindow", "suspect8"))
+        self.suspect3.setText(_translate("MainWindow", "suspect3"))
+        self.suspect9.setText(_translate("MainWindow", "suspect9"))
+        self.suspect5.setText(_translate("MainWindow", "suspect5"))
+        self.suspect2.setText(_translate("MainWindow", "suspect2"))
         self.suspect1.setText(_translate("MainWindow", "suspect1"))
         self.suspect1_3.setText(_translate("MainWindow", "next"))
         self.label.setText(_translate("MainWindow", "your choice"))
-
-    def saveChoice(self):
-        """
-        Put the selected photos into the choices folder and show in the choices box that the selection cannot be greater
-        than 4, clear the selection if it is greater.
-        """
-        button_name = QtWidgets.QWidget().sender().objectName()
-        source = "son/" + button_name[-1] + ".png"
-        destination = "choice/" + button_name[-1] + ".png"
-        copyfile(source, destination)
-        files = os.listdir("choice/")
-        num_png = len(files)
-        if num_png == 1:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 2:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 3:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 4:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
-        elif num_png >= 5:
-            QtWidgets.QApplication.processEvents()
-            rmtree('choice/')
-            os.mkdir('choice/')
-            self.photo_c2.setPixmap(QtGui.QPixmap())
-            self.photo_c3.setPixmap(QtGui.QPixmap())
-            self.photo_c4.setPixmap(QtGui.QPixmap())
-            self.photo_c1.setPixmap(QtGui.QPixmap())
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-
-    def swich(self):
-        """
-        If the selection is 4, skip to the next page and generate the offspring photo by AI
-        """
-        files = os.listdir("choice/")
-        num_png = len(files)
-        # load model
-        decoder_ = keras.models.load_model('decoder.h5')
-        encoded_img = np.load('encoded_imgs.npy')
-        if num_png == 4:
-            # Choix de l'utilisateur :
-            files = os.listdir("choice/")
-            num_png = len(files)
-            num_p = []
-            for i in files:
-                print(i)
-                num_p.append(int(i[0]) - 1)
-
-            # new_index=random.sample(index, n)
-            n = 4
-            encoded_choix = [None] * n
-            for i in range(n):
-                encoded_choix[i] = encoded_img[num_p[i]]
-
-            # Algo genetique1 : crossover
-            # print(type(encoded_choix))
-            # print(type(encoded_choix[0]))
-            # np.save('encoded_choix', encoded_choix)
-            encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
-            decoded_ag = decoder_.predict(encoded_ag)
-            nn.save_reconstruction(12, decoded_ag)
-            np.save('encoded_choix', encoded_choix)
-            np.save('encoded_ag', encoded_ag)
-            files = os.listdir("choice/")
-            rmtree('father/')
-            os.mkdir('father/')
-            for i in files:
-                fil = os.listdir("father/")
-                source = "choice/" + i
-                destination = "father/" + str(len(fil) + 1) + ".png"
-                copyfile(source, destination)
-            self.switch_window.emit()
-
-        #when selected photos is not 4, Report an error
-        else:
-            QtWidgets.QMessageBox.critical(self, "error", "please select 4 photos")
-            rmtree('choice/')
-            os.mkdir('choice/')
-            QtWidgets.QApplication.processEvents()
-            self.photo_c1.setPixmap(QtGui.QPixmap())
-            self.photo_c2.setPixmap(QtGui.QPixmap())
-            self.photo_c3.setPixmap(QtGui.QPixmap())
-            self.photo_c4.setPixmap(QtGui.QPixmap())

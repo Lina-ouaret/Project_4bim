@@ -1,23 +1,44 @@
 # Project_4bim
 
 ## Table of Contents
-1. [General Info](#general-info)
+1. [General Information](#general-info)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
 4. [Collaboration](#collaboration)
 5. [FAQs](#faqs)
-### General Info
+
+## General Information
+### Software Description
 ***
-First version of our project : "Portraits robot".
-The main objective of the project is to create a software module that proposes a series of portraits with close facial traits to a criminal/assaulter to help witnesses narrow down the assaulters’ physical characteristics, facilitating the recognition of possible assaulters.
-This assisted identification of a presumably criminal person by a witness is based upon a database of identity pictures (olivetti database) and a method, composed by a neural network and a genetic algorithm, allowing creating synthetic pictures from it to get the closest image of the searched individual.
+This software creates a synthesized portrait with facial features that resemble as close as possible to a criminal. The creation of the portrait is made based on a witness's successive choices between different propositions taken from a large-scale face attributes dataset. These choices are used by the software to identify the most likely facial characteristics in order to select and propose an image that corresponds to the witness's expectations and hopefully to the actual criminal. 
+
+The software contains a user friendly Graphical User Interface and the algorithms used to propose a final portrait include a Neural Network Algorithm, that will reduce the size of the dataset images and a Genetic Algorithm that will combine and modify the image selected by the witness and propose new image.
+
+### Repository Organization
+*** 
+The folder portrait_robot contains all the folders that define the software structure. In the folder portrait_robot there are 3 main folders:
+Genetic_Algorithm, contains all the python, numpy and csv files needed for the genetic algorithm. 
+Neural_Network, contains all the python, and numpy files needed for the neural network algorithm. 
+Graphical_Inteface, contains all the the python, numpy, and png files needed for the graphical interface. This folder contains the main python file that defines the software execution. 
+
+The folder tutorials contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
+
+The folder docs contains all the files needed to create the software's documentation. 
+
+### Methodologies Description
+
+
+
+
+
 ## Technologies
 ***
 A list of technologies used within the project:
-* [python3] : Version
-* [Library keras](https://example.com): Version
-* [Library tensorflow](https://example.com): Version
-* Database python Olivetti
+* [python3](https://www.python.org/downloads/): Version 3.7.3
+* [Library keras](https://keras.io/about/): Version 2.8.0
+* [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
+* [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+
 ## Installation
 ***
 To use the application you need a python environnement and you have to verify the versions of python and modules.

@@ -1,1 +1,1 @@
-{'Pale_Skin': 1, 'young': -1, 'male': 1}
+{'young': -1, 'Wavy_Hair': 1}

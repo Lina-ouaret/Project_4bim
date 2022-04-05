@@ -9,15 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from shutil import copyfile
-from shutil import rmtree
-import os
 
 
 class Ui_MainWindow(object):
-    switch_window = QtCore.pyqtSignal() #Convert to suspect selection page2 method
-
-    # Label, button position, size setting
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(704, 600)
@@ -56,7 +50,7 @@ class Ui_MainWindow(object):
         self.Ph_age.setEnabled(True)
         self.Ph_age.setMaximumSize(QtCore.QSize(16777215, 200))
         self.Ph_age.setText("")
-        self.Ph_age.setPixmap(QtGui.QPixmap("hairstyle.png"))
+        self.Ph_age.setPixmap(QtGui.QPixmap("noun-aged-2452301.png"))
         self.Ph_age.setObjectName("Ph_age")
         self.verticalLayout.addWidget(self.Ph_age)
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -82,7 +76,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.young_0)
         self.Ph_skin = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_skin.setText("")
-        self.Ph_skin.setPixmap(QtGui.QPixmap("age.png"))
+        self.Ph_skin.setPixmap(QtGui.QPixmap("noun-sudden-paleness-186406.png"))
         self.Ph_skin.setObjectName("Ph_skin")
         self.verticalLayout_2.addWidget(self.Ph_skin)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -107,7 +101,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.male_0)
         self.Ph_gender = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_gender.setText("")
-        self.Ph_gender.setPixmap(QtGui.QPixmap("gender.png"))
+        self.Ph_gender.setPixmap(QtGui.QPixmap("noun-gender-2184468.png"))
         self.Ph_gender.setObjectName("Ph_gender")
         self.verticalLayout_4.addWidget(self.Ph_gender)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
@@ -124,80 +118,24 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        #Connect the buttons to the corresponding functions
-        self.Straight_Hair_T.clicked.connect(self.press)
-        self.Wavy_Hair_T.clicked.connect(self.press)
-        self.young_T.clicked.connect(self.press)
-        self.young_F.clicked.connect(self.press)
-        self.male_T.clicked.connect(self.press)
-        self.male_F.clicked.connect(self.press)
-        self.male_0.clicked.connect(self.press)
-        self.young_0.clicked.connect(self.press)
-        self.hair_nc.clicked.connect(self.press2)
-        self.next.clicked.connect(self.press3)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    #Text display on buttons and labels
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Please select an initial set of physical traits for the search: \n"
-                                                    ""))
+""))
         self.skin_color.setText(_translate("MainWindow", "hair style"))
         self.Straight_Hair_T.setText(_translate("MainWindow", "stright"))
-        self.Wavy_Hair_T.setText(_translate("MainWindow", "wavy"))
+        self.Wavy_Hair_T.setText(_translate("MainWindow", "wave"))
         self.hair_nc.setText(_translate("MainWindow", "no clue"))
-        self.skin_color_4.setText(_translate("MainWindow", "age"))
+        self.skin_color_4.setText(_translate("MainWindow", "skin color"))
         self.young_T.setText(_translate("MainWindow", "young"))
         self.young_F.setText(_translate("MainWindow", "old"))
         self.young_0.setText(_translate("MainWindow", "no clue"))
         self.gender.setText(_translate("MainWindow", "gender"))
-        self.next.setText(_translate("MainWindow", "next"))
-        self.gender.setText(_translate("MainWindow", "gender"))
         self.male_T.setText(_translate("MainWindow", "male"))
         self.male_F.setText(_translate("MainWindow", "female"))
         self.male_0.setText(_translate("MainWindow", "no clue"))
-
-    def press(self):
-        """
-        Get the name of the button and write the corresponding function in select.txt
-        """
-        button_name = QtWidgets.QWidget().sender().objectName()
-        l = len(button_name) - 2
-        with open('select.txt', 'r') as file:
-            rd = file.read()
-        dict1 = eval(rd)
-        if button_name[-1] == "T":
-            dict1.update({button_name[:l]: 1})
-        elif button_name[-1] == "F":
-            dict1.update({button_name[:l]: -1})
-        elif button_name[-1] == "0":
-            del dict1[button_name[:l]]
-        with open('select.txt', 'w') as file:
-            file.write(str(dict1))
-
-    def press2(self):
-        """
-        Delete button corresponding to the hair style option
-        """
-        with open('select.txt', 'r') as file:
-            rd = file.read()
-        dict1 = eval(rd)
-        del dict1["Wavy_Hair"]
-        del dict1["Straight_Hair"]
-        with open('select.txt', 'w') as file:
-            file.write(str(dict1))
-
-    def press3(self):
-        """
-        Display the selection results and initialise the choice and jump to the suspect picture selection page1
-        """
-        with open('select.txt', 'r') as file:
-            rd = file.read()
-        QtWidgets.QMessageBox.critical(self, "error", rd)
-        if os.path.exists('choice/'):
-            rmtree('choice/')
-            os.mkdir('choice/')
-        self.switch_window.emit()
+        self.next.setText(_translate("MainWindow", "next"))

@@ -28,7 +28,28 @@ def split_dataset(dataset, attribut):
     Y_train (array) : portion of the db used to train the neural network - input
     Y_test (array) : portion of the db used to test the neural network - output
 
+<<<<<<< HEAD
   >>> run the program code "testunitairedataplit"
+=======
+  >>> 
+  def testunitsplitdtaset(X_train, X_test, y_train, y_test,dataset):
+    if len(X_test)==0.2*len(dataset):
+        print("test unitaire fonctionne")
+    else:
+        print("y_test et x_test ne valent pas 20% du dataset")
+    if len(Y_test)==0.2*len(dataset):
+        print("test unitaire fonctionne")
+    else:
+        print("y_test et x_test ne valent pas 20% du dataset")
+    if len(X_train)==0.8*len(dataset):
+        print("test unitaire fonctionne")
+    else:
+        print("y_train et x_train ne valent pas 80% du dataset")
+    if len(Y_train)==0.8*len(dataset):
+        print("test unitaire fonctionne")
+    else:
+        print("y_train et x_train ne valent pas 20% du dataset") 
+>>>>>>> f17af274a04e17b1dff6916645001657efadeef0
 
   '''
   X_train, X_test, Y_train, Y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
@@ -102,7 +123,26 @@ def save_reconstruction(n,decoded):
   Returns :
     None
 
+<<<<<<< HEAD
   >>> run the program code "testunitairecontrolplot"
+=======
+  >>> import pathlib
+      from pathlib import Path
+      home = Path.home()
+      print(home)
+      cwd = Path.cwd()
+      target_dir = cwd / "test"
+      initial_count=0
+      for file in target_dir.iterdir():
+        if file.suffix == ".png" :
+          initial_count+=1
+      print(initial_count)
+      wave = Path("test")
+      initial_count = 0
+      for nb in Path("test").glob("*.PNG"):
+        initial_count += 1
+      print(initial_count)
+>>>>>>> f17af274a04e17b1dff6916645001657efadeef0
 
   '''
   for i in range(n):
