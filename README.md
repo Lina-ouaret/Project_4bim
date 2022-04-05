@@ -2,10 +2,13 @@
 
 ## Table of Contents
 1. [General Information](#general-info)
-2. [Technologies](#technologies)
-3. [Installation](#installation)
-4. [Collaboration](#collaboration)
-5. [FAQs](#faqs)
+2. [Repository Organization]
+3. [Methodologies Description]
+4. [Tutoriel]
+5. [Installation](#technologies)
+6. [Technologies](#installation)
+7. [Collaboration](#collaboration)
+8. [FAQs](#faqs)
 
 ## General Information
 ### Software Description
@@ -26,10 +29,10 @@ The folder tutorials contains two jupyther notebooks that can help you train wit
 The folder docs contains all the files needed to create the software's documentation. 
 
 ### Methodologies Description
-
-
-
-
+Our project is based on 3 main lines  
+1) Neural Algorithm : The objective is to reduce and find how to manipulate the encoded data with the annotations which represent the physical traits of faces and create a 'new' database with only the pictures that match the description of the criminal. So we decided to create clusters to reduce the database we noticed that the use of the 3 attributes (Male,Straight Hair,Young) greatly reduced the database. So we made several combinations of our 3 attributes, and  we arrived at the creation of 8 distinct clusters. So we were able to train our neural network on much smaller databases, which makes it possible to have an improvement in the quality of the photos obtained 
+2) Genetic Algorithm : The purpose of the genetic algorithm is to reshape the suspect’s image using the various photo choices made by the victim that most closely resembles the suspect. The victim must have the choice of attributes in the genetic algorithm method. The algorithm must take into account the choice of the victim before making the next photo proposal. The mutation method chosen is the crossing over method.
+3) GIU : The GIU will display the suspect image based on the victim's choice.     
 
 ## Technologies
 ***
@@ -53,6 +56,8 @@ Then follow the intructions of the graphic interface.
 ## Collaboration
 ***
 You can download the project on github but you can't collaborate directly on the project (it is private).
+
+## Tutoriel 
 ## FAQs
 ***
 A list of frequently asked questions
