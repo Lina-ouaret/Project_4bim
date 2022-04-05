@@ -2,9 +2,9 @@ from PyQt5 import QtWidgets, QtCore
 import sys
 from shutil import copyfile
 
-from select2 import Ui_MainWindow as Ui1
-from suspect3 import Ui_MainWindow as Ui2
-from suspect2_2 import Ui_MainWindow as Ui3
+from select_p import Ui_MainWindow as Ui1
+from suspect_p1 import Ui_MainWindow as Ui2
+from suspect_p2 import Ui_MainWindow as Ui3
 from lastphoto import Ui_MainWindow as Ui4
 
 import algo_genetique as ag
@@ -51,16 +51,17 @@ class mywindow4(QtWidgets.QMainWindow, Ui4):
         self.setupUi(self)
 
 #Multi-page dedicated page system
-class Controller:
 
+class Controller():
     def __init__(self):
         pass
 
     def show_select(self):
         self.login = mywindow()
         self.login.switch_window.connect(self.show_main)
-        self.window_three = mywindow4()
-        self.window_three.close()
+        # self.window_three = mywindow4()
+        if cycle >=1:
+            self.window_three.close()
         self.login.show()
 
     def show_main(self):
@@ -72,6 +73,8 @@ class Controller:
     def show_window_two(self):
         self.window_two = mywindow3()
         self.window.close()
+        if cycle >=1:
+            self.window_three.close()
         self.window.switch_window.connect(self.show_window_two)
         self.window_two.switch_window2.connect(self.show_window_lastphoto)
         self.window_two.show()
@@ -79,7 +82,11 @@ class Controller:
     def show_window_lastphoto(self):
         self.window_three = mywindow4()
         self.window_two.close()
-        self.window.switch_window.connect(self.show_select)
+        self.window_three.switch_window.connect(self.show_select)
+        self.window_three.switch_window2.connect(self.show_window_two)
+        global cycle
+        cycle +=1
+        print('cycle = '+str(cycle))
         self.window_three.show()
 
 
@@ -119,12 +126,14 @@ if __name__ == "__main__":
     nn.save_reconstruction(n, decoded)  # dans pictures_showed
 
     #Page initialisation
+    cycle = 0
     app = QtWidgets.QApplication(sys.argv)
     main = QtWidgets.QWidget()
     latout = QtWidgets.QHBoxLayout()
     main.setLayout(latout)
 
     #Generate a multi-page selection system, initialise it and show it
+    cycle = 0
     controller = Controller()
     controller.show_select()
     sys.exit(app.exec_())

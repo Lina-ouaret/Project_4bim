@@ -319,9 +319,9 @@ class Ui_MainWindow(object):
         source = "father/" + str(int(button_name[-3])) + ".png"
         destination = "choice/" + str(int(button_name[-3])) + "f.png"
         if self.stopGUI == True:
-            rmtree('choice/')
-            os.mkdir('choice/')
-            copyfile(source, destination)
+            rmtree('final_choice/')
+            os.mkdir('final_choice/')
+            copyfile(source, 'final_choice/'+ str(int(button_name[-3])) + "f.png")
             self.switch_window2.emit()
         copyfile(source, destination)
 
@@ -377,54 +377,57 @@ class Ui_MainWindow(object):
         source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
         if self.stopGUI == True:
-            rmtree('choice/')
-            os.mkdir('choice/')
-            copyfile(source, destination)
+            rmtree('final_choice/')
+            os.mkdir('final_choice/')
+            print('final_choice/'+ str(int(button_name[-1])) + "f.png")
+            copyfile(source, 'final_choice/'+ str(int(button_name[-1])) + "f.png")
             self.switch_window2.emit()
-        copyfile(source, destination)
-        files = os.listdir("choice/")  # 读入文件夹
-        num_png = len(files)  # 统计文件夹中的文件个数
-        if num_png == 1:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 2:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 3:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 4:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
-        elif num_png >= 5:
-            QtWidgets.QApplication.processEvents()
-            rmtree('choice/')
-            os.mkdir('choice/')
-            self.photo_c2.setPixmap(QtGui.QPixmap())
-            self.photo_c3.setPixmap(QtGui.QPixmap())
-            self.photo_c4.setPixmap(QtGui.QPixmap())
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+        elif self.stopGUI == False:
+            print("-------------------------------------------------")
+            copyfile(source, destination)
+            files = os.listdir("choice/")
+            num_png = len(files)
+            if num_png == 1:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+            elif num_png == 2:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c2.setPixmap(QtGui.QPixmap(destination))
+            elif num_png == 3:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c3.setPixmap(QtGui.QPixmap(destination))
+            elif num_png == 4:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c4.setPixmap(QtGui.QPixmap(destination))
+            elif num_png >= 5:
+                QtWidgets.QApplication.processEvents()
+                rmtree('choice/')
+                os.mkdir('choice/')
+                self.photo_c2.setPixmap(QtGui.QPixmap())
+                self.photo_c3.setPixmap(QtGui.QPixmap())
+                self.photo_c4.setPixmap(QtGui.QPixmap())
+                self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
-        if num_png == 1:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 2:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 3:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 4:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
-        elif num_png >= 5:
-            QtWidgets.QApplication.processEvents()
-            rmtree('choice/')
-            os.mkdir('choice/')
-            self.photo_c2.setPixmap(QtGui.QPixmap())
-            self.photo_c3.setPixmap(QtGui.QPixmap())
-            self.photo_c4.setPixmap(QtGui.QPixmap())
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+            if num_png == 1:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+            elif num_png == 2:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c2.setPixmap(QtGui.QPixmap(destination))
+            elif num_png == 3:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c3.setPixmap(QtGui.QPixmap(destination))
+            elif num_png == 4:
+                QtWidgets.QApplication.processEvents()
+                self.photo_c4.setPixmap(QtGui.QPixmap(destination))
+            elif num_png >= 5:
+                QtWidgets.QApplication.processEvents()
+                rmtree('choice/')
+                os.mkdir('choice/')
+                self.photo_c2.setPixmap(QtGui.QPixmap())
+                self.photo_c3.setPixmap(QtGui.QPixmap())
+                self.photo_c4.setPixmap(QtGui.QPixmap())
+                self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
     def nextf(self):
         """
@@ -518,6 +521,18 @@ class Ui_MainWindow(object):
             rmtree('choice/')
             os.mkdir('choice/')
             self.switch_window.emit()
+        else:
+            QtWidgets.QMessageBox.critical(self, "error", "please select 4 photos")
+            rmtree('choice/')
+            os.mkdir('choice/')
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap())
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+
+
+
 
     def b_stop(self):
         """

@@ -10,11 +10,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
-
+from shutil import rmtree
 
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()#Convert back to fist page method
-
+    switch_window2 = QtCore.pyqtSignal()#Convert back to fist page method
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(234, 267)
@@ -23,11 +23,11 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(70, 0, 101, 161))
         self.label.setText("")
-        files = os.listdir("choice/")
+        files = os.listdir("final_choice/")
         names = []
         u = 0
         for i in files:
-            names.append("choice/" + i)
+            names.append("final_choice/" + i)
         for i in range(len(names)):
             print(str(i) + names[i])
         self.label.setPixmap(QtGui.QPixmap(names[0]))
@@ -65,16 +65,20 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "cancel"))
 
     def yes(self):
+        print("yes")
         self.switch_window.emit()
 
     def no(self):
-        files = os.listdir("choice/")  # 读入文件夹
+        rmtree('final_choice/')
+        os.mkdir('final_choice/')
+        files = os.listdir("choice/")
         names = []
         u = 0
         for i in files:
             names.append("choice/" + i)
         for i in range(len(names)):
             print(str(i) + names[i])
+        self.switch_window2.emit()
 
 
 if __name__ == "__main__":
