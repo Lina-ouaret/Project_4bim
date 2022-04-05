@@ -1,20 +1,31 @@
 # Project_4bim
 
 ## Table of Contents
-1. [General Info](#general-info)
+1. [General Information](#general-info)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
 4. [Collaboration](#collaboration)
 5. [FAQs](#faqs)
+
+## General Information
 ### Software Description
 ***
 This software creates a synthesized portrait with facial features that resemble as close as possible to a criminal. The creation of the portrait is made based on a witness's successive choices between different propositions taken from a large-scale face attributes dataset. These choices are used by the software to identify the most likely facial characteristics in order to select and propose an image that corresponds to the witness's expectations and hopefully to the actual criminal. 
 
-The software contains a user friendly Graphical User Interface and the methods used to propose a final portrait include a Neural Network Algorithm and a Genetic Algorithm. 
+The software contains a user friendly Graphical User Interface and the algorithms used to propose a final portrait include a Neural Network Algorithm, that will reduce the size of the dataset images and a Genetic Algorithm that will combine and modify the image selected by the witness and propose new image.
 
-### Methods Description
+### Repository Organization
 *** 
+The folder portrait_robot contains all the folders that define the software structure. In the folder portrait_robot there are 3 main folders:
+Genetic_Algorithm, contains all the python, numpy and csv files needed for the genetic algorithm. 
+Neural_Network, contains all the python, and numpy files needed for the neural network algorithm. 
+Graphical_Inteface, contains all the the python, numpy, and png files needed for the graphical interface. This folder contains the main python file that defines the software execution. 
 
+The folder tutorials contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
+
+The folder docs contains all the files needed to create the software's documentation. 
+
+### Methodologies Description
 
 
 
