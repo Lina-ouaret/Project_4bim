@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from shutil import copyfile
 from shutil import rmtree
 import os
-from PyQt5 import QtWidgets,QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 from shutil import copyfile
 
@@ -22,11 +22,11 @@ import neural_network_function as nn
 
 import numpy as np
 import random
-import matplotlib.pyplot as plt      # plotting routines
+import matplotlib.pyplot as plt  # plotting routines
 import keras
-from keras.models import Model       # Model type to be used
-from keras.layers.core import Dense, Dropout, Activation # Types of layers to be used in our model
-from keras.utils import np_utils                         # NumPy related tools
+from keras.models import Model  # Model type to be used
+from keras.layers.core import Dense, Dropout, Activation  # Types of layers to be used in our model
+from keras.utils import np_utils  # NumPy related tools
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -37,8 +37,10 @@ import glob
 
 
 class Ui_MainWindow(object):
-    switch_window = QtCore.pyqtSignal()
-    switch_window2 = QtCore.pyqtSignal()
+    switch_window = QtCore.pyqtSignal()  #Convert back to current page method
+    switch_window2 = QtCore.pyqtSignal() #Convert to Checkout page method
+
+    # Label, button position, size setting， show photos
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
@@ -243,6 +245,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        #son frame photo display
         self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
         self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
         self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
@@ -252,11 +255,8 @@ class Ui_MainWindow(object):
         self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
         self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
         self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
-        files = os.listdir("choice/")  # 读入文件夹
-        names = []
-        for i in files:
-            names.append("choice/"+i)
-        #print(names)
+
+        # Connect the buttons to the corresponding functions
         self.suspect1.clicked.connect(self.saveChoice)
         self.suspect2.clicked.connect(self.saveChoice)
         self.suspect3.clicked.connect(self.saveChoice)
@@ -272,22 +272,26 @@ class Ui_MainWindow(object):
         self.suspect4_f.clicked.connect(self.saveChoice_f)
         self.next.clicked.connect(self.nextf)
         self.stop.clicked.connect(self.b_stop)
-
-
-
-
+        #Display the last selected image in the fater box
+        files = os.listdir("choice/")
+        names = []
+        for i in files:
+            names.append("choice/" + i)
         self.photo_f1.setPixmap(QtGui.QPixmap(names[0]))
         self.photo_f2.setPixmap(QtGui.QPixmap(names[1]))
         self.photo_f3.setPixmap(QtGui.QPixmap(names[2]))
         self.photo_f4.setPixmap(QtGui.QPixmap(names[3]))
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    #Whether the suspect is found or not, initialized to no
     stopGUI = False
 
+    # Text display on buttons and labels
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label1.setText(_translate("MainWindow", "chose four image that look like the suspect, untill you found suspect"))
+        self.label1.setText(
+            _translate("MainWindow", "chose four image that look like the suspect, untill you found suspect"))
         self.suspect5.setText(_translate("MainWindow", "suspect5"))
         self.suspect6.setText(_translate("MainWindow", "suspect6"))
         self.suspect2.setText(_translate("MainWindow", "suspect2"))
@@ -306,28 +310,48 @@ class Ui_MainWindow(object):
         self.next.setText(_translate("MainWindow", "next"))
         self.label_3.setText(_translate("MainWindow", "your choice"))
 
-
     def saveChoice_f(self):
-
-
+        """
+        Put the selected photos from fathers into the choices folder and show in the choices box that the selection cannot be greater
+        than 4, clear the selection if it is greater. But when we have found the suspect we jump to the show suspects page
+        """
         button_name = QtWidgets.QWidget().sender().objectName()
         source = "father/" + str(int(button_name[-3])) + ".png"
         destination = "choice/" + str(int(button_name[-3])) + "f.png"
-        if self.stopGUI == True :
+        if self.stopGUI == True:
             rmtree('choice/')
             os.mkdir('choice/')
             copyfile(source, destination)
             self.switch_window2.emit()
         copyfile(source, destination)
 
-
-
-        files = os.listdir("choice/")  # 读入文件夹
-        num_png = len(files)  # 统计文件夹中的文件个数
-        if num_png ==1:
+        files = os.listdir("choice/")  # read file in choice
+        num_png = len(files)  # count it
+        if num_png == 1:
             QtWidgets.QApplication.processEvents()
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png ==2:
+        elif num_png == 2:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 3:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 4:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
+        elif num_png >= 5:
+            QtWidgets.QApplication.processEvents()
+            rmtree('choice/')
+            os.mkdir('choice/')
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+        #count the choices, and show it to correspending place in choices frame
+        if num_png == 1:
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+        elif num_png == 2:
             QtWidgets.QApplication.processEvents()
             self.photo_c2.setPixmap(QtGui.QPixmap(destination))
         elif num_png == 3:
@@ -345,31 +369,14 @@ class Ui_MainWindow(object):
             self.photo_c4.setPixmap(QtGui.QPixmap())
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
-        if num_png ==1:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png ==2:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c2.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 3:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c3.setPixmap(QtGui.QPixmap(destination))
-        elif num_png == 4:
-            QtWidgets.QApplication.processEvents()
-            self.photo_c4.setPixmap(QtGui.QPixmap(destination))
-        elif num_png >= 5:
-            QtWidgets.QApplication.processEvents()
-            rmtree('choice/')
-            os.mkdir('choice/')
-            self.photo_c2.setPixmap(QtGui.QPixmap())
-            self.photo_c3.setPixmap(QtGui.QPixmap())
-            self.photo_c4.setPixmap(QtGui.QPixmap())
-            self.photo_c1.setPixmap(QtGui.QPixmap(destination))
     def saveChoice(self):
+        """
+        same as saveChoice_f(), but in son's frame, save it to choice/ folder
+        """
         button_name = QtWidgets.QWidget().sender().objectName()
         source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
-        if self.stopGUI == True :
+        if self.stopGUI == True:
             rmtree('choice/')
             os.mkdir('choice/')
             copyfile(source, destination)
@@ -377,10 +384,10 @@ class Ui_MainWindow(object):
         copyfile(source, destination)
         files = os.listdir("choice/")  # 读入文件夹
         num_png = len(files)  # 统计文件夹中的文件个数
-        if num_png ==1:
+        if num_png == 1:
             QtWidgets.QApplication.processEvents()
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png ==2:
+        elif num_png == 2:
             QtWidgets.QApplication.processEvents()
             self.photo_c2.setPixmap(QtGui.QPixmap(destination))
         elif num_png == 3:
@@ -398,10 +405,10 @@ class Ui_MainWindow(object):
             self.photo_c4.setPixmap(QtGui.QPixmap())
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
-        if num_png ==1:
+        if num_png == 1:
             QtWidgets.QApplication.processEvents()
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png ==2:
+        elif num_png == 2:
             QtWidgets.QApplication.processEvents()
             self.photo_c2.setPixmap(QtGui.QPixmap(destination))
         elif num_png == 3:
@@ -418,11 +425,15 @@ class Ui_MainWindow(object):
             self.photo_c3.setPixmap(QtGui.QPixmap())
             self.photo_c4.setPixmap(QtGui.QPixmap())
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+
     def nextf(self):
-        files = os.listdir("choice/")  # 读入文件夹
-        num_png = len(files)  # 统计文件夹中的文件个数
+        """
+        If the selection is 4, skip to the next page and generate the offspring photo by AI
+        """
+        files = os.listdir("choice/")
+        num_png = len(files)
         # load model
-        decoder_=keras.models.load_model('decoder.h5')
+        decoder_ = keras.models.load_model('decoder.h5')
         encoded_son = np.load('encoded_ag.npy')
         encoded_choice = np.load('encoded_choix.npy')
         if num_png == 4:
@@ -430,33 +441,32 @@ class Ui_MainWindow(object):
             # Choix de l'utilisateur :
             files = os.listdir("choice/")
             num_png = len(files)
-            num_p =[]
+            num_p = []
             for i in files:
-                num_p.append(int(i[0])-1)
+                num_p.append(int(i[0]) - 1)
 
-            n=4
-            encoded_father=[None]*n
-            encoded_ag=[]
-            encoded_cross=[]
-            encoded_mut=[]
+            n = 4
+            encoded_father = [None] * n
+            encoded_ag = []
+            encoded_cross = []
+            encoded_mut = []
             for i in range(n):
-                if files[i][1]=='f':
-                    encoded_father[i]=encoded_choice[num_p[i]]
+                if files[i][1] == 'f':
+                    encoded_father[i] = encoded_choice[num_p[i]]
                     for m in range(3):
-                        encoded_mut.append(ag.mutation_pixels(encoded_father[i],0.3))
+                        encoded_mut.append(ag.mutation_pixels(encoded_father[i], 0.3))
                 else:
-                    encoded_father[i]=encoded_son[num_p[i]]
+                    encoded_father[i] = encoded_son[num_p[i]]
                     encoded_cross.append(encoded_father[i])
-            encoded_cross2=ag.crossover_pixels(encoded_cross, 0.3)
+            encoded_cross2 = ag.crossover_pixels(encoded_cross, 0.3)
             for k in range(len(encoded_mut)):
                 encoded_ag.append(encoded_mut[k].tolist())
             for j in range(len(encoded_cross2)):
-                res=encoded_cross2[j]
+                res = encoded_cross2[j]
                 encoded_ag.append(res)
 
-
             # Algo genetique1 : crossover
-            #np.save('encoded_choix', encoded_choix)
+            # np.save('encoded_choix', encoded_choix)
             # encoded_ag = ag.crossover_pixels(encoded_father, 0.3)
             print(len(encoded_ag))
             print(len(encoded_ag[0]))
@@ -467,13 +477,13 @@ class Ui_MainWindow(object):
             np.save('encoded_choix', encoded_father)
             np.save('encoded_ag', encoded_ag)
             files = os.listdir("choice/")
+            #Delete the photos from the old father folder and put the photos from the choices into it
             rmtree('father/')
             os.mkdir('father/')
             for i in files:
                 fil = os.listdir("father/")
-
                 source = "choice/" + i
-                destination = "father/" + str(len(fil)+1)+".png"
+                destination = "father/" + str(len(fil) + 1) + ".png"
                 copyfile(source, destination)
             QtWidgets.QApplication.processEvents()
             self.photo_c1.setPixmap(QtGui.QPixmap())
@@ -491,7 +501,7 @@ class Ui_MainWindow(object):
             self.photo_9.setPixmap(QtGui.QPixmap())
             names = []
             for i in files:
-                names.append("choice/"+i)
+                names.append("choice/" + i)
             self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
             self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
             self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
@@ -508,6 +518,9 @@ class Ui_MainWindow(object):
             rmtree('choice/')
             os.mkdir('choice/')
             self.switch_window.emit()
+
     def b_stop(self):
+        """
+        Suspect has been found, set stopGUI to True
+        """
         self.stopGUI = True
-        ##self.switch_window2.emit()

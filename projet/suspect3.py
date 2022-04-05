@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from shutil import copyfile
 from shutil import rmtree
 import os
-from PyQt5 import QtWidgets,QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 from shutil import copyfile
 
@@ -22,11 +22,11 @@ import neural_network_function as nn
 
 import numpy as np
 import random
-import matplotlib.pyplot as plt      # plotting routines
+import matplotlib.pyplot as plt  # plotting routines
 import keras
-from keras.models import Model       # Model type to be used
-from keras.layers.core import Dense, Dropout, Activation # Types of layers to be used in our model
-from keras.utils import np_utils                         # NumPy related tools
+from keras.models import Model  # Model type to be used
+from keras.layers.core import Dense, Dropout, Activation  # Types of layers to be used in our model
+from keras.utils import np_utils  # NumPy related tools
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -36,9 +36,10 @@ import os
 import glob
 
 
-
 class Ui_MainWindow(object):
-    switch_window = QtCore.pyqtSignal()
+    switch_window = QtCore.pyqtSignal()  # Convert to suspect selection page2 method
+
+    # Label, button position, size setting， show photos
     def setupUi2(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
@@ -192,7 +193,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-
+        # son frame photo display
         self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
         self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
         self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
@@ -203,8 +204,7 @@ class Ui_MainWindow(object):
         self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
         self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
 
-
-
+        # Connect the buttons to the corresponding functions
         self.suspect1.clicked.connect(self.saveChoice)
         self.suspect2.clicked.connect(self.saveChoice)
         self.suspect3.clicked.connect(self.saveChoice)
@@ -216,10 +216,10 @@ class Ui_MainWindow(object):
         self.suspect9.clicked.connect(self.saveChoice)
         self.suspect1_3.clicked.connect(self.swich)
 
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    # Text display on buttons and labels
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -237,17 +237,20 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "your choice"))
 
     def saveChoice(self):
+        """
+        Put the selected photos into the choices folder and show in the choices box that the selection cannot be greater
+        than 4, clear the selection if it is greater.
+        """
         button_name = QtWidgets.QWidget().sender().objectName()
         source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
         copyfile(source, destination)
-
-        files = os.listdir("choice/")  # 读入文件夹
-        num_png = len(files)  # 统计文件夹中的文件个数
-        if num_png ==1:
+        files = os.listdir("choice/")
+        num_png = len(files)
+        if num_png == 1:
             QtWidgets.QApplication.processEvents()
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-        elif num_png ==2:
+        elif num_png == 2:
             QtWidgets.QApplication.processEvents()
             self.photo_c2.setPixmap(QtGui.QPixmap(destination))
         elif num_png == 3:
@@ -267,31 +270,33 @@ class Ui_MainWindow(object):
             self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
     def swich(self):
-        files = os.listdir("choice/")  # 读入文件夹
-        num_png = len(files)  # 统计文件夹中的文件个数
+        """
+        If the selection is 4, skip to the next page and generate the offspring photo by AI
+        """
+        files = os.listdir("choice/")
+        num_png = len(files)
         # load model
-        decoder_=keras.models.load_model('decoder.h5')
+        decoder_ = keras.models.load_model('decoder.h5')
         encoded_img = np.load('encoded_imgs.npy')
         if num_png == 4:
-
             # Choix de l'utilisateur :
-            files = os.listdir("choice/")  # 读入文件夹
-            num_png = len(files)  # 统计文件夹中的文件个数
-            num_p =[]
+            files = os.listdir("choice/")
+            num_png = len(files)
+            num_p = []
             for i in files:
                 print(i)
-                num_p.append(int(i[0])-1)
+                num_p.append(int(i[0]) - 1)
 
             # new_index=random.sample(index, n)
-            n=4
-            encoded_choix=[None]*n
+            n = 4
+            encoded_choix = [None] * n
             for i in range(n):
-                encoded_choix[i]=encoded_img[num_p[i]]
+                encoded_choix[i] = encoded_img[num_p[i]]
 
             # Algo genetique1 : crossover
             # print(type(encoded_choix))
             # print(type(encoded_choix[0]))
-            #np.save('encoded_choix', encoded_choix)
+            # np.save('encoded_choix', encoded_choix)
             encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
             decoded_ag = decoder_.predict(encoded_ag)
             nn.save_reconstruction(12, decoded_ag)
@@ -303,12 +308,12 @@ class Ui_MainWindow(object):
             for i in files:
                 fil = os.listdir("father/")
                 source = "choice/" + i
-                destination = "father/" + str(len(fil)+1)+".png"
+                destination = "father/" + str(len(fil) + 1) + ".png"
                 copyfile(source, destination)
             self.switch_window.emit()
 
-
-        else :
+        #when selected photos is not 4, Report an error
+        else:
             QtWidgets.QMessageBox.critical(self, "error", "please select 4 photos")
             rmtree('choice/')
             os.mkdir('choice/')

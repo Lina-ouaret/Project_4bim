@@ -13,10 +13,11 @@ from shutil import copyfile
 from shutil import rmtree
 import os
 
+
 class Ui_MainWindow(object):
+    switch_window = QtCore.pyqtSignal() #Convert to suspect selection page2 method
 
-    switch_window = QtCore.pyqtSignal()
-
+    # Label, button position, size setting
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(704, 600)
@@ -123,6 +124,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        #Connect the buttons to the corresponding functions
         self.Straight_Hair_T.clicked.connect(self.press)
         self.Wavy_Hair_T.clicked.connect(self.press)
         self.young_T.clicked.connect(self.press)
@@ -134,15 +136,15 @@ class Ui_MainWindow(object):
         self.hair_nc.clicked.connect(self.press2)
         self.next.clicked.connect(self.press3)
 
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    #Text display on buttons and labels
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Please select an initial set of physical traits for the search: \n"
-""))
+                                                    ""))
         self.skin_color.setText(_translate("MainWindow", "hair style"))
         self.Straight_Hair_T.setText(_translate("MainWindow", "stright"))
         self.Wavy_Hair_T.setText(_translate("MainWindow", "wavy"))
@@ -159,6 +161,9 @@ class Ui_MainWindow(object):
         self.male_0.setText(_translate("MainWindow", "no clue"))
 
     def press(self):
+        """
+        Get the name of the button and write the corresponding function in select.txt
+        """
         button_name = QtWidgets.QWidget().sender().objectName()
         l = len(button_name) - 2
         with open('select.txt', 'r') as file:
@@ -174,6 +179,9 @@ class Ui_MainWindow(object):
             file.write(str(dict1))
 
     def press2(self):
+        """
+        Delete button corresponding to the hair style option
+        """
         with open('select.txt', 'r') as file:
             rd = file.read()
         dict1 = eval(rd)
@@ -183,6 +191,9 @@ class Ui_MainWindow(object):
             file.write(str(dict1))
 
     def press3(self):
+        """
+        Display the selection results and initialise the choice and jump to the suspect picture selection page1
+        """
         with open('select.txt', 'r') as file:
             rd = file.read()
         QtWidgets.QMessageBox.critical(self, "error", rd)
