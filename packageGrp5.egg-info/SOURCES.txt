@@ -1,8 +1,0 @@
-README.md
-setup.py
-packageGrp5.egg-info/PKG-INFO
-packageGrp5.egg-info/SOURCES.txt
-packageGrp5.egg-info/dependency_links.txt
-packageGrp5.egg-info/top_level.txt
-projet/__init__.py
-projet/addition.py
