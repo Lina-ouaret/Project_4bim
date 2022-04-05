@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>projet.common_functions &mdash; Portrait_Robot_G5 Beta v0.0.1 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Portrait_Robot_G5
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Portrait_Robot_G5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>projet.common_functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for projet.common_functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations</span>
+
+
+<div class="viewcode-block" id="convert_attributes_into_pandas"><a class="viewcode-back" href="../../projet.html#projet.common_functions.convert_attributes_into_pandas">[docs]</a><span class="k">def</span> <span class="nf">convert_attributes_into_pandas</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a csv file to a pandas.array matrix. The matrix contains all attributes as columns, and each photo ID and their corresponding attributes values in rows.</span>
+
+<span class="sd">    Args :</span>
+<span class="sd">        filename (str) : path to csv file</span>
+
+<span class="sd">    Returns :</span>
+<span class="sd">        df_attributes (pandas.array) :  matrix of attributes that will be reduced to choose photos</span>
+
+<span class="sd">    &gt;&gt;&gt; type(convert_attributes_into_pandas(&quot;test_attributes.csv&quot;))</span>
+<span class="sd">    &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="matrix_reduction"><a class="viewcode-back" href="../../projet.html#projet.common_functions.matrix_reduction">[docs]</a><span class="k">def</span> <span class="nf">matrix_reduction</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">fixed_att</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reduces the matrix based on the traits specified by the witness and deletes all columns corresponding to the specified traits. The function returns a list of all the chosen photos id&#39;s as strings.</span>
+
+<span class="sd">    Args :</span>
+<span class="sd">        df (pandas.array) : attributes matrix to reduce</span>
+<span class="sd">        fixed_att (dict) : attributes that have been selected by witness to reduce our matrixby columns</span>
+
+<span class="sd">    Returns :</span>
+<span class="sd">        list_names : return a list of strings with all the ids from the photos that containe the fixed_att attributes</span>
+
+<span class="sd">    &gt;&gt;&gt; df_test = convert_attributes_into_pandas(&quot;test_attributes.csv&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; fixed_attributes_test = {&quot;Pale_Skin&quot;:-1,&quot;Young&quot;:1,&quot;Male&quot;:1,&quot;Attractive&quot;:1,&quot;Bags_Under_Eyes&quot;:1}</span>
+<span class="sd">    &gt;&gt;&gt; df_test_list = matrix_reduction(df_test,fixed_attributes_test)</span>
+<span class="sd">    &gt;&gt;&gt; matrix_reduction(df_test,fixed_attributes_test)</span>
+<span class="sd">    [&#39;000006&#39;, &#39;000011&#39;, &#39;000037&#39;, &#39;000075&#39;, &#39;000079&#39;, &#39;000081&#39;]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="n">attributes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fixed_att</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fixed_att</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">attributes</span><span class="p">)):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">attributes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">!=</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">list_index</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">new_list_index</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_index</span><span class="p">)):</span>
+        <span class="n">new_list_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;00000&#39;</span> <span class="o">+</span> <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+            <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0000&#39;</span> <span class="o">+</span> <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+            <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;000&#39;</span> <span class="o">+</span> <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span>
+            <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;00&#39;</span> <span class="o">+</span> <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="mi">5</span><span class="p">:</span>
+            <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">new_list_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">new_list_index</span></div>
+
+<div class="viewcode-block" id="get_attributes_from_ID"><a class="viewcode-back" href="../../projet.html#projet.common_functions.get_attributes_from_ID">[docs]</a><span class="k">def</span> <span class="nf">get_attributes_from_ID</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">photo_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the corresponding array with all the attributes from the specified string photo name.</span>
+
+<span class="sd">    Args :</span>
+<span class="sd">        df (panda.array) : attributes matrix with all photos</span>
+<span class="sd">        photo_id (str) : XXXXXX.png name of the photo</span>
+
+<span class="sd">    Returns :</span>
+<span class="sd">        photo_attributes (pandas.array) :</span>
+
+<span class="sd">    &gt;&gt;&gt; df_test = convert_attributes_into_pandas(&quot;test_attributes.csv&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; type(get_attributes_from_ID(df_test,&#39;000018.jpg&#39;))</span>
+<span class="sd">    &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">photo_id</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="delete_photos"><a class="viewcode-back" href="../../projet.html#projet.common_functions.delete_photos">[docs]</a><span class="k">def</span> <span class="nf">delete_photos</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">photos_ids_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function that deletes photos from the database attribute matrix containing all the photos.</span>
+
+<span class="sd">    Args :</span>
+<span class="sd">        df (panda.array) : attributes matrix with all photos</span>
+<span class="sd">        photo_ids list((str)) : list of photos names that look like [ &#39;XXXXXX.png&#39; , &#39;YYYYYY.png&#39; , ...]</span>
+
+<span class="sd">    Returns :</span>
+<span class="sd">        reduced_df_attributes (panda.array) : same matrix as the arg one but without lines matching the photo_ids_list elements.</span>
+
+<span class="sd">    &gt;&gt;&gt; df_test = convert_attributes_into_pandas(&quot;test_attributes.csv&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; list_id = [&#39;000018.jpg&#39;,&#39;000066.jpg&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; len(delete_photos(df_test,list_id))</span>
+<span class="sd">    96</span>
+
+<span class="sd">    # = len(df_test)-len(list_id)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">photos_ids_list</span><span class="p">)):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">ID</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">photos_ids_list</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_df</span></div>
+
+<span class="c1">#################</span>
+<span class="c1">#TESTS UNITAIRES#</span>
+<span class="c1">#################</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Canjura, Loisel, Ouaret, Gaun, Valente.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

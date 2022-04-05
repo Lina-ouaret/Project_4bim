@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>projet package &mdash; Portrait_Robot_G5 Beta v0.0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Portrait_Robot_G5
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">projet package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-projet.common_functions">projet.common_functions module</a></li>
+<li><a class="reference internal" href="#module-projet.algo_genetique">projet.algo_genetique module</a></li>
+<li><a class="reference internal" href="#module-projet.neural_network_function">projet.neural_network_function module</a></li>
+<li><a class="reference internal" href="#module-projet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Portrait_Robot_G5</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>projet package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/projet.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="projet-package">
+<h1>projet package<a class="headerlink" href="#projet-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-projet.common_functions">
+<span id="projet-common-functions-module"></span><h2>projet.common_functions module<a class="headerlink" href="#module-projet.common_functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="projet.common_functions.convert_attributes_into_pandas">
+<code class="descclassname">projet.common_functions.</code><code class="descname">convert_attributes_into_pandas</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/common_functions.html#convert_attributes_into_pandas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.common_functions.convert_attributes_into_pandas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a csv file to a pandas.array matrix. The matrix contains all attributes as columns, and each photo ID and their corresponding attributes values in rows.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>filename (str) : path to csv file</dd>
+<dt>Returns :</dt>
+<dd>df_attributes (pandas.array) :  matrix of attributes that will be reduced to choose photos</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">convert_attributes_into_pandas</span><span class="p">(</span><span class="s2">&quot;test_attributes.csv&quot;</span><span class="p">))</span>
+<span class="go">&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.common_functions.delete_photos">
+<code class="descclassname">projet.common_functions.</code><code class="descname">delete_photos</code><span class="sig-paren">(</span><em>df</em>, <em>photos_ids_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/common_functions.html#delete_photos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.common_functions.delete_photos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that deletes photos from the database attribute matrix containing all the photos.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>df (panda.array) : attributes matrix with all photos
+photo_ids list((str)) : list of photos names that look like [ ‘XXXXXX.png’ , ‘YYYYYY.png’ , …]</dd>
+<dt>Returns :</dt>
+<dd>reduced_df_attributes (panda.array) : same matrix as the arg one but without lines matching the photo_ids_list elements.</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_test</span> <span class="o">=</span> <span class="n">convert_attributes_into_pandas</span><span class="p">(</span><span class="s2">&quot;test_attributes.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">list_id</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;000018.jpg&#39;</span><span class="p">,</span><span class="s1">&#39;000066.jpg&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">delete_photos</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span><span class="n">list_id</span><span class="p">))</span>
+<span class="go">96</span>
+</pre></div>
+</div>
+<p># = len(df_test)-len(list_id)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.common_functions.get_attributes_from_ID">
+<code class="descclassname">projet.common_functions.</code><code class="descname">get_attributes_from_ID</code><span class="sig-paren">(</span><em>df</em>, <em>photo_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/common_functions.html#get_attributes_from_ID"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.common_functions.get_attributes_from_ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the corresponding array with all the attributes from the specified string photo name.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>df (panda.array) : attributes matrix with all photos
+photo_id (str) : XXXXXX.png name of the photo</dd>
+<dt>Returns :</dt>
+<dd>photo_attributes (pandas.array) :</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_test</span> <span class="o">=</span> <span class="n">convert_attributes_into_pandas</span><span class="p">(</span><span class="s2">&quot;test_attributes.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">get_attributes_from_ID</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span><span class="s1">&#39;000018.jpg&#39;</span><span class="p">))</span>
+<span class="go">&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.common_functions.matrix_reduction">
+<code class="descclassname">projet.common_functions.</code><code class="descname">matrix_reduction</code><span class="sig-paren">(</span><em>df</em>, <em>fixed_att</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/common_functions.html#matrix_reduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.common_functions.matrix_reduction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduces the matrix based on the traits specified by the witness and deletes all columns corresponding to the specified traits. The function returns a list of all the chosen photos id’s as strings.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>df (pandas.array) : attributes matrix to reduce
+fixed_att (dict) : attributes that have been selected by witness to reduce our matrixby columns</dd>
+<dt>Returns :</dt>
+<dd>list_names : return a list of strings with all the ids from the photos that containe the fixed_att attributes</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_test</span> <span class="o">=</span> <span class="n">convert_attributes_into_pandas</span><span class="p">(</span><span class="s2">&quot;test_attributes.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fixed_attributes_test</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Pale_Skin&quot;</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;Young&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;Male&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;Attractive&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;Bags_Under_Eyes&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_test_list</span> <span class="o">=</span> <span class="n">matrix_reduction</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span><span class="n">fixed_attributes_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix_reduction</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span><span class="n">fixed_attributes_test</span><span class="p">)</span>
+<span class="go">[&#39;000006&#39;, &#39;000011&#39;, &#39;000037&#39;, &#39;000075&#39;, &#39;000079&#39;, &#39;000081&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-projet.algo_genetique">
+<span id="projet-algo-genetique-module"></span><h2>projet.algo_genetique module<a class="headerlink" href="#module-projet.algo_genetique" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="projet.algo_genetique.crossover_attributes">
+<code class="descclassname">projet.algo_genetique.</code><code class="descname">crossover_attributes</code><span class="sig-paren">(</span><em>parent1</em>, <em>parent2</em>, <em>pc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#crossover_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.crossover_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that crosses the attributes of the both parents to make an offspring.
+It takes a proportion pc of attributes from one parent and 1-pc from the other.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>parent1 (pandas.array) : first parent (photo) from which we take the attributes
+parent2 (pandas.array) : second parent (photo) from which we take the attributes
+pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</dd>
+<dt>Returns :</dt>
+<dd>offspring (pandas.array) : offspring of 2 previous parents/photos</dd>
+</dl>
+<p>#UNITSTEST TO DO IF WE USE THIS FUNCTION</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.algo_genetique.crossover_pixels">
+<code class="descclassname">projet.algo_genetique.</code><code class="descname">crossover_pixels</code><span class="sig-paren">(</span><em>parents</em>, <em>pc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#crossover_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.crossover_pixels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that crosses the vectors of pixels from n parents to make an offspring.
+For all possible combinations of two parents, it creates an offspring taking a proportion pc of the pixels from one parent and 1-pc from the other
+and another one taking the inverse proportions.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover
+pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</dd>
+<dt>Returns :</dt>
+<dd>offsprings (list(lists)) : offspring of 2 previous parents/photos</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_imgs_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;encoded_imgs_test.npy&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsprings</span> <span class="o">=</span> <span class="n">crossover_pixels</span><span class="p">(</span><span class="n">encoded_imgs_test</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsprings</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.843132019042969, 2.2844715118408203]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsprings2</span> <span class="o">=</span> <span class="n">crossover_pixels</span><span class="p">(</span><span class="n">encoded_imgs_test</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">offsprings2</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">[0.358284056186676, 0.0, 2.050474166870117, 0.0, 0.0, 0.5806276202201843, 0.0, 0.23518957197666168, 0.0, 0.0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.algo_genetique.mutation_attributes">
+<code class="descclassname">projet.algo_genetique.</code><code class="descname">mutation_attributes</code><span class="sig-paren">(</span><em>offspring</em>, <em>pm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#mutation_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.mutation_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that mutates a population of parents and creates a certain number of offsprings by mutating each pixel with a certain probability pm</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>offspring (pandas.array) : offspring getting the mutation
+pm (int) : proportion of attributes that will be mutated (multiply by -1 to get the opposite)</dd>
+<dt>Returns :</dt>
+<dd>offspring (pandas.array) : offspring of 2 previous parents/photos</dd>
+</dl>
+<p>#UNITSTEST TO DO IF WE USE THIS FUNCTION</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.algo_genetique.mutation_pixels">
+<code class="descclassname">projet.algo_genetique.</code><code class="descname">mutation_pixels</code><span class="sig-paren">(</span><em>parent</em>, <em>pm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#mutation_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.mutation_pixels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that crosses the reduced pixel matrix (encoded by neural network) of the both parents to make an offspring.
+It takes a proportion pc of attributes from one parent and 1-pc from the other.</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd><p class="first">parents(list(list)) : list of arrays representing the reduced pixel matrix of the parents we will use for the</p>
+<p class="last">pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</p>
+</dd>
+<dt>Returns :</dt>
+<dd>offspring(list(list)) : offspring of 2 previous parents/photos</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_imgs_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;encoded_imgs_test.npy&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_parents</span> <span class="o">=</span> <span class="n">mutation_pixels</span><span class="p">(</span><span class="n">encoded_imgs_test</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">[ 52.   0.  46. 205.   0.  30. 184.  88.   0.  13.]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_imgs_test</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">new_parents</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.algo_genetique.randomly_choose_photos">
+<code class="descclassname">projet.algo_genetique.</code><code class="descname">randomly_choose_photos</code><span class="sig-paren">(</span><em>df</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#randomly_choose_photos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.randomly_choose_photos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that randomly chooses n photos from the current reduced matrix, in order to display them so one or two can be selected by the witness</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>number_photos (int) : number of photo to be selected
+df (pandas.array) : database from where the photo are selected</dd>
+<dt>Returns :</dt>
+<dd>photos_names (list(str)) :  list of photo names looking like XXXXXX.png</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_test</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">convert_attributes_into_pandas</span><span class="p">(</span><span class="s2">&quot;test_attributes.csv&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fixed_attributes_test</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Male&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;Young&quot;</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_test_list</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">matrix_reduction</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span><span class="n">fixed_attributes_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randomly_choose_photos</span><span class="p">(</span><span class="n">df_test_list</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="go">[78, 14, 20, 68, 50, 29]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">randomly_choose_photos</span><span class="p">(</span><span class="n">df_test_list</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-projet.neural_network_function">
+<span id="projet-neural-network-function-module"></span><h2>projet.neural_network_function module<a class="headerlink" href="#module-projet.neural_network_function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="projet.neural_network_function.loss_test">
+<code class="descclassname">projet.neural_network_function.</code><code class="descname">loss_test</code><span class="sig-paren">(</span><em>autoencoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/neural_network_function.html#loss_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.neural_network_function.loss_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the input images and their reconstruction after being decoded</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>autoencoder(keras.engine.functional.Functional)</dd>
+<dt>Returns :</dt>
+<dd>None</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epochs</span><span class="o">=</span><span class="mi">300</span> <span class="c1">#parameters of autoencoder_.fit(...)</span>
+<span class="go">    history[&#39;val_loss&#39;]==epochs</span>
+<span class="go">    &lt;True&gt;</span>
+<span class="go">    history[&#39;loss&#39;]==epochs</span>
+<span class="go">    &lt;True&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.neural_network_function.model">
+<code class="descclassname">projet.neural_network_function.</code><code class="descname">model</code><span class="sig-paren">(</span><em>original_dim</em>, <em>hidden_encoding_dim</em>, <em>encoding_dim</em>, <em>dropout_level</em>, <em>hidden_decoding_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/neural_network_function.html#model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.neural_network_function.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model of neural network</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>original_dim (int) :
+hidden_encoding_dim (int) :
+encoding_dim (int) :
+dropout_level (float) :
+hidden_decoding_dim (int) :</dd>
+<dt>Returns :</dt>
+<dd>encoder (keras.engine.functional.Functional) :
+decoder (keras.engine.functional.Functional) :
+autoencoder (keras.engine.functional.Functional) :</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">encoder</span><span class="p">);</span> <span class="nb">type</span><span class="p">(</span><span class="n">decoder</span><span class="p">);</span> <span class="nb">type</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">);</span>
+<span class="go">&lt;keras.engine.functional.Functional&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Verify</span> <span class="n">that</span> <span class="n">loss</span> <span class="ow">and</span> <span class="n">val</span> <span class="n">loss</span> <span class="n">never</span> <span class="n">reach</span> <span class="mi">0</span><span class="p">:</span>
+<span class="go">    history = autoencoder.history.history</span>
+<span class="go">    for i in range(len(history[&#39;val_loss&#39;])):</span>
+<span class="go">          if history[&#39;val_loss&#39;][i]==0:</span>
+<span class="go">              print(&quot;test failed&quot;)</span>
+<span class="go">              break</span>
+<span class="go">    for i in range(len(history[&#39;loss&#39;])):</span>
+<span class="go">          if history[&#39;loss&#39;][i]==0:</span>
+<span class="go">              print(&quot;test failed&quot;)</span>
+<span class="go">              break</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.neural_network_function.save_reconstruction">
+<code class="descclassname">projet.neural_network_function.</code><code class="descname">save_reconstruction</code><span class="sig-paren">(</span><em>n</em>, <em>decoded</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/neural_network_function.html#save_reconstruction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.neural_network_function.save_reconstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the input images and their reconstruction after being decoded</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>decoded (array)
+n (int) : number of faces we will display</dd>
+<dt>Returns :</dt>
+<dd>None</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">run</span> <span class="n">the</span> <span class="n">program</span> <span class="n">code</span> <span class="s2">&quot;testunitairecontrolplot&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="projet.neural_network_function.split_dataset">
+<code class="descclassname">projet.neural_network_function.</code><code class="descname">split_dataset</code><span class="sig-paren">(</span><em>dataset</em>, <em>attribut</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/neural_network_function.html#split_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.neural_network_function.split_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the dataset into train and test, in order to train the neural network</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)
+attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc</dd>
+<dt>Returns :</dt>
+<dd>X_train (array) : portion of the db used to train the neural network - input
+X_test (array) : portion of the db used to test the neural network - output
+Y_train (array) : portion of the db used to train the neural network - input
+Y_test (array) : portion of the db used to test the neural network - output</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">run</span> <span class="n">the</span> <span class="n">program</span> <span class="n">code</span> <span class="s2">&quot;testunitairedataplit&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-projet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-projet" title="Permalink to this headline">¶</a></h2>
+<p>docstring</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Canjura, Loisel, Ouaret, Gaun, Valente.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
