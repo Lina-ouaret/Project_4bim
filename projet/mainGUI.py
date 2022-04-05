@@ -62,6 +62,8 @@ class Controller:
     def show_select(self):
         self.login = mywindow()
         self.login.switch_window.connect(self.show_main)
+        self.window_three = mywindow4()
+        self.window_three.close()
         self.login.show()
 
     def show_main(self):
@@ -80,6 +82,7 @@ class Controller:
     def show_window_lastphoto(self):
         self.window_three = mywindow4()
         self.window_two.close()
+        self.window.switch_window.connect(self.show_select)
         self.window_three.show()
 
 

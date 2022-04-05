@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 
 class Ui_MainWindow(object):
+    switch_window = QtCore.pyqtSignal()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(234, 267)
@@ -49,8 +50,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
-        self.pushButton_2.clicked.connect(self.yes)
+        self.pushButton.clicked.connect(self.yes)
+        self.pushButton_2.clicked.connect(self.no)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -60,7 +61,10 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "yes"))
         self.pushButton_2.setText(_translate("MainWindow", "cancel"))
+
     def yes(self):
+        self.switch_window.emit()
+    def no(self):
         files = os.listdir("choice/")  # 读入文件夹
         names = []
         u =0
