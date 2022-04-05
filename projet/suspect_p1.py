@@ -39,8 +39,13 @@ import glob
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  # Convert to suspect selection page2 method
 
-    # Label, button position, size setting， show photos
     def setupUi2(self, MainWindow):
+        """
+        Label, button position, size setting， show photos
+
+        Args :
+            MainWindow : principal window displaying the program
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -203,7 +208,7 @@ class Ui_MainWindow(object):
         self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
         self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
         self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
-
+MainWindow : principal window displaying the program
         # Connect the buttons to the corresponding functions
         self.suspect1.clicked.connect(self.saveChoice)
         self.suspect2.clicked.connect(self.saveChoice)
@@ -219,8 +224,14 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    # Text display on buttons and labels
+
     def retranslateUi(self, MainWindow):
+        """
+        Text display on buttons and labels
+
+        Args :
+            MainWindow : principal window displaying the program
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label1.setText(_translate("MainWindow", "Please select 4 images that look most like the criminal'"))

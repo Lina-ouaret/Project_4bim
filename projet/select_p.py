@@ -17,8 +17,13 @@ import os
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal() #Convert to suspect selection page2 method
 
-    # Label, button position, size setting
     def setupUi(self, MainWindow):
+        """
+        Label, button position, size setting
+
+        Args :
+            MainWindow : principal window displaying the program
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(704, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -139,8 +144,13 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    #Text display on buttons and labels
     def retranslateUi(self, MainWindow):
+        """
+        Text display on buttons and labels
+
+        Args :
+            MainWindow : principal window displaying the program
+        """
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Please select an initial set of physical traits for the search: \n"
