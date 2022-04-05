@@ -59,39 +59,39 @@ def model():
                 print("test failed")
                 break
   '''
-    # "encoded" is the encoded representation of the input
-     #input_shape = (128,128,3)
-     image_size    = (128,128)
-     lx,ly      = image_size
-     encoded_dim = 1000
+  # "encoded" is the encoded representation of the input
+  #input_shape = (128,128,3)
+  image_size    = (128,128)
+  lx,ly      = image_size
+  encoded_dim = 1000
 
-     #input_img = keras.Input(shape=input_shape)
-     input_img    = keras.Input(shape=(lx, ly, 3))
-     x = keras.layers.Conv2D(32, 3, activation='relu', padding='same')(input_img)
-     x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
-     x = keras.layers.Conv2D(16, 3, activation='relu', padding='same')(x)
-     x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
-     x = keras.layers.Conv2D(8, 3, activation='relu', padding='same')(x)
-     x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
-     encoded = keras.layers.Flatten()(x)
+  #input_img = keras.Input(shape=input_shape)
+  input_img    = keras.Input(shape=(lx, ly, 3))
+  x = keras.layers.Conv2D(32, 3, activation='relu', padding='same')(input_img)
+  x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+  x = keras.layers.Conv2D(16, 3, activation='relu', padding='same')(x)
+  x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+  x = keras.layers.Conv2D(8, 3, activation='relu', padding='same')(x)
+  x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+  encoded = keras.layers.Flatten()(x)
 
-     # "decoded" is the reconstruction of the input
-     # at this point the representation is (16, 16, 8) i.e. 2048-dimensional
-     x = keras.layers.Reshape((16,16,8))(encoded)
-     x = keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x) #meriem
-     x = keras.layers.UpSampling2D((2, 2))(x)
-     x = keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x)
-     x = keras.layers.UpSampling2D((2, 2))(x)
-     x = keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
-     x = keras.layers.UpSampling2D((2, 2))(x)
-     decoded = keras.layers.Conv2D(3, (3, 3), activation='sigmoid', padding='same')(x)
+  # "decoded" is the reconstruction of the input
+  # at this point the representation is (16, 16, 8) i.e. 2048-dimensional
+  x = keras.layers.Reshape((16,16,8))(encoded)
+  x = keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x) #meriem
+  x = keras.layers.UpSampling2D((2, 2))(x)
+  x = keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x)
+  x = keras.layers.UpSampling2D((2, 2))(x)
+  x = keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+  x = keras.layers.UpSampling2D((2, 2))(x)
+  decoded = keras.layers.Conv2D(3, (3, 3), activation='sigmoid', padding='same')(x)
 
-     # This model maps an input to its reconstruction
-     autoencoder = keras.Model(input_img, decoded)
-     # This model maps an input to is encoded representation
-     encoder = keras.Model(input_img, encoded)
-     # This model maps an imput with the same dim as the encoded to the reconstruction
-     decoder = keras.Model(encoded, decoded)
+  # This model maps an input to its reconstruction
+  autoencoder = keras.Model(input_img, decoded)
+  # This model maps an input to is encoded representation
+  encoder = keras.Model(input_img, encoded)
+  # This model maps an imput with the same dim as the encoded to the reconstruction
+  decoder = keras.Model(encoded, decoded)
 
   return encoder, decoder, autoencoder
 
