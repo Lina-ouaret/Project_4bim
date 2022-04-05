@@ -28,7 +28,7 @@ def split_dataset(dataset, attribut):
     Y_train (array) : portion of the db used to train the neural network - input
     Y_test (array) : portion of the db used to test the neural network - output
 
-  >>> run the program code "testunitairedataplit" 
+  >>> run the program code "testunitairedataplit"
 
   '''
   X_train, X_test, Y_train, Y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
@@ -36,17 +36,11 @@ def split_dataset(dataset, attribut):
 
 ## Model definition
 
-def model(original_dim, hidden_encoding_dim, encoding_dim,
-           dropout_level, hidden_decoding_dim):
+def model():
   '''
   Model of neural network
 
   Args :
-    original_dim (int) :
-    hidden_encoding_dim (int) :
-    encoding_dim (int) :
-    dropout_level (float) :
-    hidden_decoding_dim (int) :
   Returns :
     encoder (keras.engine.functional.Functional) :
     decoder (keras.engine.functional.Functional) :
@@ -54,8 +48,8 @@ def model(original_dim, hidden_encoding_dim, encoding_dim,
 
   >>> type(encoder); type(decoder); type(autoencoder);
   <keras.engine.functional.Functional>
-  >>> Verify that loss and val loss never reach 0:
-      history = autoencoder.history.history
+  >>> #Verify that loss and val loss never reach 0:
+  >>> history = autoencoder.history.history
       for i in range(len(history['val_loss'])):
             if history['val_loss'][i]==0:
                 print("test failed")
@@ -65,28 +59,80 @@ def model(original_dim, hidden_encoding_dim, encoding_dim,
                 print("test failed")
                 break
   '''
-  # "encoded" is the encoded representation of the input
-  input_img = keras.Input(shape=(original_dim,))
-  hidden_encoded = Dense(hidden_encoding_dim, activation='relu')(input_img)
-  dropout_hidden_encoded = Dropout(dropout_level)(hidden_encoded)
-  encoded = Dense(encoding_dim, activation='relu')(dropout_hidden_encoded)
-  dropout_encoded = Dropout(dropout_level)(encoded)
+    # "encoded" is the encoded representation of the input
+     #input_shape = (128,128,3)
+     image_size    = (128,128)
+     lx,ly      = image_size
+     encoded_dim = 1000
+     input_img    = keras.Input(shape=(lx, ly, 3))
+     # #input_img = keras.Input(shape=input_shape)
+     # x = keras.layers.Conv2D(128, 3,strides=2,activation='relu', padding='same')(input_img)
+     # x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(64, 3,strides=2,activation='relu', padding='same')(x)
+     # x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(32, 3, activation='relu', padding='same')(x)
+     # x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(16, 3, activation='relu', padding='same')(x)
+     # x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(8, 3, activation='relu', padding='same')(x)
+     # x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Flatten()(x)
+     # x = keras.layers.Dense(128,"relu")(x)
+     # encoded = keras.layers.Dense(encoded_dim,activation='relu')(x)
+     #
+     # # "decoded" is the reconstruction of the input
+     # # at this point the representation is (4, 8, 8) i.e. 256-dimensional
+     # x = keras.layers.Dense(128,"relu")(encoded)
+     # x = keras.layers.Dense(4*4*8,"relu")(x)
+     # x = keras.layers.Reshape((4,4,8))(x)
+     # x = keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x)
+     # x = keras.layers.UpSampling2D((2, 2))(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x)
+     # x = keras.layers.UpSampling2D((2, 2))(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+     # x = keras.layers.UpSampling2D((2, 2))(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same')(x)
+     # x = keras.layers.UpSampling2D((2, 2))(x)
+     # x = keras.layers.Dropout(0.2)(x)
+     # x = keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same')(x)
+     # x = keras.layers.UpSampling2D((2, 2))(x)
+     # decoded = keras.layers.Conv2D(3, (3, 3), activation='sigmoid', padding='same')(x)
 
-  # "decoded" is the reconstruction of the input
-  hidden_decoded = Dense(hidden_decoding_dim, activation='relu')(dropout_encoded)
-  dropout_hidden_decoded = Dropout(dropout_level)(hidden_decoded)
-  decoded = Dense(original_dim, activation='sigmoid')(dropout_hidden_decoded)
+     #input_img = keras.Input(shape=input_shape)
+     input_img    = keras.Input(shape=(lx, ly, 3))
+     x = keras.layers.Conv2D(32, 3, activation='relu', padding='same')(input_img)
+     x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     x = keras.layers.Conv2D(16, 3, activation='relu', padding='same')(x)
+     x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     x = keras.layers.Conv2D(8, 3, activation='relu', padding='same')(x)
+     x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)
+     encoded = keras.layers.Flatten()(x)
 
-  # This model maps an input to its reconstruction
-  autoencoder = keras.Model(input_img, decoded)
-  # This model maps an input to is encoded representation
-  encoder = keras.Model(input_img, encoded)
-  # This model maps an imput with the same dim as the encoded to the reconstruction
-  input_encoded_img = keras.Input(shape=(encoding_dim,))
-  hidden_decoder_layer = autoencoder.layers[-3]
-  hidden_dropout_decoded_layer = autoencoder.layers[-2]
-  decoder_layer = autoencoder.layers[-1]
-  decoder = keras.Model(input_encoded_img, decoder_layer(hidden_dropout_decoded_layer(hidden_decoder_layer(input_encoded_img))))
+     # "decoded" is the reconstruction of the input
+     # at this point the representation is (16, 16, 8) i.e. 2048-dimensional
+     x = keras.layers.Reshape((16,16,8))(encoded)
+     x = keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same')(x) #meriem
+     x = keras.layers.UpSampling2D((2, 2))(x)
+     x = keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x)
+     x = keras.layers.UpSampling2D((2, 2))(x)
+     x = keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+     x = keras.layers.UpSampling2D((2, 2))(x)
+     decoded = keras.layers.Conv2D(3, (3, 3), activation='sigmoid', padding='same')(x)
+
+     # This model maps an input to its reconstruction
+     autoencoder = keras.Model(input_img, decoded)
+     # This model maps an input to is encoded representation
+     encoder = keras.Model(input_img, encoded)
+     # This model maps an imput with the same dim as the encoded to the reconstruction
+     decoder = keras.Model(encoded, decoded)
 
   return encoder, decoder, autoencoder
 
@@ -102,18 +148,17 @@ def save_reconstruction(n,decoded):
   Returns :
     None
 
-  >>> run the program code "testunitairecontrolplot" 
+  >>> run the program code "testunitairecontrolplot"
 
   '''
   for i in range(n):
-    plt.imshow(decoded[i].reshape(64,64))
+    plt.imshow(decoded[i].reshape(128, 128,3))
     plt.axis('off')
-    plt.gray()
+    #plt.gray()
     j=i+1
     plt.savefig("son/"+str(j)+".png")
-
     img_=cv2.imread("son/"+str(j)+".png")
-    img_2=cv2.resize(img_,(100,100))
+    img_2=cv2.resize(img_,(128,128))
     #print(img_2)
     cv2.imwrite('son/'+str(j)+'.png', img_2)
 
@@ -130,11 +175,11 @@ def loss_test(autoencoder):
     Returns :
         None
 
-    >>> epochs=300 #parameters of autoencoder_.fit(...)
-        history['val_loss']==epochs
-        <True>
-        history['loss']==epochs
-        <True>
+    >>> epochs=100 #parameters of autoencoder_.fit(...)
+    >>> history['val_loss']==epochs
+    <True>
+    >>> history['loss']==epochs
+    <True>
     '''
     history = autoencoder.history.history
     plt.plot(history['val_loss'],label="test")
@@ -143,3 +188,12 @@ def loss_test(autoencoder):
     plt.ylabel("Loss")
     plt.legend()
     return None
+
+
+#################
+#TESTS UNITAIRES#
+#################
+
+if __name__ == "__main__" :
+    import doctest
+    doctest.testmod(verbose = True)

@@ -1,66 +1,101 @@
 import neural_network_function as nn
 import common_functions as cf
 import numpy as np
-# import matplotlib.pyplot as plt      # plotting routines
-# import keras
-# from keras.models import Model       # Model type to be used
-# from keras.layers.core import Dense, Dropout, Activation # Types of layers to be used in our model
-# from keras.utils import np_utils                         # NumPy related tools
-# import tensorflow as tf
-# import matplotlib.pyplot as plt
-# from sklearn.model_selection import train_test_split
-# import pandas as pd
-# from PIL.Image import *
 
 if __name__ == "__main__" :
 
-    # Upload photos
-    from sklearn.datasets import fetch_olivetti_faces # Olivetti faces dataset
-    dataset = fetch_olivetti_faces()
-    X = dataset["data"]
-    y = dataset["target"]
+    # Clusters:
+    att_cluster1 = {"Male":-1,"Straight_Hair":-1,"Young":-1}
+    # att_cluster2= {"Male":-1,"Straight_Hair":-1,"Young":1}
+    # att_cluster3 = {"Male":-1,"Straight_Hair":1,"Young":1}
+    # att_cluster4 = {"Male":1,"Straight_Hair":1,"Young":-1}
+    # att_cluster5 = {"Male":1,"Straight_Hair":-1,"Young":1}
+    # att_cluster6 = {"Male":1,"Straight_Hair":-1,"Young":-1}
+    # att_cluster7 = {"Male":-1,"Straight_Hair":1,"Young":-1}
+    # att_cluster8 = {"Male":1,"Straight_Hair":1,"Young":1}
+
+
+    df_attributes = cf.convert_attributes_into_pandas("attributes_data.csv")
+
+    index_cluster1 =cf.matrix_reduction(df_attributes,att_cluster1)
+    # index_cluster2 =cf.matrix_reduction(df_attributes,att_cluster2)
+    # index_cluster3 =cf.matrix_reduction(df_attributes,att_cluster3)
+    # index_cluster4 =cf.matrix_reduction(df_attributes,att_cluster4)
+    # index_cluster5 =cf.matrix_reduction(df_attributes,att_cluster5)
+    # index_cluster6 =cf.matrix_reduction(df_attributes,att_cluster6)
+    # index_cluster7 =cf.matrix_reduction(df_attributes,att_cluster7)
+    # index_cluster8 =cf.matrix_reduction(df_attributes,att_cluster8)
+
+
+    #Upload pictures avec ckuster1
+    images=[]
+    for k in range(len(index_cluster1)):
+        images.append(glob.glob("/media/cloisel/SAMSUNG/projet4BIM/img_align_celeba/"+index_cluster1[k]+".jpg")[0])
+    i=0
+    n=len(images)
+    img=[None]*n
+    image_size=(128,128)
+    for image_ in images:
+        picture = pyplot.imread(image_)
+        img[i] = transform.resize(picture, image_size)
+        i+=1
+    dataset=[None]*n
+    for j in range(n):
+        dataset[j]=np.reshape(np.asarray(img[j]),(128*128*3))
+    data=np.array(dataset)
+    X=data[0:700]
+
+    #Upload attributs
+    y = cf.convert_attributes_into_pandas("attributes_data.csv")
+    y = y.drop('ID', axis=1)
+    y = y.to_numpy()
+    y=y[0:700]
+
+    #Suppression of useless variables
+    del images
+    del index_cluster1
+    del att_cluster1
+    del dataset
 
     # Split the dataset
     (X_train_, X_test_, y_train_, y_test_) = nn.split_dataset(X, y)
 
     # Creation model
-    original_dim = X.shape[1]
-    hidden_encoding_dim = 512
-    encoding_dim = 64
-    hidden_decoding_dim = 512
-    dropout_level = 0.1
-    (encoder_, decoder_, autoencoder_) = nn.model (original_dim,
-                                                hidden_encoding_dim, encoding_dim,
-                                                dropout_level, hidden_decoding_dim)
+    (encoder_, decoder_, autoencoder_) = nn.model()
 
     # Compile the model
     autoencoder_.compile(optimizer='adam', loss='binary_crossentropy')
 
+    # Resize X_train and X_test
+    X_train = X_train_.reshape(-3,128,128,3)
+    X_test = X_test_.reshape(-3,128,128,3)
+
     # Fit the model
-    autoencoder_.fit(X_train_, X_train_,
-                    epochs=300,
-                    batch_size=64,
+    autoencoder.fit(X_train, X_train,
+                    epochs=100,  #100
+                    batch_size=1,  #32
                     shuffle=True,
-                    validation_data=(X_test_, X_test_))
+                    validation_data=(X_test, X_test))
 
     # Plot reconstruction
-    encoded_imgs = encoder_.predict(X_test_)
+    # encoded_imgs = encoder_.predict(X_test_)
+    encoded_imgs = encoder_.predict(X.reshape(-3,128,128,3))
     decoded_imgs = decoder_.predict(encoded_imgs)
     nn.save_reconstruction(1, decoded_imgs)
 
     # save model
-    np.save('encoded_imgs', encoded_imgs)
-    np.save('decoded_imgs', decoded_imgs)
-    decoder_.save('decoder.h5')
+    np.save('encoded_imgs1', encoded_imgs)
+    np.save('decoded_imgs1', decoded_imgs)
+    decoder_.save('decoder1.h5')
 
     # load model
-    #savedDecoder=load_model('decoder.h5')
+    savedDecoder=load_model('decoder1.h5')
     #savedDecoder.summary()
 
     # Plot the learning curve to test the model
     nn.loss_test(autoencoder_)
 
-    #np.save('encoded_imgs.npy', encoded_imgs)
-    #np.save('decoded_imgs.npy', decoded_imgs)
+    np.save('encoded_imgs1.npy', encoded_imgs)
+    np.save('decoded_imgs1.npy', decoded_imgs)
 
     #a2 = np.load('encoded_imgs.npy')
