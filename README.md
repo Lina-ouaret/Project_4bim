@@ -6,11 +6,19 @@
 3. [Installation](#installation)
 4. [Collaboration](#collaboration)
 5. [FAQs](#faqs)
-### General Info
+### Software Description
 ***
 This software creates a synthesized portrait with facial features that resemble as close as possible to a criminal. The creation of the portrait is made based on a witness's successive choices between different propositions taken from a large-scale face attributes dataset. These choices are used by the software to identify the most likely facial characteristics in order to select and propose an image that corresponds to the witness's expectations and hopefully to the actual criminal. 
 
-The software contains a user friendly Graphical User Interface and the methods used to propose a final portrait include a Neural Network Algorithm and a Genetic Algorithm 
+The software contains a user friendly Graphical User Interface and the methods used to propose a final portrait include a Neural Network Algorithm and a Genetic Algorithm. 
+
+### Methods Description
+*** 
+
+
+
+
+
 
 ## Technologies
 ***
