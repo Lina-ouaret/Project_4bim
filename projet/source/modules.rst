@@ -1,5 +1,5 @@
-Project_4bim
-============
+projet
+======
 
 .. toctree::
    :maxdepth: 4
