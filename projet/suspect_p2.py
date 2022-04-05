@@ -40,8 +40,13 @@ class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  #Convert back to current page method
     switch_window2 = QtCore.pyqtSignal() #Convert to Checkout page method
 
-    # Label, button position, size setting， show photos
     def setupUi(self, MainWindow):
+        """
+        Label, button position, size setting
+
+        Args :
+            MainWindow : principal window displaying the program
+        """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -286,8 +291,14 @@ class Ui_MainWindow(object):
     #Whether the suspect is found or not, initialized to no
     stopGUI = False
 
-    # Text display on buttons and labels
     def retranslateUi(self, MainWindow):
+        """
+        Text display on buttons and labels
+
+        Args :
+            MainWindow : principal window displaying the program
+        """
+
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label1.setText(
