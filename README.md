@@ -31,9 +31,6 @@ Our project is based on 3 main lines
 2) Genetic Algorithm : The purpose of the genetic algorithm is to reshape the suspect’s image using the various photo choices made by the victim that most closely resembles the suspect. The victim must have the choice of attributes in the genetic algorithm method. The algorithm must take into account the choice of the victim before making the next photo proposal. The mutation method chosen is the crossing over method.
 3) GIU : The GIU will display the suspect image based on the victim's choice.     
 
-
-
-
 ## Technologies
 ***
 A list of technologies used within the project:
@@ -56,6 +53,8 @@ Then follow the intructions of the graphic interface.
 ## Collaboration
 ***
 You can download the project on github but you can't collaborate directly on the project (it is private).
+
+## Tutoriel 
 ## FAQs
 ***
 A list of frequently asked questions
