@@ -93,20 +93,20 @@ class Controller():
 if __name__ == "__main__":
 
     # load model
-    decoder_ = keras.models.load_model('decoder.h5')
+    decoder_ = keras.models.load_model('decoders/decoder1.h5')
     # decoder_ = keras.Sequential()
 
     # load encoded_imgs
-    encoded_imgs = np.load('encoded_imgs.npy')
-    decoded_imgs = np.load('decoded_imgs.npy')
+    encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+    decoded_imgs = np.load('clusters/decoded_imgs1.npy')
     # encoded_imgs.tolist()
 
-    # Upload photos
-    from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
-
-    dataset = fetch_olivetti_faces()
-    df = dataset["data"]
-    attribut = dataset["target"]
+    # # Upload photos
+    # from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
+    #
+    # dataset = fetch_olivetti_faces()
+    # df = dataset["data"]
+    # attribut = dataset["target"]
 
     # Reduction matrice
     # pas besoin pour olivetti*

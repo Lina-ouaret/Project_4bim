@@ -276,8 +276,8 @@ class Ui_MainWindow(object):
         files = os.listdir("choice/")
         num_png = len(files)
         # load model
-        decoder_ = keras.models.load_model('decoder.h5')
-        encoded_img = np.load('encoded_imgs.npy')
+        decoder_ = keras.models.load_model('decoders/decoder1.h5')
+        encoded_img = np.load('clusters/encoded_imgs1.npy')
         if num_png == 4:
             # Choix de l'utilisateur :
             files = os.listdir("choice/")
