@@ -6,18 +6,28 @@
 3. [Installation](#installation)
 4. [Collaboration](#collaboration)
 5. [FAQs](#faqs)
-### General Info
+### Software Description
 ***
-First version of our project : "Portraits robot".
-The main objective of the project is to create a software module that proposes a series of portraits with close facial traits to a criminal/assaulter to help witnesses narrow down the assaulters’ physical characteristics, facilitating the recognition of possible assaulters.
-This assisted identification of a presumably criminal person by a witness is based upon a database of identity pictures (olivetti database) and a method, composed by a neural network and a genetic algorithm, allowing creating synthetic pictures from it to get the closest image of the searched individual.
+This software creates a synthesized portrait with facial features that resemble as close as possible to a criminal. The creation of the portrait is made based on a witness's successive choices between different propositions taken from a large-scale face attributes dataset. These choices are used by the software to identify the most likely facial characteristics in order to select and propose an image that corresponds to the witness's expectations and hopefully to the actual criminal. 
+
+The software contains a user friendly Graphical User Interface and the methods used to propose a final portrait include a Neural Network Algorithm and a Genetic Algorithm. 
+
+### Methods Description
+*** 
+
+
+
+
+
+
 ## Technologies
 ***
 A list of technologies used within the project:
-* [python3] : Version
-* [Library keras](https://example.com): Version
-* [Library tensorflow](https://example.com): Version
-* Database python Olivetti
+* [python3](https://www.python.org/downloads/): Version 3.7.3
+* [Library keras](https://keras.io/about/): Version 2.8.0
+* [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
+* [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+
 ## Installation
 ***
 To use the application you need a python environnement and you have to verify the versions of python and modules.
