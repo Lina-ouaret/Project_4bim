@@ -28,7 +28,7 @@ def split_dataset(dataset, attribut):
     Y_train (array) : portion of the db used to train the neural network - input
     Y_test (array) : portion of the db used to test the neural network - output
 
-  >>> run the program code "testunitairedataplit" 
+  >>> run the program code "testunitairedataplit"
 
   '''
   X_train, X_test, Y_train, Y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
@@ -102,7 +102,7 @@ def save_reconstruction(n,decoded):
   Returns :
     None
 
-  >>> run the program code "testunitairecontrolplot" 
+  >>> run the program code "testunitairecontrolplot"
 
   '''
   for i in range(n):
