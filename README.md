@@ -2,9 +2,9 @@
 
 ## Table of Contents
 1. [General Information](#general-info)
-2. [Repository Organization]
-3. [Methodologies Description]
-4. [Tutoriel]
+2. [Repository Organization](#repository-information)
+3. [Methodologies Description](#methodologies_desciption)
+4. [Tutoriel](#tutoriel)
 5. [Installation](#technologies)
 6. [Technologies](#installation)
 7. [Collaboration](#collaboration)
@@ -58,6 +58,7 @@ Then follow the intructions of the graphic interface.
 You can download the project on github but you can't collaborate directly on the project (it is private).
 
 ## Tutoriel 
+
 ## FAQs
 ***
 A list of frequently asked questions
