@@ -2,10 +2,13 @@
 
 ## Table of Contents
 1. [General Information](#general-info)
-2. [Technologies](#technologies)
-3. [Installation](#installation)
-4. [Collaboration](#collaboration)
-5. [FAQs](#faqs)
+2. [Repository Organization]
+3. [Methodologies Description]
+4. [Tutoriel]
+5. [Installation](#technologies)
+6. [Technologies](#installation)
+7. [Collaboration](#collaboration)
+8. [FAQs](#faqs)
 
 ## General Information
 ### Software Description
