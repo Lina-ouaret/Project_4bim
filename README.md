@@ -15,7 +15,7 @@ The software contains a user friendly Graphical User Interface and the methods u
 ## Technologies
 ***
 A list of technologies used within the project:
-* [python3] : Version 3.7.3
+* [python3](https://www.python.org/downloads/): Version 3.7.3
 * [Library keras](https://keras.io/about/): Version 2.8.0
 * [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
 * [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
