@@ -257,9 +257,9 @@ class Ui_MainWindow(object):
         self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
         self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
         self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
-        self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
-        self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
-        self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
+        # self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+        # self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+        # self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
 
         # Connect the buttons to the corresponding functions
         self.suspect1.clicked.connect(self.saveChoice)
@@ -390,7 +390,7 @@ class Ui_MainWindow(object):
         if self.stopGUI == True:
             rmtree('final_choice/')
             os.mkdir('final_choice/')
-            print('final_choice/'+ str(int(button_name[-1])) + "f.png")
+            #print('final_choice/'+ str(int(button_name[-1])) + "f.png")
             copyfile(source, 'final_choice/'+ str(int(button_name[-1])) + "f.png")
             self.switch_window2.emit()
         elif self.stopGUI == False:
@@ -466,9 +466,11 @@ class Ui_MainWindow(object):
             encoded_mut = []
             for i in range(n):
                 if files[i][1] == 'f':
+                    print("father :"+files[i])
                     encoded_father[i] = encoded_choice[num_p[i]]
                     for m in range(3):
-                        encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
+                        #encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
+                        encoded_mut.append(ag.mutation_pixels(encoded_choice[num_p[i]], 2))
                 else:
                     encoded_father[i] = encoded_son[num_p[i]]
                     encoded_cross.append(encoded_father[i])
@@ -482,10 +484,10 @@ class Ui_MainWindow(object):
             # Algo genetique1 : crossover
             # np.save('encoded_choix', encoded_choix)
             # encoded_ag = ag.crossover_pixels(encoded_father, 0.3)
-            print(len(encoded_ag))
-            print(len(encoded_ag[0]))
-            print(type(encoded_ag))
-            print(type(encoded_ag[0]))
+            # print(len(encoded_ag))
+            # print(len(encoded_ag[0]))
+            # print(type(encoded_ag))
+            # print(type(encoded_ag[0]))
             decoded_ag = decoder_.predict(encoded_ag)
             nn.save_reconstruction(9, decoded_ag)
             np.save('encoded_choix', encoded_father)
@@ -522,9 +524,9 @@ class Ui_MainWindow(object):
             self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
             self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
             self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
-            self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
-            self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
-            self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
+            # self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+            # self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+            # self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
             self.photo_f1.setPixmap(QtGui.QPixmap(names[0]))
             self.photo_f2.setPixmap(QtGui.QPixmap(names[1]))
             self.photo_f3.setPixmap(QtGui.QPixmap(names[2]))

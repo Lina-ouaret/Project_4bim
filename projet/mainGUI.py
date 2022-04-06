@@ -121,10 +121,13 @@ if __name__ == "__main__":
     # Afficher images
     decoded_imgs = decoder_.predict(encoded_imgs)
     decoded = [None] * n
+    encoded = [None] * n
     for i in range(n):
         decoded[i] = decoded_imgs[index[i]]
-    nn.save_reconstruction(n, decoded)  # dans pictures_showed
+        encoded[i] = encoded_imgs[index[i]]
+    nn.save_reconstruction(n, decoded)  # dans /son
 
+    np.save('clusters/encoded_first', encoded)
     #Page initialisation
     cycle = 0
     app = QtWidgets.QApplication(sys.argv)
@@ -133,7 +136,6 @@ if __name__ == "__main__":
     main.setLayout(latout)
 
     #Generate a multi-page selection system, initialise it and show it
-    cycle = 0
     controller = Controller()
     controller.show_select()
     sys.exit(app.exec_())

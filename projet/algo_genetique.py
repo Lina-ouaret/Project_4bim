@@ -3,6 +3,7 @@ import pandas as pd
 import random
 import common_functions as cf
 from itertools import permutations
+from itertools import combinations
 
 def randomly_choose_photos(df,n):
     """
@@ -53,13 +54,19 @@ def crossover_pixels(parents,pc):
 
     """
     index_parents = list(range(0,len(parents)))
-    p_combinations = list(permutations(index_parents,2))
+    p_combinations = list(combinations(index_parents,2))
     offsprings = []
+    print("début",len(parents[0]))
     for i in range(len(p_combinations)):
         parent_1 = (parents[p_combinations[i][0]]).tolist()
         parent_2 = (parents[p_combinations[i][1]]).tolist()
-        k = int(parents[0].size*pc)  #proportion pc from parent1
-        offsprings.append(random.sample(parent_1,k)+ random.sample(parent_2,parents[0].size-k))
+        offsprings_temp=[]
+        for j in range(len(parent_1)) :
+            offsprings_temp.append((parent_1[j]+parent_2[j])/2)
+        offsprings.append(offsprings_temp)
+        print("taille enfant :",len(offsprings_temp))
+    while(len(offsprings))<13:
+        offsprings.append(offsprings[2])
     return offsprings
 
 def crossover_attributes(parent1,parent2,pc):
@@ -122,7 +129,7 @@ def mutation_pixels(parent,pm):
     for i in range(len(parent)):
         r = random.random()
         if r < pm :
-            print(muted_parent)
+            #print(muted_parent)
             muted_parent[i] = muted_parent[i]+ 0.01
     return muted_parent
 

@@ -1,13 +1,24 @@
-import neural_network_function as nn
-import common_functions as cf
 import numpy as np
+import pandas as pd
+import random
+import common_functions as cf
+import sys
+from matplotlib import image
+from matplotlib import pyplot
+from PIL.Image import *
+import glob
+from skimage import io, transform
+import skimage
+from tensorflow import keras
+from sklearn.model_selection import train_test_split
+import neural_network_function as nn
 
 if __name__ == "__main__" :
 
     # Clusters:
-    att_cluster1 = {"Male":-1,"Straight_Hair":-1,"Young":-1}
+    # att_cluster1 = {"Male":-1,"Straight_Hair":-1,"Young":-1}
     # att_cluster2= {"Male":-1,"Straight_Hair":-1,"Young":1}
-    # att_cluster3 = {"Male":-1,"Straight_Hair":1,"Young":1}
+    att_cluster3 = {"Male":-1,"Straight_Hair":1,"Young":1}
     # att_cluster4 = {"Male":1,"Straight_Hair":1,"Young":-1}
     # att_cluster5 = {"Male":1,"Straight_Hair":-1,"Young":1}
     # att_cluster6 = {"Male":1,"Straight_Hair":-1,"Young":-1}
@@ -17,9 +28,9 @@ if __name__ == "__main__" :
 
     df_attributes = cf.convert_attributes_into_pandas("attributes_data.csv")
 
-    index_cluster1 =cf.matrix_reduction(df_attributes,att_cluster1)
+    # index_cluster1 =cf.matrix_reduction(df_attributes,att_cluster1)
     # index_cluster2 =cf.matrix_reduction(df_attributes,att_cluster2)
-    # index_cluster3 =cf.matrix_reduction(df_attributes,att_cluster3)
+    index_cluster3 =cf.matrix_reduction(df_attributes,att_cluster3)
     # index_cluster4 =cf.matrix_reduction(df_attributes,att_cluster4)
     # index_cluster5 =cf.matrix_reduction(df_attributes,att_cluster5)
     # index_cluster6 =cf.matrix_reduction(df_attributes,att_cluster6)
@@ -29,8 +40,8 @@ if __name__ == "__main__" :
 
     #Upload pictures avec ckuster1
     images=[]
-    for k in range(len(index_cluster1)):
-        images.append(glob.glob("/media/cloisel/SAMSUNG/projet4BIM/img_align_celeba/"+index_cluster1[k]+".jpg")[0])
+    for k in range(len(index_cluster3)):
+        images.append(glob.glob("/media/cloisel/SAMSUNG/projet4BIM/img_align_celeba/"+index_cluster3[k]+".jpg")[0])
     i=0
     n=len(images)
     img=[None]*n
@@ -84,15 +95,15 @@ if __name__ == "__main__" :
     nn.save_reconstruction(1, decoded_imgs)
 
     # save model
-    np.save('clusters/encoded_imgs1', encoded_imgs)
-    np.save('clusters/decoded_imgs1', decoded_imgs)
-    decoder_.save('decoders/decoder1.h5')
+    np.save('encoded_imgs3', encoded_imgs)
+    decoder_.save('decoder3.h5')
 
     # load model
-    #savedDecoder=load_model('decoders/decoder1.h5')
+    #savedDecoder=load_model('decoder1.h5')
     #savedDecoder.summary()
 
     # Plot the learning curve to test the model
     nn.loss_test(autoencoder_)
+
 
     #a2 = np.load('encoded_imgs.npy')
