@@ -22,7 +22,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import pandas as pd
-from PIL.Image import *
+
 import os
 import glob
 
@@ -92,12 +92,25 @@ class Controller():
 
 if __name__ == "__main__":
 
+
+    #Page initialisation
+    cycle = 0
+    app = QtWidgets.QApplication(sys.argv)
+    main = QtWidgets.QWidget()
+    latout = QtWidgets.QHBoxLayout()
+    main.setLayout(latout)
+
+    #Generate a multi-page selection system, initialise it and show it
+    controller = Controller()
+    controller.show_select()
+    sys.exit(app.exec_())
+
     # load model
     decoder_ = keras.models.load_model('decoders/decoder1.h5')
     # decoder_ = keras.Sequential()
 
     # load encoded_imgs
-    encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+    encoded_imgs = np.load('encoded.npy')
     #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
     # encoded_imgs.tolist()
 
@@ -111,6 +124,8 @@ if __name__ == "__main__":
     # Reduction matrice
     # pas besoin pour olivetti*
     # cf.matrix_reduction(df, attributs)
+
+    #from PIL.Image import *
 
     # Choix aléatoire des premières photos
     mylist = list(range(0, 500, 1))
@@ -128,14 +143,3 @@ if __name__ == "__main__":
     nn.save_reconstruction(n, decoded)  # dans /son
 
     np.save('clusters/encoded_first', encoded)
-    #Page initialisation
-    cycle = 0
-    app = QtWidgets.QApplication(sys.argv)
-    main = QtWidgets.QWidget()
-    latout = QtWidgets.QHBoxLayout()
-    main.setLayout(latout)
-
-    #Generate a multi-page selection system, initialise it and show it
-    controller = Controller()
-    controller.show_select()
-    sys.exit(app.exec_())
