@@ -470,7 +470,7 @@ class Ui_MainWindow(object):
                     encoded_father[i] = encoded_choice[num_p[i]]
                     for m in range(3):
                         #encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
-                        encoded_mut.append(ag.mutation_pixels(encoded_choice[num_p[i]], 2))
+                        encoded_mut.append(ag.mutation_pixels(encoded_choice[num_p[i]], 0.5))
                 else:
                     encoded_father[i] = encoded_son[num_p[i]]
                     encoded_cross.append(encoded_father[i])
