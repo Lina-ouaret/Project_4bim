@@ -220,6 +220,20 @@ class Ui_MainWindow(object):
         att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
         att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
         att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
+        att_cluster9 = {"Straight_Hair":1,"young":1}
+        att_cluster10 = {"Straight_Hair":-1,"young":-1}
+        att_cluster11 = {"Straight_Hair":1,"young":-1}
+        att_cluster12 = {"Straight_Hair":-1,"young":1}
+        att_cluster13 = {"male":1,"young":1}
+        att_cluster14 = {"male":-1,"young":-1}
+        att_cluster15 = {"male":1,"young":-1}
+        att_cluster16 = {"male":-1,"young":1}
+        att_cluster17 = {"male":1,"Straight_Hair":1}
+        att_cluster18 = {"male":-1,"Straight_Hair":-1}
+        att_cluster19 = {"male":-1,"Straight_Hair":1}
+        att_cluster20 = {"male":1,"Straight_Hair":-1}
+
+
 
         dict = eval(rd)
         print(dict)
@@ -241,6 +255,54 @@ class Ui_MainWindow(object):
             encoded_imgs = np.load('clusters/encoded_imgs7.npy')
         elif dict == att_cluster8 :
             encoded_imgs = np.load('clusters/encoded_imgs8.npy')
+        elif dic == att_cluster9 :
+            encoded1=np.load('clusters/encoded_imgs8.npy')
+            encoded2=np.load('clusters/encoded_imgs3.npy')
+            encoded_imgs = encoded1[0]+encoded2[0]
+        elif dic == att_cluster10 :
+            encoded3=np.load('clusters/encoded_imgs1.npy')
+            encoded4=np.load('clusters/encoded_imgs6.npy')
+            encoded_imgs = encoded3[0]+encoded4[0]
+        elif dic == att_cluster11 :
+            encoded5=np.load('clusters/encoded_imgs4.npy')
+            encoded6=np.load('clusters/encoded_imgs7.npy')
+            encoded_imgs = encoded5[0]+encoded6[0]
+        elif dic == att_cluster12 :
+            encoded7=np.load('clusters/encoded_imgs2.npy')
+            encoded8=np.load('clusters/encoded_imgs5.npy')
+            encoded_imgs = encoded7[0]+encoded8[0]
+        elif dic == att_cluster13 :
+            encoded9=np.load('clusters/encoded_imgs5.npy')
+            encoded10=np.load('clusters/encoded_imgs8.npy')
+            encoded_imgs = encoded9[0]+encoded10[0]
+        elif dic == att_cluster14 :
+            encoded11=np.load('clusters/encoded_imgs5.npy')
+            encoded12=np.load('clusters/encoded_imgs1.npy')
+            encoded_imgs = encoded11[0]+encoded12[0]
+        elif dic == att_cluster15 :
+            encoded13=np.load('clusters/encoded_imgs4.npy')
+            encoded14=np.load('clusters/encoded_imgs7.npy')
+            encoded_imgs = encoded13[0]+encoded14[0]
+        elif dic == att_cluster16 :
+            encoded15=np.load('clusters/encoded_imgs5.npy')
+            encoded16=np.load('clusters/encoded_imgs2.npy')
+            encoded_imgs = encoded15[0]+encoded16[0]
+        elif dic == att_cluster17 :
+            encoded17=np.load('clusters/encoded_imgs4.npy')
+            encoded18=np.load('clusters/encoded_imgs8.npy')
+            encoded_imgs = encoded17[0]+encoded18[0]
+        elif dic == att_cluster18 :
+            encoded19=np.load('clusters/encoded_imgs1.npy')
+            encoded20=np.load('clusters/encoded_imgs2.npy')
+            encoded_imgs = encoded19[0]+encoded20[0]
+        elif dic == att_cluster19 :
+            encoded21=np.load('clusters/encoded_imgs7.npy')
+            encoded22=np.load('clusters/encoded_imgs3.npy')
+            encoded_imgs = encoded21[0]+encoded22[0]
+        elif dic == att_cluster20 :
+            encoded23=np.load('clusters/encoded_imgs5.npy')
+            encoded24=np.load('clusters/encoded_imgs6.npy')
+            encoded_imgs = encoded23[0]+encoded24[0]
 
         np.save('encoded', encoded_imgs)
 
