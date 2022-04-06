@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from shutil import copyfile
 from shutil import rmtree
 import os
+import numpy as np
 
 
 class Ui_MainWindow(object):
@@ -49,10 +50,10 @@ class Ui_MainWindow(object):
         self.Straight_Hair_T = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.Straight_Hair_T.setObjectName("Straight_Hair_T")
         self.verticalLayout.addWidget(self.Straight_Hair_T)
-        self.Wavy_Hair_T = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.Wavy_Hair_T.setMaximumSize(QtCore.QSize(16777215, 32))
-        self.Wavy_Hair_T.setObjectName("Wavy_Hair_T")
-        self.verticalLayout.addWidget(self.Wavy_Hair_T)
+        self.Straight_Hair_F = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.Straight_Hair_F.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.Straight_Hair_F.setObjectName("Straight_Hair_F")
+        self.verticalLayout.addWidget(self.Straight_Hair_F)
         self.hair_nc = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.hair_nc.setMaximumSize(QtCore.QSize(16777215, 32))
         self.hair_nc.setObjectName("hair_nc")
@@ -131,7 +132,7 @@ class Ui_MainWindow(object):
 
         #Connect the buttons to the corresponding functions
         self.Straight_Hair_T.clicked.connect(self.press)
-        self.Wavy_Hair_T.clicked.connect(self.press)
+        self.Straight_Hair_F.clicked.connect(self.press)
         self.young_T.clicked.connect(self.press)
         self.young_F.clicked.connect(self.press)
         self.male_T.clicked.connect(self.press)
@@ -157,7 +158,7 @@ class Ui_MainWindow(object):
                                                     ""))
         self.skin_color.setText(_translate("MainWindow", "hair style"))
         self.Straight_Hair_T.setText(_translate("MainWindow", "stright"))
-        self.Wavy_Hair_T.setText(_translate("MainWindow", "wavy"))
+        self.Straight_Hair_F.setText(_translate("MainWindow", "wavy"))
         self.hair_nc.setText(_translate("MainWindow", "no clue"))
         self.skin_color_4.setText(_translate("MainWindow", "age"))
         self.young_T.setText(_translate("MainWindow", "young"))
@@ -210,4 +211,38 @@ class Ui_MainWindow(object):
         if os.path.exists('choice/'):
             rmtree('choice/')
             os.mkdir('choice/')
+        #Clusters:
+        att_cluster1 = {"male":-1,"Straight_Hair":-1,"young":-1}
+        att_cluster2= {"male":-1,"Straight_Hair":-1,"young":1}
+        att_cluster3 = {"male":-1,"Straight_Hair":1,"young":1}
+        att_cluster4 = {"male":1,"Straight_Hair":1,"young":-1}
+        att_cluster5 = {"male":1,"Straight_Hair":-1,"young":1}
+        att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
+        att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
+        att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
+
+        dict = eval(rd)
+        print(dict)
+
+        ## dict
+        if dict == att_cluster1 :
+            encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+        elif dict == att_cluster2 :
+            encoded_imgs = np.load('clusters/encoded_imgs2.npy')
+        elif dict == att_cluster3 :
+            encoded_imgs = np.load('clusters/encoded_imgs3.npy')
+        elif dict == att_cluster4 :
+            encoded_imgs = np.load('clusters/encoded_imgs4.npy')
+        elif dict == att_cluster5 :
+            encoded_imgs = np.load('clusters/encoded_imgs5.npy')
+        elif dict == att_cluster6 :
+            encoded_imgs = np.load('clusters/encoded_imgs6.npy')
+        elif dict == att_cluster7 :
+            encoded_imgs = np.load('clusters/encoded_imgs7.npy')
+        elif dict == att_cluster8 :
+            encoded_imgs = np.load('clusters/encoded_imgs8.npy')
+
+        np.save('encoded', encoded_imgs)
+
+
         self.switch_window.emit()

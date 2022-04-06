@@ -22,7 +22,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import pandas as pd
-from PIL.Image import *
+
 import os
 import glob
 
@@ -92,44 +92,25 @@ class Controller():
 
 if __name__ == "__main__":
 
+
+    #Page initialisation
+    cycle = 0
+    app = QtWidgets.QApplication(sys.argv)
+    main = QtWidgets.QWidget()
+    latout = QtWidgets.QHBoxLayout()
+    main.setLayout(latout)
+
+    #Generate a multi-page selection system, initialise it and show it
+    controller = Controller()
+    controller.show_select()
+    sys.exit(app.exec_())
+
     # load model
     decoder_ = keras.models.load_model('decoders/decoder1.h5')
     # decoder_ = keras.Sequential()
-    #Clusters:
-    att_cluster1 = {"male":-1,"Straight_Hair":-1,"young":-1}
-    att_cluster2= {"male":-1,"Straight_Hair":-1,"young":1}
-    att_cluster3 = {"male":-1,"Straight_Hair":1,"young":1}
-    att_cluster4 = {"male":1,"Straight_Hair":1,"young":-1}
-    att_cluster5 = {"male":1,"Straight_Hair":-1,"young":1}
-    att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
-    att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
-    att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
-
-    with open('select.txt', 'r') as file:
-        rd = file.read()
-    dict = eval(rd)
-    print(dict)
-    
-    ## dict
-    if dict == att_cluster1 :
-        encoded_imgs = np.load('clusters/encoded_imgs1.npy')
-    elif dict == att_cluster2 :
-        encoded_imgs = np.load('clusters/encoded_imgs2.npy')
-    elif dict == att_cluster3 :
-        encoded_imgs = np.load('clusters/encoded_imgs3.npy')
-    elif dict == att_cluster4 :
-        encoded_imgs = np.load('clusters/encoded_imgs4.npy')
-    elif dict == att_cluster5 :
-        encoded_imgs = np.load('clusters/encoded_imgs5.npy')
-    elif dict == att_cluster6 :
-        encoded_imgs = np.load('clusters/encoded_imgs6.npy')
-    elif dict == att_cluster7 :
-        encoded_imgs = np.load('clusters/encoded_imgs7.npy')
-    elif dict == att_cluster8 :
-        encoded_imgs = np.load('clusters/encoded_imgs8.npy')
 
     # load encoded_imgs
-    encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+    encoded_imgs = np.load('encoded.npy')
     #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
     # encoded_imgs.tolist()
 
@@ -143,6 +124,8 @@ if __name__ == "__main__":
     # Reduction matrice
     # pas besoin pour olivetti*
     # cf.matrix_reduction(df, attributs)
+
+    #from PIL.Image import *
 
     # Choix aléatoire des premières photos
     mylist = list(range(0, 500, 1))
@@ -160,14 +143,3 @@ if __name__ == "__main__":
     nn.save_reconstruction(n, decoded)  # dans /son
 
     np.save('clusters/encoded_first', encoded)
-    #Page initialisation
-    cycle = 0
-    app = QtWidgets.QApplication(sys.argv)
-    main = QtWidgets.QWidget()
-    latout = QtWidgets.QHBoxLayout()
-    main.setLayout(latout)
-
-    #Generate a multi-page selection system, initialise it and show it
-    controller = Controller()
-    controller.show_select()
-    sys.exit(app.exec_())
