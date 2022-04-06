@@ -19,49 +19,23 @@ def split_dataset(dataset, attribut):
   Split the dataset into train and test, in order to train the neural network
 
   Args :
-    pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)
+    dataset (array) : photo list
     attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc
 
   Returns :
-    X_train (array) : portion of the db used to train the neural network - input
-    X_test (array) : portion of the db used to test the neural network - output
-    Y_train (array) : portion of the db used to train the neural network - input
-    Y_test (array) : portion of the db used to test the neural network - output
+    X_train (array) : portion of the db used to train the neural network
+    X_test (array) : portion of the db used to test the neural network
+    Y_train (array) : portion of the db used to train the neural network
+    Y_test (array) : portion of the db used to test the neural network
 
-  >>>
-  Unit Test to split_dataset :
-  Args:
-  X_train (array) : portion of the db used to train the neural network - input
-  X_test (array) : portion of the db used to test the neural network - output
-  Y_train (array) : portion of the db used to train the neural network - input
-  Y_test (array) : portion of the db used to test the neural network - output
-  dataset (array pixel of the picture) : The db encoding
+  >>> dataX = np.zeros(1000)
+  >>> dataY = np.ones(1000)
+  >>> (X_TR, X_TE, Y_TR, Y_TE) = split_dataset(dataX,dataY)
+  >>> X_TR.size == Y_TR.size == 1000*0.8
+  True
 
-  Return:
-  returns the print if the split_dataset function worked well ie xtest corresponds to 20% of our dataset,
-  ytest corresponds to 20%,
-  xtrain corresponds to 80%
-  and ytrain corresponds to 80% of the dataset
-
-
-  def testunitsplitdtaset(X_train, X_test, y_train, y_test,dataset):
-    if len(X_test)==0.2*len(dataset):
-        print("test unitaire fonctionne")
-    else:
-        print("y_test et x_test ne valent pas 20% du dataset")
-    if len(Y_test)==0.2*len(dataset):
-        print("test unitaire fonctionne")
-    else:
-        print("y_test et x_test ne valent pas 20% du dataset")
-    if len(X_train)==0.8*len(dataset):
-        print("test unitaire fonctionne")
-    else:
-        print("y_train et x_train ne valent pas 80% du dataset")
-    if len(Y_train)==0.8*len(dataset):
-        print("test unitaire fonctionne")
-    else:
-        print("y_train et x_train ne valent pas 20% du dataset")
-
+  >>> X_TE.size == Y_TE.size == 1000*0.2
+  True
 
   '''
   X_train, X_test, Y_train, Y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
@@ -89,7 +63,7 @@ def model():
                 break
       for i in range(len(history['loss'])):
             if history['loss'][i]==0:
-                print("test failed")
+                print("test failed")>>>
                 break
   '''
   # "encoded" is the encoded representation of the input
@@ -135,19 +109,16 @@ def save_reconstruction(n,decoded):
   Save the input images and their reconstruction after being decoded
 
   Args :
-    decoded (array)
+    decoded (array) :
     n (int) : number of faces we will display
   Returns :
     None
 
-  >>>
-  Unit Test to control the plot reconstruction :
-  Args :
-  Return : Returns the number of saved photos with the initial_count variable
 
-  import pathlib
-  from pathlib import Path
-  home = Path.home()
+
+  >>> import pathlib
+  >>> from pathlib import Path
+  >>> home = Path.home()
   print(home)
   cwd = Path.cwd()
   cwd
