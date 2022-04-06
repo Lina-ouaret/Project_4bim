@@ -105,6 +105,11 @@ if __name__ == "__main__":
     att_cluster7 = {"Male":-1,"Straight_Hair":1,"Young":-1}
     att_cluster8 = {"Male":1,"Straight_Hair":1,"Young":1}
 
+    with open('select.txt', 'r') as file:
+        rd = file.read()
+    dict = eval(rd)
+    print(dict)
+    
     ## dict
     if dict == att_cluster1 :
         encoded_imgs = np.load('clusters/encoded_imgs1.npy')
