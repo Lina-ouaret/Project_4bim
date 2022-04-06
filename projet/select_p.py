@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from shutil import copyfile
 from shutil import rmtree
 import os
+import numpy as np
 
 
 class Ui_MainWindow(object):
@@ -49,10 +50,10 @@ class Ui_MainWindow(object):
         self.Straight_Hair_T = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.Straight_Hair_T.setObjectName("Straight_Hair_T")
         self.verticalLayout.addWidget(self.Straight_Hair_T)
-        self.Wavy_Hair_T = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.Wavy_Hair_T.setMaximumSize(QtCore.QSize(16777215, 32))
-        self.Wavy_Hair_T.setObjectName("Wavy_Hair_T")
-        self.verticalLayout.addWidget(self.Wavy_Hair_T)
+        self.Straight_Hair_F = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.Straight_Hair_F.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.Straight_Hair_F.setObjectName("Straight_Hair_F")
+        self.verticalLayout.addWidget(self.Straight_Hair_F)
         self.hair_nc = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.hair_nc.setMaximumSize(QtCore.QSize(16777215, 32))
         self.hair_nc.setObjectName("hair_nc")
@@ -131,7 +132,7 @@ class Ui_MainWindow(object):
 
         #Connect the buttons to the corresponding functions
         self.Straight_Hair_T.clicked.connect(self.press)
-        self.Wavy_Hair_T.clicked.connect(self.press)
+        self.Straight_Hair_F.clicked.connect(self.press)
         self.young_T.clicked.connect(self.press)
         self.young_F.clicked.connect(self.press)
         self.male_T.clicked.connect(self.press)
@@ -157,7 +158,7 @@ class Ui_MainWindow(object):
                                                     ""))
         self.skin_color.setText(_translate("MainWindow", "hair style"))
         self.Straight_Hair_T.setText(_translate("MainWindow", "stright"))
-        self.Wavy_Hair_T.setText(_translate("MainWindow", "wavy"))
+        self.Straight_Hair_F.setText(_translate("MainWindow", "wavy"))
         self.hair_nc.setText(_translate("MainWindow", "no clue"))
         self.skin_color_4.setText(_translate("MainWindow", "age"))
         self.young_T.setText(_translate("MainWindow", "young"))
@@ -210,4 +211,100 @@ class Ui_MainWindow(object):
         if os.path.exists('choice/'):
             rmtree('choice/')
             os.mkdir('choice/')
+        #Clusters:
+        att_cluster1 = {"male":-1,"Straight_Hair":-1,"young":-1}
+        att_cluster2= {"male":-1,"Straight_Hair":-1,"young":1}
+        att_cluster3 = {"male":-1,"Straight_Hair":1,"young":1}
+        att_cluster4 = {"male":1,"Straight_Hair":1,"young":-1}
+        att_cluster5 = {"male":1,"Straight_Hair":-1,"young":1}
+        att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
+        att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
+        att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
+        att_cluster9 = {"Straight_Hair":1,"young":1}
+        att_cluster10 = {"Straight_Hair":-1,"young":-1}
+        att_cluster11 = {"Straight_Hair":1,"young":-1}
+        att_cluster12 = {"Straight_Hair":-1,"young":1}
+        att_cluster13 = {"male":1,"young":1}
+        att_cluster14 = {"male":-1,"young":-1}
+        att_cluster15 = {"male":1,"young":-1}
+        att_cluster16 = {"male":-1,"young":1}
+        att_cluster17 = {"male":1,"Straight_Hair":1}
+        att_cluster18 = {"male":-1,"Straight_Hair":-1}
+        att_cluster19 = {"male":-1,"Straight_Hair":1}
+        att_cluster20 = {"male":1,"Straight_Hair":-1}
+
+
+
+        dict = eval(rd)
+        print(dict)
+
+        ## dict
+        if dict == att_cluster1 :
+            encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+        elif dict == att_cluster2 :
+            encoded_imgs = np.load('clusters/encoded_imgs2.npy')
+        elif dict == att_cluster3 :
+            encoded_imgs = np.load('clusters/encoded_imgs3.npy')
+        elif dict == att_cluster4 :
+            encoded_imgs = np.load('clusters/encoded_imgs4.npy')
+        elif dict == att_cluster5 :
+            encoded_imgs = np.load('clusters/encoded_imgs5.npy')
+        elif dict == att_cluster6 :
+            encoded_imgs = np.load('clusters/encoded_imgs6.npy')
+        elif dict == att_cluster7 :
+            encoded_imgs = np.load('clusters/encoded_imgs7.npy')
+        elif dict == att_cluster8 :
+            encoded_imgs = np.load('clusters/encoded_imgs8.npy')
+        elif dic == att_cluster9 :
+            encoded1=np.load('clusters/encoded_imgs8.npy')
+            encoded2=np.load('clusters/encoded_imgs3.npy')
+            encoded_imgs = encoded1[0]+encoded2[0]
+        elif dic == att_cluster10 :
+            encoded3=np.load('clusters/encoded_imgs1.npy')
+            encoded4=np.load('clusters/encoded_imgs6.npy')
+            encoded_imgs = encoded3[0]+encoded4[0]
+        elif dic == att_cluster11 :
+            encoded5=np.load('clusters/encoded_imgs4.npy')
+            encoded6=np.load('clusters/encoded_imgs7.npy')
+            encoded_imgs = encoded5[0]+encoded6[0]
+        elif dic == att_cluster12 :
+            encoded7=np.load('clusters/encoded_imgs2.npy')
+            encoded8=np.load('clusters/encoded_imgs5.npy')
+            encoded_imgs = encoded7[0]+encoded8[0]
+        elif dic == att_cluster13 :
+            encoded9=np.load('clusters/encoded_imgs5.npy')
+            encoded10=np.load('clusters/encoded_imgs8.npy')
+            encoded_imgs = encoded9[0]+encoded10[0]
+        elif dic == att_cluster14 :
+            encoded11=np.load('clusters/encoded_imgs5.npy')
+            encoded12=np.load('clusters/encoded_imgs1.npy')
+            encoded_imgs = encoded11[0]+encoded12[0]
+        elif dic == att_cluster15 :
+            encoded13=np.load('clusters/encoded_imgs4.npy')
+            encoded14=np.load('clusters/encoded_imgs7.npy')
+            encoded_imgs = encoded13[0]+encoded14[0]
+        elif dic == att_cluster16 :
+            encoded15=np.load('clusters/encoded_imgs5.npy')
+            encoded16=np.load('clusters/encoded_imgs2.npy')
+            encoded_imgs = encoded15[0]+encoded16[0]
+        elif dic == att_cluster17 :
+            encoded17=np.load('clusters/encoded_imgs4.npy')
+            encoded18=np.load('clusters/encoded_imgs8.npy')
+            encoded_imgs = encoded17[0]+encoded18[0]
+        elif dic == att_cluster18 :
+            encoded19=np.load('clusters/encoded_imgs1.npy')
+            encoded20=np.load('clusters/encoded_imgs2.npy')
+            encoded_imgs = encoded19[0]+encoded20[0]
+        elif dic == att_cluster19 :
+            encoded21=np.load('clusters/encoded_imgs7.npy')
+            encoded22=np.load('clusters/encoded_imgs3.npy')
+            encoded_imgs = encoded21[0]+encoded22[0]
+        elif dic == att_cluster20 :
+            encoded23=np.load('clusters/encoded_imgs5.npy')
+            encoded24=np.load('clusters/encoded_imgs6.npy')
+            encoded_imgs = encoded23[0]+encoded24[0]
+
+        np.save('encoded', encoded_imgs)
+
+
         self.switch_window.emit()

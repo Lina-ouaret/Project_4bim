@@ -90,13 +90,37 @@ def mutation_pixels(parent,pm):
     True
 
     """
-    muted_parent = parent
-    for i in range(len(parent)):
-        r = random.random()
-        if r < pm :
-            #print(muted_parent)
-            muted_parent[i] = muted_parent[i]+ 2.5
-    return muted_parent
+    # muted_parent = parent
+    # for i in range(len(parent)):
+    #     r = random.random()
+    #     if r < pm :
+    #         print(muted_parent)
+    #         muted_parent[i] = muted_parent[i]+ 0.5
+    # return muted_parent
+
+    # muted_parent = parent
+    # for i in range(len(parent)-3):
+    #     r = random.random()
+    #     if r < pm :
+    #         muted_parent[i] =muted_parent[i]*1.05
+    #         muted_parent[i+1] =muted_parent[i+1]*1.10
+    #         muted_parent[i+2] =muted_parent[i+2]*1.15
+    #         muted_parent[i+3] =muted_parent[i+3]*1.20
+    # return muted_parent
+
+    # muted_parent = parent
+    # for i in range(6,len(parent)-6):
+    #     r = random.random()
+    #     if r < pm :
+    #         print(muted_parent)
+    #         muted_parent[(i-10):(i+10)] = muted_parent[(i-10):(i+10)] * random.uniform(0.80,1.20)
+    # return muted_parent
+
+    mutated_parent = parent
+    parentbase = np.load("clusters/encoded_imgs1.npy")
+    p = random.choice(range(len(parentbase)))
+    mutated_parent = parentbase[p]
+    return mutated_parent
 
 #################
 #TESTS UNITAIRES#
