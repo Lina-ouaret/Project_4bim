@@ -95,7 +95,7 @@ def mutation_pixels(parent,pm):
         r = random.random()
         if r < pm :
             #print(muted_parent)
-            muted_parent[i] = muted_parent[i]+ 0.01
+            muted_parent[i] = muted_parent[i]+ 2.5
     return muted_parent
 
 #################
