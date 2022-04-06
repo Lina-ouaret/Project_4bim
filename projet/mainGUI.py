@@ -96,14 +96,14 @@ if __name__ == "__main__":
     decoder_ = keras.models.load_model('decoders/decoder1.h5')
     # decoder_ = keras.Sequential()
     #Clusters:
-    att_cluster1 = {"Male":-1,"Straight_Hair":-1,"Young":-1}
-    att_cluster2= {"Male":-1,"Straight_Hair":-1,"Young":1}
-    att_cluster3 = {"Male":-1,"Straight_Hair":1,"Young":1}
-    att_cluster4 = {"Male":1,"Straight_Hair":1,"Young":-1}
-    att_cluster5 = {"Male":1,"Straight_Hair":-1,"Young":1}
-    att_cluster6 = {"Male":1,"Straight_Hair":-1,"Young":-1}
-    att_cluster7 = {"Male":-1,"Straight_Hair":1,"Young":-1}
-    att_cluster8 = {"Male":1,"Straight_Hair":1,"Young":1}
+    att_cluster1 = {"male":-1,"Straight_Hair":-1,"young":-1}
+    att_cluster2= {"male":-1,"Straight_Hair":-1,"young":1}
+    att_cluster3 = {"male":-1,"Straight_Hair":1,"young":1}
+    att_cluster4 = {"male":1,"Straight_Hair":1,"young":-1}
+    att_cluster5 = {"male":1,"Straight_Hair":-1,"young":1}
+    att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
+    att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
+    att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
 
     ## dict
     if dict == att_cluster1 :
