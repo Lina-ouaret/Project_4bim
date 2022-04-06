@@ -468,11 +468,11 @@ class Ui_MainWindow(object):
                 if files[i][1] == 'f':
                     encoded_father[i] = encoded_choice[num_p[i]]
                     for m in range(3):
-                        encoded_mut.append(ag.mutation_pixels(encoded_father[i], 0.3))
+                        encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
                 else:
                     encoded_father[i] = encoded_son[num_p[i]]
                     encoded_cross.append(encoded_father[i])
-            encoded_cross2 = ag.crossover_pixels(encoded_cross, 0.3)
+            encoded_cross2 = ag.crossover_pixels(encoded_cross, 1)
             for k in range(len(encoded_mut)):
                 encoded_ag.append(encoded_mut[k].tolist())
             for j in range(len(encoded_cross2)):

@@ -122,7 +122,8 @@ def mutation_pixels(parent,pm):
     for i in range(len(parent)):
         r = random.random()
         if r < pm :
-            muted_parent[i] = round(random.uniform(0, 7),2)
+            print(muted_parent)
+            muted_parent[i] = muted_parent[i]+ 0.01
     return muted_parent
 
 def mutation_attributes(offspring,pm):

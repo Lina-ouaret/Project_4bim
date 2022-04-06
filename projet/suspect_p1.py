@@ -208,7 +208,7 @@ class Ui_MainWindow(object):
         self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
         self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
         self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
-MainWindow : principal window displaying the program
+        #MainWindow : principal window displaying the program
         # Connect the buttons to the corresponding functions
         self.suspect1.clicked.connect(self.saveChoice)
         self.suspect2.clicked.connect(self.saveChoice)
@@ -308,7 +308,7 @@ MainWindow : principal window displaying the program
             # print(type(encoded_choix))
             # print(type(encoded_choix[0]))
             # np.save('encoded_choix', encoded_choix)
-            encoded_ag = ag.crossover_pixels(encoded_choix, 0.3)
+            encoded_ag = ag.crossover_pixels(encoded_choix, 1)
             decoded_ag = decoder_.predict(encoded_ag)
             nn.save_reconstruction(12, decoded_ag)
             np.save('encoded_choix', encoded_choix)

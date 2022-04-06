@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
     # load encoded_imgs
     encoded_imgs = np.load('clusters/encoded_imgs1.npy')
-    decoded_imgs = np.load('clusters/decoded_imgs1.npy')
+    #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
     # encoded_imgs.tolist()
 
     # # Upload photos
@@ -113,13 +113,13 @@ if __name__ == "__main__":
     # cf.matrix_reduction(df, attributs)
 
     # Choix aléatoire des premières photos
-    mylist = list(range(0, 80, 1))
-    n = 8
+    mylist = list(range(0, 500, 1))
+    n = 9
     index = random.sample(mylist, n)
     # ag.randomly_choose_photos(index,n)
 
     # Afficher images
-    # decoded_imgs = decoder_.predict(encoded_imgs)
+    decoded_imgs = decoder_.predict(encoded_imgs)
     decoded = [None] * n
     for i in range(n):
         decoded[i] = decoded_imgs[index[i]]
