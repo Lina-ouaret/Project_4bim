@@ -95,6 +95,33 @@ if __name__ == "__main__":
     # load model
     decoder_ = keras.models.load_model('decoders/decoder1.h5')
     # decoder_ = keras.Sequential()
+    #Clusters:
+    att_cluster1 = {"Male":-1,"Straight_Hair":-1,"Young":-1}
+    att_cluster2= {"Male":-1,"Straight_Hair":-1,"Young":1}
+    att_cluster3 = {"Male":-1,"Straight_Hair":1,"Young":1}
+    att_cluster4 = {"Male":1,"Straight_Hair":1,"Young":-1}
+    att_cluster5 = {"Male":1,"Straight_Hair":-1,"Young":1}
+    att_cluster6 = {"Male":1,"Straight_Hair":-1,"Young":-1}
+    att_cluster7 = {"Male":-1,"Straight_Hair":1,"Young":-1}
+    att_cluster8 = {"Male":1,"Straight_Hair":1,"Young":1}
+
+    ## dict
+    if dict == att_cluster1 :
+        encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+    elif dict == att_cluster2 :
+        encoded_imgs = np.load('clusters/encoded_imgs2.npy')
+    elif dict == att_cluster3 :
+        encoded_imgs = np.load('clusters/encoded_imgs3.npy')
+    elif dict == att_cluster4 :
+        encoded_imgs = np.load('clusters/encoded_imgs4.npy')
+    elif dict == att_cluster5 :
+        encoded_imgs = np.load('clusters/encoded_imgs5.npy')
+    elif dict == att_cluster6 :
+        encoded_imgs = np.load('clusters/encoded_imgs6.npy')
+    elif dict == att_cluster7 :
+        encoded_imgs = np.load('clusters/encoded_imgs7.npy')
+    elif dict == att_cluster8 :
+        encoded_imgs = np.load('clusters/encoded_imgs8.npy')
 
     # load encoded_imgs
     encoded_imgs = np.load('clusters/encoded_imgs1.npy')
