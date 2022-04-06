@@ -157,22 +157,6 @@ fixed_att (dict) : attributes that have been selected by witness to reduce our m
 <div class="section" id="module-projet.algo_genetique">
 <span id="projet-algo-genetique-module"></span><h2>projet.algo_genetique module<a class="headerlink" href="#module-projet.algo_genetique" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="projet.algo_genetique.crossover_attributes">
-<code class="descclassname">projet.algo_genetique.</code><code class="descname">crossover_attributes</code><span class="sig-paren">(</span><em>parent1</em>, <em>parent2</em>, <em>pc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#crossover_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.crossover_attributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that crosses the attributes of the both parents to make an offspring.
-It takes a proportion pc of attributes from one parent and 1-pc from the other.</p>
-<dl class="docutils">
-<dt>Args :</dt>
-<dd>parent1 (pandas.array) : first parent (photo) from which we take the attributes
-parent2 (pandas.array) : second parent (photo) from which we take the attributes
-pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</dd>
-<dt>Returns :</dt>
-<dd>offspring (pandas.array) : offspring of 2 previous parents/photos</dd>
-</dl>
-<p>#UNITSTEST TO DO IF WE USE THIS FUNCTION</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="projet.algo_genetique.crossover_pixels">
 <code class="descclassname">projet.algo_genetique.</code><code class="descname">crossover_pixels</code><span class="sig-paren">(</span><em>parents</em>, <em>pc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#crossover_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.crossover_pixels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that crosses the vectors of pixels from n parents to make an offspring.
@@ -181,7 +165,7 @@ and another one taking the inverse proportions.</p>
 <dl class="docutils">
 <dt>Args :</dt>
 <dd>parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover
-pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</dd>
+pc (float) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</dd>
 <dt>Returns :</dt>
 <dd>offsprings (list(lists)) : offspring of 2 previous parents/photos</dd>
 </dl>
@@ -201,31 +185,16 @@ pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attr
 </dd></dl>
 
 <dl class="function">
-<dt id="projet.algo_genetique.mutation_attributes">
-<code class="descclassname">projet.algo_genetique.</code><code class="descname">mutation_attributes</code><span class="sig-paren">(</span><em>offspring</em>, <em>pm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#mutation_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.mutation_attributes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that mutates a population of parents and creates a certain number of offsprings by mutating each pixel with a certain probability pm</p>
-<dl class="docutils">
-<dt>Args :</dt>
-<dd>offspring (pandas.array) : offspring getting the mutation
-pm (int) : proportion of attributes that will be mutated (multiply by -1 to get the opposite)</dd>
-<dt>Returns :</dt>
-<dd>offspring (pandas.array) : offspring of 2 previous parents/photos</dd>
-</dl>
-<p>#UNITSTEST TO DO IF WE USE THIS FUNCTION</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="projet.algo_genetique.mutation_pixels">
 <code class="descclassname">projet.algo_genetique.</code><code class="descname">mutation_pixels</code><span class="sig-paren">(</span><em>parent</em>, <em>pm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/algo_genetique.html#mutation_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.algo_genetique.mutation_pixels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that crosses the reduced pixel matrix (encoded by neural network) of the both parents to make an offspring.
-It takes a proportion pc of attributes from one parent and 1-pc from the other.</p>
+<dd><p>Function that mutates one parent by adding a fixed value to randoms elements of the list
+representing the encoded photo.</p>
 <dl class="docutils">
 <dt>Args :</dt>
-<dd><p class="first">parents(list(list)) : list of arrays representing the reduced pixel matrix of the parents we will use for the</p>
-<p class="last">pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</p>
-</dd>
+<dd>parent (np.array) : array representing the encoded photo, has to mutate
+pm (float) : chances that one element of the np array (parent) gets the mutation</dd>
 <dt>Returns :</dt>
-<dd>offspring(list(list)) : offspring of 2 previous parents/photos</dd>
+<dd>muted_parent (np.array) : same array but with mutation, ready to be decoded and displayed</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_imgs_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;encoded_imgs_test.npy&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -279,35 +248,29 @@ df (pandas.array) : database from where the photo are selected</dd>
 <dt>Returns :</dt>
 <dd>None</dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epochs</span><span class="o">=</span><span class="mi">300</span> <span class="c1">#parameters of autoencoder_.fit(...)</span>
-<span class="go">    history[&#39;val_loss&#39;]==epochs</span>
-<span class="go">    &lt;True&gt;</span>
-<span class="go">    history[&#39;loss&#39;]==epochs</span>
-<span class="go">    &lt;True&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epochs</span><span class="o">=</span><span class="mi">100</span> <span class="c1">#parameters of autoencoder_.fit(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">epochs</span>
+<span class="go">&lt;True&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">epochs</span>
+<span class="go">&lt;True&gt;</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="projet.neural_network_function.model">
-<code class="descclassname">projet.neural_network_function.</code><code class="descname">model</code><span class="sig-paren">(</span><em>original_dim</em>, <em>hidden_encoding_dim</em>, <em>encoding_dim</em>, <em>dropout_level</em>, <em>hidden_decoding_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/neural_network_function.html#model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.neural_network_function.model" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">projet.neural_network_function.</code><code class="descname">model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/neural_network_function.html#model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.neural_network_function.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model of neural network</p>
-<dl class="docutils">
-<dt>Args :</dt>
-<dd>original_dim (int) :
-hidden_encoding_dim (int) :
-encoding_dim (int) :
-dropout_level (float) :
-hidden_decoding_dim (int) :</dd>
-<dt>Returns :</dt>
-<dd>encoder (keras.engine.functional.Functional) :
+<p>Args :
+Returns :</p>
+<blockquote>
+<div>encoder (keras.engine.functional.Functional) :
 decoder (keras.engine.functional.Functional) :
-autoencoder (keras.engine.functional.Functional) :</dd>
-</dl>
+autoencoder (keras.engine.functional.Functional) :</div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">encoder</span><span class="p">);</span> <span class="nb">type</span><span class="p">(</span><span class="n">decoder</span><span class="p">);</span> <span class="nb">type</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">);</span>
 <span class="go">&lt;keras.engine.functional.Functional&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Verify</span> <span class="n">that</span> <span class="n">loss</span> <span class="ow">and</span> <span class="n">val</span> <span class="n">loss</span> <span class="n">never</span> <span class="n">reach</span> <span class="mi">0</span><span class="p">:</span>
-<span class="go">    history = autoencoder.history.history</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#Verify that loss and val loss never reach 0:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">history</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">history</span>
 <span class="go">    for i in range(len(history[&#39;val_loss&#39;])):</span>
 <span class="go">          if history[&#39;val_loss&#39;][i]==0:</span>
 <span class="go">              print(&quot;test failed&quot;)</span>

@@ -93,7 +93,7 @@
 <span class="sd">    Y_train (array) : portion of the db used to train the neural network - input</span>
 <span class="sd">    Y_test (array) : portion of the db used to test the neural network - output</span>
 
-<span class="sd">  &gt;&gt;&gt; run the program code &quot;testunitairedataplit&quot; </span>
+<span class="sd">  &gt;&gt;&gt; run the program code &quot;testunitairedataplit&quot;</span>
 
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">attribut</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -101,17 +101,11 @@
 
 <span class="c1">## Model definition</span>
 
-<div class="viewcode-block" id="model"><a class="viewcode-back" href="../../projet.html#projet.neural_network_function.model">[docs]</a><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">original_dim</span><span class="p">,</span> <span class="n">hidden_encoding_dim</span><span class="p">,</span> <span class="n">encoding_dim</span><span class="p">,</span>
-           <span class="n">dropout_level</span><span class="p">,</span> <span class="n">hidden_decoding_dim</span><span class="p">):</span>
+<div class="viewcode-block" id="model"><a class="viewcode-back" href="../../projet.html#projet.neural_network_function.model">[docs]</a><span class="k">def</span> <span class="nf">model</span><span class="p">():</span>
   <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">  Model of neural network</span>
 
 <span class="sd">  Args :</span>
-<span class="sd">    original_dim (int) :</span>
-<span class="sd">    hidden_encoding_dim (int) :</span>
-<span class="sd">    encoding_dim (int) :</span>
-<span class="sd">    dropout_level (float) :</span>
-<span class="sd">    hidden_decoding_dim (int) :</span>
 <span class="sd">  Returns :</span>
 <span class="sd">    encoder (keras.engine.functional.Functional) :</span>
 <span class="sd">    decoder (keras.engine.functional.Functional) :</span>
@@ -119,8 +113,8 @@
 
 <span class="sd">  &gt;&gt;&gt; type(encoder); type(decoder); type(autoencoder);</span>
 <span class="sd">  &lt;keras.engine.functional.Functional&gt;</span>
-<span class="sd">  &gt;&gt;&gt; Verify that loss and val loss never reach 0:</span>
-<span class="sd">      history = autoencoder.history.history</span>
+<span class="sd">  &gt;&gt;&gt; #Verify that loss and val loss never reach 0:</span>
+<span class="sd">  &gt;&gt;&gt; history = autoencoder.history.history</span>
 <span class="sd">      for i in range(len(history[&#39;val_loss&#39;])):</span>
 <span class="sd">            if history[&#39;val_loss&#39;][i]==0:</span>
 <span class="sd">                print(&quot;test failed&quot;)</span>
@@ -131,27 +125,38 @@
 <span class="sd">                break</span>
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="c1"># &quot;encoded&quot; is the encoded representation of the input</span>
-  <span class="n">input_img</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">original_dim</span><span class="p">,))</span>
-  <span class="n">hidden_encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">hidden_encoding_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">input_img</span><span class="p">)</span>
-  <span class="n">dropout_hidden_encoded</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">dropout_level</span><span class="p">)(</span><span class="n">hidden_encoded</span><span class="p">)</span>
-  <span class="n">encoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">encoding_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">dropout_hidden_encoded</span><span class="p">)</span>
-  <span class="n">dropout_encoded</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">dropout_level</span><span class="p">)(</span><span class="n">encoded</span><span class="p">)</span>
+  <span class="c1">#input_shape = (128,128,3)</span>
+  <span class="n">image_size</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
+  <span class="n">lx</span><span class="p">,</span><span class="n">ly</span>      <span class="o">=</span> <span class="n">image_size</span>
+  <span class="n">encoded_dim</span> <span class="o">=</span> <span class="mi">1000</span>
+
+  <span class="c1">#input_img = keras.Input(shape=input_shape)</span>
+  <span class="n">input_img</span>    <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">input_img</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">encoded</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="c1"># &quot;decoded&quot; is the reconstruction of the input</span>
-  <span class="n">hidden_decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">hidden_decoding_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">dropout_encoded</span><span class="p">)</span>
-  <span class="n">dropout_hidden_decoded</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">dropout_level</span><span class="p">)(</span><span class="n">hidden_decoded</span><span class="p">)</span>
-  <span class="n">decoded</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">original_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)(</span><span class="n">dropout_hidden_decoded</span><span class="p">)</span>
+  <span class="c1"># at this point the representation is (16, 16, 8) i.e. 2048-dimensional</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span><span class="p">))(</span><span class="n">encoded</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1">#meriem</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">UpSampling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">UpSampling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">UpSampling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">decoded</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 
   <span class="c1"># This model maps an input to its reconstruction</span>
   <span class="n">autoencoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">input_img</span><span class="p">,</span> <span class="n">decoded</span><span class="p">)</span>
   <span class="c1"># This model maps an input to is encoded representation</span>
   <span class="n">encoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">input_img</span><span class="p">,</span> <span class="n">encoded</span><span class="p">)</span>
   <span class="c1"># This model maps an imput with the same dim as the encoded to the reconstruction</span>
-  <span class="n">input_encoded_img</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">encoding_dim</span><span class="p">,))</span>
-  <span class="n">hidden_decoder_layer</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
-  <span class="n">hidden_dropout_decoded_layer</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-  <span class="n">decoder_layer</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-  <span class="n">decoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">input_encoded_img</span><span class="p">,</span> <span class="n">decoder_layer</span><span class="p">(</span><span class="n">hidden_dropout_decoded_layer</span><span class="p">(</span><span class="n">hidden_decoder_layer</span><span class="p">(</span><span class="n">input_encoded_img</span><span class="p">))))</span>
+  <span class="n">decoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">encoded</span><span class="p">,</span> <span class="n">decoded</span><span class="p">)</span>
 
   <span class="k">return</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">decoder</span><span class="p">,</span> <span class="n">autoencoder</span></div>
 
@@ -167,18 +172,17 @@
 <span class="sd">  Returns :</span>
 <span class="sd">    None</span>
 
-<span class="sd">  &gt;&gt;&gt; run the program code &quot;testunitairecontrolplot&quot; </span>
+<span class="sd">  &gt;&gt;&gt; run the program code &quot;testunitairecontrolplot&quot;</span>
 
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">decoded</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">decoded</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gray</span><span class="p">()</span>
+    <span class="c1">#plt.gray()</span>
     <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;son/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.png&quot;</span><span class="p">)</span>
-
     <span class="n">img_</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;son/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.png&quot;</span><span class="p">)</span>
-    <span class="n">img_2</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img_</span><span class="p">,(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+    <span class="n">img_2</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img_</span><span class="p">,(</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">))</span>
     <span class="c1">#print(img_2)</span>
     <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;son/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">img_2</span><span class="p">)</span>
 
@@ -195,11 +199,11 @@
 <span class="sd">    Returns :</span>
 <span class="sd">        None</span>
 
-<span class="sd">    &gt;&gt;&gt; epochs=300 #parameters of autoencoder_.fit(...)</span>
-<span class="sd">        history[&#39;val_loss&#39;]==epochs</span>
-<span class="sd">        &lt;True&gt;</span>
-<span class="sd">        history[&#39;loss&#39;]==epochs</span>
-<span class="sd">        &lt;True&gt;</span>
+<span class="sd">    &gt;&gt;&gt; epochs=100 #parameters of autoencoder_.fit(...)</span>
+<span class="sd">    &gt;&gt;&gt; history[&#39;val_loss&#39;]==epochs</span>
+<span class="sd">    &lt;True&gt;</span>
+<span class="sd">    &gt;&gt;&gt; history[&#39;loss&#39;]==epochs</span>
+<span class="sd">    &lt;True&gt;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">history</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">history</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
@@ -208,6 +212,15 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="c1">#################</span>
+<span class="c1">#TESTS UNITAIRES#</span>
+<span class="c1">#################</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
            </div>
