@@ -40,7 +40,8 @@ if __name__ == "__main__" :
 
     #Upload pictures avec ckuster1
     images=[]
-    for k in range(len(index_cluster3)):
+    print(len(index_cluster3))
+    for k in range(700):
         images.append(glob.glob("/media/cloisel/SAMSUNG/projet4BIM/img_align_celeba/"+index_cluster3[k]+".jpg")[0])
     i=0
     n=len(images)
@@ -64,8 +65,8 @@ if __name__ == "__main__" :
 
     #Suppression of useless variables
     del images
-    del index_cluster1
-    del att_cluster1
+    del index_cluster3
+    del att_cluster3
     del dataset
 
     # Split the dataset
