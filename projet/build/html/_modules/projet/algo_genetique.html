@@ -101,7 +101,7 @@
 
 <span class="sd">    Args :</span>
 <span class="sd">        parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover</span>
-<span class="sd">        pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</span>
+<span class="sd">        pc (float) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</span>
 <span class="sd">    Returns :</span>
 <span class="sd">        offsprings (list(lists)) : offspring of 2 previous parents/photos</span>
 
@@ -127,51 +127,16 @@
         <span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">parent_1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">parent_2</span><span class="p">,</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="n">k</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">offsprings</span></div>
 
-<div class="viewcode-block" id="crossover_attributes"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.crossover_attributes">[docs]</a><span class="k">def</span> <span class="nf">crossover_attributes</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span><span class="n">parent2</span><span class="p">,</span><span class="n">pc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that crosses the attributes of the both parents to make an offspring.</span>
-<span class="sd">    It takes a proportion pc of attributes from one parent and 1-pc from the other.</span>
-
-<span class="sd">    Args :</span>
-<span class="sd">        parent1 (pandas.array) : first parent (photo) from which we take the attributes</span>
-<span class="sd">        parent2 (pandas.array) : second parent (photo) from which we take the attributes</span>
-<span class="sd">        pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</span>
-<span class="sd">    Returns :</span>
-<span class="sd">        offspring (pandas.array) : offspring of 2 previous parents/photos</span>
-
-<span class="sd">    #UNITSTEST TO DO IF WE USE THIS FUNCTION</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">list1</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="n">list1</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
-    <span class="c1">#split of attributes list into two based on proportions</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span><span class="o">*</span><span class="n">pc</span><span class="p">)</span>   <span class="c1">#proportion pc from parent1</span>
-    <span class="n">l1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
-    <span class="n">l2</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">list1</span> <span class="p">:</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">attribute</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">l1</span><span class="p">):</span>
-            <span class="n">l2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
-    <span class="n">attributes</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="n">l2</span>
-    <span class="c1">#getting each attribute respective value</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l1</span><span class="p">)):</span>
-        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">parent1</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">l1</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l2</span><span class="p">)):</span>
-        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">parent1</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">l2</span><span class="p">[</span><span class="n">j</span><span class="p">]]))</span>
-
-    <span class="c1">#creating offspring as dataframe</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">values</span><span class="p">,</span><span class="n">attributes</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
-
 <div class="viewcode-block" id="mutation_pixels"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.mutation_pixels">[docs]</a><span class="k">def</span> <span class="nf">mutation_pixels</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">pm</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that crosses the reduced pixel matrix (encoded by neural network) of the both parents to make an offspring.</span>
-<span class="sd">    It takes a proportion pc of attributes from one parent and 1-pc from the other.</span>
+<span class="sd">    Function that mutates one parent by adding a fixed value to randoms elements of the list</span>
+<span class="sd">    representing the encoded photo.</span>
 
 <span class="sd">    Args :</span>
-<span class="sd">        parents(list(list)) : list of arrays representing the reduced pixel matrix of the parents we will use for the</span>
-
-<span class="sd">        pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</span>
+<span class="sd">        parent (np.array) : array representing the encoded photo, has to mutate</span>
+<span class="sd">        pm (float) : chances that one element of the np array (parent) gets the mutation</span>
 <span class="sd">    Returns :</span>
-<span class="sd">        offspring(list(list)) : offspring of 2 previous parents/photos</span>
+<span class="sd">        muted_parent (np.array) : same array but with mutation, ready to be decoded and displayed</span>
 
 <span class="sd">    &gt;&gt;&gt; encoded_imgs_test = np.load(&#39;encoded_imgs_test.npy&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; random.seed(4)</span>
@@ -187,27 +152,9 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent</span><span class="p">)):</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">pm</span> <span class="p">:</span>
-            <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">muted_parent</span><span class="p">)</span>
+            <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span> <span class="mf">0.01</span>
     <span class="k">return</span> <span class="n">muted_parent</span></div>
-
-<div class="viewcode-block" id="mutation_attributes"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.mutation_attributes">[docs]</a><span class="k">def</span> <span class="nf">mutation_attributes</span><span class="p">(</span><span class="n">offspring</span><span class="p">,</span><span class="n">pm</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that mutates a population of parents and creates a certain number of offsprings by mutating each pixel with a certain probability pm</span>
-
-<span class="sd">    Args :</span>
-<span class="sd">        offspring (pandas.array) : offspring getting the mutation</span>
-<span class="sd">        pm (int) : proportion of attributes that will be mutated (multiply by -1 to get the opposite)</span>
-<span class="sd">    Returns :</span>
-<span class="sd">        offspring (pandas.array) : offspring of 2 previous parents/photos</span>
-
-<span class="sd">    #UNITSTEST TO DO IF WE USE THIS FUNCTION</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">muted_offspring</span> <span class="o">=</span> <span class="n">offspring</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">offspring</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">:</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">pm</span> <span class="p">:</span>
-            <span class="n">muted_offspring</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">offspring</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">muted_offspring</span></div>
 
 <span class="c1">#################</span>
 <span class="c1">#TESTS UNITAIRES#</span>

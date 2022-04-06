@@ -19,16 +19,23 @@ def split_dataset(dataset, attribut):
   Split the dataset into train and test, in order to train the neural network
 
   Args :
-    pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)
+    dataset (array) : photo list
     attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc
 
   Returns :
-    X_train (array) : portion of the db used to train the neural network - input
-    X_test (array) : portion of the db used to test the neural network - output
-    Y_train (array) : portion of the db used to train the neural network - input
-    Y_test (array) : portion of the db used to test the neural network - output
+    X_train (array) : portion of the db used to train the neural network
+    X_test (array) : portion of the db used to test the neural network
+    Y_train (array) : portion of the db used to train the neural network
+    Y_test (array) : portion of the db used to test the neural network
 
-  >>> run the program code "testunitairedataplit"
+  >>> dataX = np.zeros(1000)
+  >>> dataY = np.ones(1000)
+  >>> (X_TR, X_TE, Y_TR, Y_TE) = split_dataset(dataX,dataY)
+  >>> X_TR.size == Y_TR.size == 1000*0.8
+  True
+
+  >>> X_TE.size == Y_TE.size == 1000*0.2
+  True
 
   '''
   X_train, X_test, Y_train, Y_test = train_test_split(dataset, attribut, test_size=0.2, random_state=0)
@@ -56,7 +63,7 @@ def model():
                 break
       for i in range(len(history['loss'])):
             if history['loss'][i]==0:
-                print("test failed")
+                print("test failed")>>>
                 break
   '''
   # "encoded" is the encoded representation of the input
@@ -102,12 +109,32 @@ def save_reconstruction(n,decoded):
   Save the input images and their reconstruction after being decoded
 
   Args :
-    decoded (array)
+    decoded (array) :
     n (int) : number of faces we will display
   Returns :
     None
 
-  >>> run the program code "testunitairecontrolplot"
+
+
+  >>> import pathlib
+  >>> from pathlib import Path
+  >>> home = Path.home()
+  print(home)
+  cwd = Path.cwd()
+  cwd
+  target_dir = cwd / "test"
+  initial_count=0
+  for file in target_dir.iterdir():
+    if file.suffix == ".png" :
+        initial_count+=1
+    #print(file)
+  print(initial_count)
+
+  wave = Path("test")
+  initial_count = 0
+  for nb in Path("test").glob("*.PNG"):
+    initial_count += 1
+  print(initial_count)
 
   '''
   for i in range(n):

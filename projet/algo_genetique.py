@@ -37,7 +37,7 @@ def crossover_pixels(parents,pc):
 
     Args :
         parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover
-        pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
+        pc (float) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
     Returns :
         offsprings (list(lists)) : offspring of 2 previous parents/photos
 
@@ -69,51 +69,16 @@ def crossover_pixels(parents,pc):
         offsprings.append(offsprings[2])
     return offsprings
 
-def crossover_attributes(parent1,parent2,pc):
-    """
-    Function that crosses the attributes of the both parents to make an offspring.
-    It takes a proportion pc of attributes from one parent and 1-pc from the other.
-
-    Args :
-        parent1 (pandas.array) : first parent (photo) from which we take the attributes
-        parent2 (pandas.array) : second parent (photo) from which we take the attributes
-        pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
-    Returns :
-        offspring (pandas.array) : offspring of 2 previous parents/photos
-
-    #UNITSTEST TO DO IF WE USE THIS FUNCTION
-    """
-    list1 = parent1.columns.tolist()
-    list1.remove('ID')
-    #split of attributes list into two based on proportions
-    k = int(len(list1)*pc)   #proportion pc from parent1
-    l1 = random.sample(list1,k)
-    l2 = []
-    for attribute in list1 :
-        if(attribute not in l1):
-            l2.append(attribute)
-    attributes = l1 + l2
-    #getting each attribute respective value
-    values = []
-    for i in range(len(l1)):
-        values.append(int(parent1.loc[:,l1[i]]))
-    for j in range(len(l2)):
-        values.append(int(parent1.loc[:,l2[j]]))
-
-    #creating offspring as dataframe
-    return pd.DataFrame(values,attributes).transpose()
-
 def mutation_pixels(parent,pm):
     """
-    Function that crosses the reduced pixel matrix (encoded by neural network) of the both parents to make an offspring.
-    It takes a proportion pc of attributes from one parent and 1-pc from the other.
+    Function that mutates one parent by adding a fixed value to randoms elements of the list
+    representing the encoded photo.
 
     Args :
-        parents(list(list)) : list of arrays representing the reduced pixel matrix of the parents we will use for the
-
-        pc (int) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)
+        parent (np.array) : array representing the encoded photo, has to mutate
+        pm (float) : chances that one element of the np array (parent) gets the mutation
     Returns :
-        offspring(list(list)) : offspring of 2 previous parents/photos
+        muted_parent (np.array) : same array but with mutation, ready to be decoded and displayed
 
     >>> encoded_imgs_test = np.load('encoded_imgs_test.npy')
     >>> random.seed(4)
@@ -132,25 +97,6 @@ def mutation_pixels(parent,pm):
             #print(muted_parent)
             muted_parent[i] = muted_parent[i]+ 0.01
     return muted_parent
-
-def mutation_attributes(offspring,pm):
-    """
-    Function that mutates a population of parents and creates a certain number of offsprings by mutating each pixel with a certain probability pm
-
-    Args :
-        offspring (pandas.array) : offspring getting the mutation
-        pm (int) : proportion of attributes that will be mutated (multiply by -1 to get the opposite)
-    Returns :
-        offspring (pandas.array) : offspring of 2 previous parents/photos
-
-    #UNITSTEST TO DO IF WE USE THIS FUNCTION
-    """
-    muted_offspring = offspring
-    for i in range(offspring.shape[1]) :
-        r = random.random()
-        if r < pm :
-            muted_offspring.iloc[0,i] = offspring.iloc[0,i] * (-1)
-    return muted_offspring
 
 #################
 #TESTS UNITAIRES#
