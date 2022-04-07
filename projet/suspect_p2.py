@@ -263,14 +263,15 @@ class Ui_MainWindow(object):
         self.next.clicked.connect(self.nextf)
         self.stop.clicked.connect(self.b_stop)
         self.restart.clicked.connect(self.start)
-        files = os.listdir("choice/")
+        files = os.listdir("father/")
         names = []
         for i in files:
-            names.append("choice/" + i)
-        self.photo_f1.setPixmap(QtGui.QPixmap(names[0]))
-        self.photo_f2.setPixmap(QtGui.QPixmap(names[1]))
-        self.photo_f3.setPixmap(QtGui.QPixmap(names[2]))
-        self.photo_f4.setPixmap(QtGui.QPixmap(names[3]))
+            names.append("father/" + i)
+        print(names)
+        self.photo_f1.setPixmap(QtGui.QPixmap("father/1.png"))
+        self.photo_f2.setPixmap(QtGui.QPixmap("father/2.png"))
+        self.photo_f3.setPixmap(QtGui.QPixmap("father/3.png"))
+        self.photo_f4.setPixmap(QtGui.QPixmap("father/4.png"))
         self.retranslateUi(MainWindow)
         rmtree('choice/')
         os.mkdir('choice/')
@@ -403,26 +404,7 @@ class Ui_MainWindow(object):
                 self.photo_c4.setPixmap(QtGui.QPixmap())
                 self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
-            if num_png == 1:
-                QtWidgets.QApplication.processEvents()
-                self.photo_c1.setPixmap(QtGui.QPixmap(destination))
-            elif num_png == 2:
-                QtWidgets.QApplication.processEvents()
-                self.photo_c2.setPixmap(QtGui.QPixmap(destination))
-            elif num_png == 3:
-                QtWidgets.QApplication.processEvents()
-                self.photo_c3.setPixmap(QtGui.QPixmap(destination))
-            elif num_png == 4:
-                QtWidgets.QApplication.processEvents()
-                self.photo_c4.setPixmap(QtGui.QPixmap(destination))
-            elif num_png >= 5:
-                QtWidgets.QApplication.processEvents()
-                rmtree('choice/')
-                os.mkdir('choice/')
-                self.photo_c2.setPixmap(QtGui.QPixmap())
-                self.photo_c3.setPixmap(QtGui.QPixmap())
-                self.photo_c4.setPixmap(QtGui.QPixmap())
-                self.photo_c1.setPixmap(QtGui.QPixmap(destination))
+
 
     def nextf(self):
         """b_stop

@@ -10,7 +10,7 @@
 7. [Collaboration](#collaboration)
 8. [FAQs](#faqs)
 
-## General Information
+### General Information
 ### Software Description
 ***
 This software creates a synthesized portrait with facial features that resemble as close as possible to a criminal. The creation of the portrait is made based on a witness's successive choices between different propositions taken from a large-scale face attributes dataset. These choices are used by the software to identify the most likely facial characteristics in order to select and propose an image that corresponds to the witness's expectations and hopefully to the actual criminal. 
@@ -34,15 +34,17 @@ Our project is based on 3 main lines
 2) Genetic Algorithm : The purpose of the genetic algorithm is to reshape the suspect’s image using the various photo choices made by the victim that most closely resembles the suspect. The victim must have the choice of attributes in the genetic algorithm method. The algorithm must take into account the choice of the victim before making the next photo proposal. We used the methods of mutations and crossing over to reconstruct the suspect’s image according to the victim’s choices 
 3) GIU : The GIU will display the suspect image based on the victim's choice.     
 
-## Technologies
+### Technologies
 ***
 A list of technologies used within the project:
 * [python3](https://www.python.org/downloads/): Version 3.7.3
 * [Library keras](https://keras.io/about/): Version 2.8.0
 * [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
 * [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+* [Library cv2](https://pypi.org/project/opencv-python/):Version 4.3.0
+* [Library scikit-image](https://scikit-image.org/):Version 0.19.2
 
-## Installation
+### Installation
 ***
 To use the application you need a python environnement and you have to verify the versions of python and modules.
 In addition to use the followwing instructions you need a linux terminal.  
@@ -53,11 +55,17 @@ $ pip3 install keras
 $ python3 mainGUI.py
 Then follow the intructions of the graphic interface.
 ```
-## Collaboration
+### Collaboration
 ***
 You can download the project on github but you can't collaborate directly on the project (it is private).
 
-## Tutoriel 
+### Tutoriel 
+***
+You can find in the "Tutorial" folder: 
+- Tutoral_Ag Notebook explaining how to create functions for the Algorithm Genetic 
+- Tutoral_NN Notebook explaining how to create functions for the Neural Network 
+
+
 
 ## FAQs
 ***

@@ -1,1 +1,0 @@
-{'young': 1, 'male': 1, 'Straight_Hair': 1}
