@@ -109,32 +109,13 @@ def save_reconstruction(n,decoded):
   Save the input images and their reconstruction after being decoded
 
   Args :
-    decoded (array) :
+    decoded (array) : array
     n (int) : number of faces we will display
   Returns :
     None
-
-
-
-  >>> import pathlib
-  >>> from pathlib import Path
-  >>> home = Path.home()
-  print(home)
-  cwd = Path.cwd()
-  cwd
-  target_dir = cwd / "test"
-  initial_count=0
-  for file in target_dir.iterdir():
-    if file.suffix == ".png" :
-        initial_count+=1
-    #print(file)
-  print(initial_count)
-
-  wave = Path("test")
-  initial_count = 0
-  for nb in Path("test").glob("*.PNG"):
-    initial_count += 1
-  print(initial_count)
+    >>> from scipy import misc
+    >>> M = misc.imread('img_')
+    >>> M.shape
 
   '''
   for i in range(n):
