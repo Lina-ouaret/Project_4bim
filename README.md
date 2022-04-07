@@ -61,9 +61,9 @@ You can download the project on github but you can't collaborate directly on the
 
 ### Tutoriel 
 ***
-You can find in the "Tutorial" folder notebooks : 
-- Tutoral_Ag explaining how to create functions for the algorithm genetic 
-- Tutoral_NN explaining how to create functions for the Neural Network 
+You can find in the "Tutorial" folder: 
+- Tutoral_Ag Notebook explaining how to create functions for the algorithm genetic 
+- Tutoral_NN Notebook explaining how to create functions for the Neural Network 
 
 
 
