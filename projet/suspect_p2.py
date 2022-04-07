@@ -39,7 +39,11 @@ import background
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  #Convert back to current page method
     switch_window2 = QtCore.pyqtSignal() #Convert to Checkout page method
+<<<<<<< HEAD
     switch_window3 = QtCore.pyqtSignal() #Convert to Checkout page method
+=======
+
+>>>>>>> refs/remotes/origin/main
     def setupUi(self, MainWindow):
         """
         Label, button position, size setting
@@ -246,7 +250,13 @@ class Ui_MainWindow(object):
         self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
         self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
         self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
+<<<<<<< HEAD
 
+=======
+        # self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+        # self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+        # self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
+>>>>>>> refs/remotes/origin/main
 
         # Connect the buttons to the corresponding functions
         self.suspect1.clicked.connect(self.saveChoice)
@@ -255,14 +265,27 @@ class Ui_MainWindow(object):
         self.suspect4.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
+<<<<<<< HEAD
 
+=======
+        #self.suspect7.clicked.connect(self.saveChoice)
+        #self.suspect8.clicked.connect(self.saveChoice)
+        #self.suspect9.clicked.connect(self.saveChoice)
+        # self.suspect7.clicked.connect(self.saveChoice)
+        # self.suspect8.clicked.connect(self.saveChoice)
+        # self.suspect9.clicked.connect(self.saveChoice)
+>>>>>>> refs/remotes/origin/main
         self.suspect1_f.clicked.connect(self.saveChoice_f)
         self.suspect2_f.clicked.connect(self.saveChoice_f)
         self.suspect3_f.clicked.connect(self.saveChoice_f)
         self.suspect4_f.clicked.connect(self.saveChoice_f)
         self.next.clicked.connect(self.nextf)
         self.stop.clicked.connect(self.b_stop)
+<<<<<<< HEAD
         self.restart.clicked.connect(self.start)
+=======
+        #Display the last selected image in the fater box
+>>>>>>> refs/remotes/origin/main
         files = os.listdir("choice/")
         names = []
         for i in files:
@@ -272,8 +295,11 @@ class Ui_MainWindow(object):
         self.photo_f3.setPixmap(QtGui.QPixmap(names[2]))
         self.photo_f4.setPixmap(QtGui.QPixmap(names[3]))
         self.retranslateUi(MainWindow)
+<<<<<<< HEAD
         rmtree('choice/')
         os.mkdir('choice/')
+=======
+>>>>>>> refs/remotes/origin/main
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     #Whether the suspect is found or not, initialized to no
     stopGUI = False
@@ -425,7 +451,11 @@ class Ui_MainWindow(object):
                 self.photo_c1.setPixmap(QtGui.QPixmap(destination))
 
     def nextf(self):
+<<<<<<< HEAD
         """b_stop
+=======
+        """
+>>>>>>> refs/remotes/origin/main
         If the selection is 4, skip to the next page and generate the offspring photo by AI
         """
         files = os.listdir("choice/")
@@ -435,8 +465,14 @@ class Ui_MainWindow(object):
         encoded_son = np.load('encoded_ag.npy')
         encoded_choice = np.load('encoded_choix.npy')
         if num_png == 4:
+<<<<<<< HEAD
             files = os.listdir("choice/")
             count = 0
+=======
+
+            # Choix de l'utilisateur :
+            files = os.listdir("choice/")
+>>>>>>> refs/remotes/origin/main
             num_png = len(files)
             num_p = []
             for i in files:
@@ -495,6 +531,7 @@ class Ui_MainWindow(object):
             self.photo_4.setPixmap(QtGui.QPixmap())
             self.photo_5.setPixmap(QtGui.QPixmap())
             self.photo_6.setPixmap(QtGui.QPixmap())
+<<<<<<< HEAD
 
 
             names = []
@@ -595,6 +632,34 @@ class Ui_MainWindow(object):
 
 
 
+=======
+            #self.photo_7.setPixmap(QtGui.QPixmap())
+            #self.photo_8.setPixmap(QtGui.QPixmap())
+
+            #self.photo_9.setPixmap(QtGui.QPixmap())
+
+            #sself.photo_9.setPixmap(QtGui.QPixmap())
+
+            names = []
+            for i in files:
+                names.append("choice/" + i)
+            self.photo_1.setPixmap(QtGui.QPixmap("son/1.png"))
+            self.photo_2.setPixmap(QtGui.QPixmap("son/2.png"))
+            self.photo_3.setPixmap(QtGui.QPixmap("son/3.png"))
+            self.photo_4.setPixmap(QtGui.QPixmap("son/4.png"))
+            self.photo_5.setPixmap(QtGui.QPixmap("son/5.png"))
+            self.photo_6.setPixmap(QtGui.QPixmap("son/6.png"))
+            # self.photo_7.setPixmap(QtGui.QPixmap("son/7.png"))
+            # self.photo_8.setPixmap(QtGui.QPixmap("son/8.png"))
+            # self.photo_9.setPixmap(QtGui.QPixmap("son/9.png"))
+            self.photo_f1.setPixmap(QtGui.QPixmap(names[0]))
+            self.photo_f2.setPixmap(QtGui.QPixmap(names[1]))
+            self.photo_f3.setPixmap(QtGui.QPixmap(names[2]))
+            self.photo_f4.setPixmap(QtGui.QPixmap(names[3]))
+            rmtree('choice/')
+            os.mkdir('choice/')
+            self.switch_window.emit()
+>>>>>>> refs/remotes/origin/main
         else:
             QtWidgets.QMessageBox.critical(self, "error", "please select 4 photos")
             rmtree('choice/')
@@ -613,5 +678,8 @@ class Ui_MainWindow(object):
         Suspect has been found, set stopGUI to True
         """
         self.stopGUI = True
+<<<<<<< HEAD
     def start(self):
         self.switch_window3.emit()
+=======
+>>>>>>> refs/remotes/origin/main

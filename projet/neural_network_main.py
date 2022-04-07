@@ -17,7 +17,7 @@ if __name__ == "__main__" :
 
     # Clusters:
     # att_cluster1 = {"Male":-1,"Straight_Hair":-1,"Young":-1}
-    # att_cluster2= {"Male":-1,"Straight_Hair":-1,"Young":1}
+    #att_cluster2= {"Male":-1,"Straight_Hair":-1,"Young":1}
     att_cluster3 = {"Male":-1,"Straight_Hair":1,"Young":1}
     # att_cluster4 = {"Male":1,"Straight_Hair":1,"Young":-1}
     # att_cluster5 = {"Male":1,"Straight_Hair":-1,"Young":1}
@@ -29,7 +29,7 @@ if __name__ == "__main__" :
     df_attributes = cf.convert_attributes_into_pandas("attributes_data.csv")
 
     # index_cluster1 =cf.matrix_reduction(df_attributes,att_cluster1)
-    # index_cluster2 =cf.matrix_reduction(df_attributes,att_cluster2)
+    #index_cluster2 =cf.matrix_reduction(df_attributes,att_cluster2)
     index_cluster3 =cf.matrix_reduction(df_attributes,att_cluster3)
     # index_cluster4 =cf.matrix_reduction(df_attributes,att_cluster4)
     # index_cluster5 =cf.matrix_reduction(df_attributes,att_cluster5)
@@ -40,7 +40,6 @@ if __name__ == "__main__" :
 
     #Upload pictures avec ckuster1
     images=[]
-    print(len(index_cluster3))
     for k in range(700):
         images.append(glob.glob("/media/cloisel/SAMSUNG/projet4BIM/img_align_celeba/"+index_cluster3[k]+".jpg")[0])
     i=0
