@@ -40,9 +40,11 @@ A list of technologies used within the project:
 * [python3](https://www.python.org/downloads/): Version 3.7.3
 * [Library keras](https://keras.io/about/): Version 2.8.0
 * [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
-* [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
 * [Library cv2](https://pypi.org/project/opencv-python/):Version 4.3.0
+  $ pip3 install opencv-python
 * [Library scikit-image](https://scikit-image.org/):Version 0.19.2
+  $ pip3 install scikit-image
+* [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
 
 ### Installation
 ***
@@ -62,8 +64,8 @@ You can download the project on github but you can't collaborate directly on the
 ### Tutoriel 
 ***
 You can find in the "Tutorial" folder: 
-- Tutoral_Ag Notebook explaining how to create functions for the Algorithm Genetic 
-- Tutoral_NN Notebook explaining how to create functions for the Neural Network 
+- Tutoral_Ag Notebook explaining how the functions for the Algorithm Genetic were created 
+- Tutoral_NN Notebook explaining how the functions for the Neural Network were created  
 
 
 
