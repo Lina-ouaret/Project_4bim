@@ -1,7 +1,7 @@
 # Project_4bim
 
 ## Table of Contents
-1. [General Information](#general-info)
+1. [Software Description ](#software-description)
 2. [Repository Organization](#repository-information)
 3. [Methodologies Description](#methodologies_desciption)
 4. [Tutoriel](#tutoriel)
@@ -10,7 +10,6 @@
 7. [Collaboration](#collaboration)
 8. [FAQs](#faqs)
 
-### General Information
 ### Software Description
 ***
 This software creates a synthesized portrait with facial features that resemble as close as possible to a criminal. The creation of the portrait is made based on a witness's successive choices between different propositions taken from a large-scale face attributes dataset. These choices are used by the software to identify the most likely facial characteristics in order to select and propose an image that corresponds to the witness's expectations and hopefully to the actual criminal. 
