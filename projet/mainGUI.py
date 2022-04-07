@@ -104,3 +104,41 @@ if __name__ == "__main__":
     controller = Controller()
     controller.show_select()
     sys.exit(app.exec_())
+    # # load model
+    # decoder_ = keras.models.load_model('decoders/decoder.h5')
+    # # decoder_ = keras.Sequential()
+    #
+    # # load encoded_imgs
+    # encoded_imgs = np.load('clusters/encoded.npy')
+    # #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
+    # # encoded_imgs.tolist()
+    #
+    # # # Upload photos
+    # # from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
+    # #
+    # # dataset = fetch_olivetti_faces()
+    # # df = dataset["data"]
+    # # attribut = dataset["target"]
+    #
+    # # Reduction matrice
+    # # pas besoin pour olivetti*
+    # # cf.matrix_reduction(df, attributs)
+    #
+    # #from PIL.Image import *
+    #
+    # # Choix aléatoire des premières photos
+    # mylist = list(range(0, 700, 1))
+    # n = 9
+    # index = random.sample(mylist, n)
+    # # ag.randomly_choose_photos(index,n)
+    #
+    # # Afficher images
+    # decoded_imgs = decoder_.predict(encoded_imgs)
+    # decoded = [None] * n
+    # encoded = [None] * n
+    # for i in range(n):
+    #     decoded[i] = decoded_imgs[index[i]]
+    #     encoded[i] = encoded_imgs[index[i]]
+    # nn.save_reconstruction(n, decoded)  # dans /son
+    #
+    # np.save('clusters/encoded_first', encoded)

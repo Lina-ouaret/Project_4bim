@@ -257,15 +257,12 @@ class Ui_MainWindow(object):
         self.suspect4.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
-<<<<<<< HEAD
         #self.suspect7.clicked.connect(self.saveChoice)
         #self.suspect8.clicked.connect(self.saveChoice)
         #self.suspect9.clicked.connect(self.saveChoice)
-=======
         # self.suspect7.clicked.connect(self.saveChoice)
         # self.suspect8.clicked.connect(self.saveChoice)
         # self.suspect9.clicked.connect(self.saveChoice)
->>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
         self.suspect1_f.clicked.connect(self.saveChoice_f)
         self.suspect2_f.clicked.connect(self.saveChoice_f)
         self.suspect3_f.clicked.connect(self.saveChoice_f)
@@ -506,11 +503,11 @@ class Ui_MainWindow(object):
             self.photo_6.setPixmap(QtGui.QPixmap())
             #self.photo_7.setPixmap(QtGui.QPixmap())
             #self.photo_8.setPixmap(QtGui.QPixmap())
-<<<<<<< HEAD
+
             #self.photo_9.setPixmap(QtGui.QPixmap())
-=======
+
             #sself.photo_9.setPixmap(QtGui.QPixmap())
->>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
+
             names = []
             for i in files:
                 names.append("choice/" + i)
