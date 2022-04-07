@@ -142,6 +142,7 @@ class Ui_MainWindow(object):
         self.gridLayout_4.addWidget(self.photo_1, 0, 0, 1, 1)
         self.photo_2 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.photo_2.setEnabled(True)
+
         self.photo_2.setMaximumSize(QtCore.QSize(128, 128))
         self.photo_2.setText("")
         self.photo_2.setObjectName("photo_2")
