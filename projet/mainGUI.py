@@ -62,6 +62,8 @@ class Controller():
         # self.window_three = mywindow4()
         if cycle >=1:
             self.window_three.close()
+        if restart:
+            self.window_two.close()
         self.login.show()
 
     def show_main(self):
@@ -77,6 +79,9 @@ class Controller():
             self.window_three.close()
         self.window.switch_window.connect(self.show_window_two)
         self.window_two.switch_window2.connect(self.show_window_lastphoto)
+        self.window_two.switch_window3.connect(self.show_select)
+        global restart
+        restart = True
         self.window_two.show()
 
     def show_window_lastphoto(self):
@@ -95,6 +100,7 @@ if __name__ == "__main__":
 
     #Page initialisation
     cycle = 0
+    restart = False
     app = QtWidgets.QApplication(sys.argv)
     main = QtWidgets.QWidget()
     latout = QtWidgets.QHBoxLayout()
