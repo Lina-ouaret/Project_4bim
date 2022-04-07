@@ -74,7 +74,7 @@ You can download the project on github but you can't collaborate directly on the
 
 ### Tutoriel 
 ***
-![test](1.png)
+<img src="1.png" alt="1" width="200"/>
 
 
 ## FAQs
