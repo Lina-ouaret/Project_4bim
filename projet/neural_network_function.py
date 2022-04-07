@@ -113,21 +113,15 @@ def save_reconstruction(n,decoded):
     n (int) : number of faces we will display
   Returns :
     None
-    >>> from scipy import misc
-    >>> M = misc.imread('img_')
-    >>> M.shape
+    >>> img_.width == 128
+    >>> img_.height == 128
+    <TRUE>
 
   '''
   for i in range(n):
-    plt.imshow(decoded[i].reshape(128, 128,3))
-    plt.axis('off')
-    #plt.gray()
     j=i+1
-    plt.savefig("son/"+str(j)+".png")
-    img_=cv2.imread("son/"+str(j)+".png")
-    img_2=cv2.resize(img_,(128,128))
-    #print(img_2)
-    cv2.imwrite('son/'+str(j)+'.png', img_2)
+    img_=decoded[i].reshape(128, 128,3)
+    plt.imsave("son/"+str(j)+".png", img_)
 
   return None
 
