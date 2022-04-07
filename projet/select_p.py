@@ -14,6 +14,25 @@ from shutil import rmtree
 import os
 import numpy as np
 import background
+import keras
+import random
+
+import sys
+
+import algo_genetique as ag
+import common_functions as cf
+import neural_network_function as nn
+
+import matplotlib.pyplot as plt  # plotting routines
+from keras.models import Model  # Model type to be used
+from keras.layers.core import Dense, Dropout, Activation  # Types of layers to be used in our model
+from keras.utils import np_utils  # NumPy related tools
+import tensorflow as tf
+import pandas as pd
+
+import os
+import glob
+
 
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal() #Convert to suspect selection page2 method
@@ -265,12 +284,12 @@ class Ui_MainWindow(object):
             decoder_ = keras.models.load_model('decoders/decoder7.h5')
         elif dict == att_cluster8 :
             encoded_imgs = np.load('clusters/encoded_imgs8.npy')
-<<<<<<< HEAD
             decoder_ = keras.models.load_model('decoders/decoder8.h5')
         elif dict == att_cluster9 :
-=======
+            encoded1=np.load('clusters/encoded_imgs8.npy')
+            encoded2=np.load('clusters/encoded_imgs3.npy')
+            encoded_imgs = encoded1[0]+encoded2[0]
         elif dic == att_cluster9 :
->>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
             encoded1=np.load('clusters/encoded_imgs8.npy')
             encoded2=np.load('clusters/encoded_imgs3.npy')
             encoded_imgs = encoded1[0]+encoded2[0]
@@ -318,7 +337,6 @@ class Ui_MainWindow(object):
             encoded23=np.load('clusters/encoded_imgs5.npy')
             encoded24=np.load('clusters/encoded_imgs6.npy')
             encoded_imgs = encoded23[0]+encoded24[0]
-<<<<<<< HEAD
         elif dict == att_clusters21 :
             encoded25=np.load('clusters/encoded_imgs1.npy')
             encoded26=np.load('clusters/encoded-imgs8.npy')
@@ -333,14 +351,53 @@ class Ui_MainWindow(object):
         #encoded_imgs = np.load('encoded.npy')
 
         # Choix aléatoire des premières photos
-        mylist = list(range(0, 500, 1))
+        #mylist = list(range(0, 500, 1))
+        #n = 9
+        #index = random.sample(mylist, n)
+        #ag.randomly_choose_photos(index,n)
+        # load model
+        #decoder_ = keras.models.load_model('decoders/decoder.h5')
+        # decoder_ = keras.Sequential()
+
+        # load encoded_imgs
+        #encoded_imgs = np.load('clusters/encoded.npy')
+        #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
+        # encoded_imgs.tolist()
+
+        # # Upload photos
+        # from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
+        #
+        # dataset = fetch_olivetti_faces()
+        # df = dataset["data"]
+        # attribut = dataset["target"]
+
+        # Reduction matrice
+        # pas besoin pour olivetti*
+        # cf.matrix_reduction(df, attributs)
+
+        #from PIL.Image import *
+
+        # Choix aléatoire des premières photos
+        mylist = list(range(0, 700, 1))
         n = 9
         index = random.sample(mylist, n)
         # ag.randomly_choose_photos(index,n)
-=======
->>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
 
-        np.save('encoded', encoded_imgs)
+        # Afficher images
+        decoded_imgs = decoder_.predict(encoded_imgs)
+        decoded = [None] * n
+        encoded = [None] * n
+        for i in range(n):
+            decoded[i] = decoded_imgs[index[i]]
+            encoded[i] = encoded_imgs[index[i]]
+        nn.save_reconstruction(n, decoded)  # dans /son
+
+        np.save('clusters/encoded_first', encoded)
+
+
+
+
+        #np.save('clusters/encoded', encoded_imgs)
 
 
         self.switch_window.emit()
