@@ -189,7 +189,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.photo_c4, 1, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_2)
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(130, 10, 91, 20))
+        self.label.setGeometry(QtCore.QRect(30, 10, 91, 20))
         self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -290,7 +290,7 @@ class Ui_MainWindow(object):
         print(files)
         num_png = len(files)
         # load model
-        decoder_ = keras.models.load_model('decoders/decoder1.h5')
+        decoder_ = keras.models.load_model('decoders/decoder.h5')
         encoded_img = np.load('clusters/encoded_first.npy')
         if num_png == 4:
             # Choix de l'utilisateur :
