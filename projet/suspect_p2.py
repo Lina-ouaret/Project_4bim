@@ -255,7 +255,19 @@ class Ui_MainWindow(object):
         self.suspect4.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+        #self.suspect7.clicked.connect(self.saveChoice)
+        #self.suspect8.clicked.connect(self.saveChoice)
+        #self.suspect9.clicked.connect(self.saveChoice)
+=======
+        # self.suspect7.clicked.connect(self.saveChoice)
+        # self.suspect8.clicked.connect(self.saveChoice)
+        # self.suspect9.clicked.connect(self.saveChoice)
+>>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
+>>>>>>> refs/remotes/origin/main
         self.suspect1_f.clicked.connect(self.saveChoice_f)
         self.suspect2_f.clicked.connect(self.saveChoice_f)
         self.suspect3_f.clicked.connect(self.saveChoice_f)
@@ -430,12 +442,81 @@ class Ui_MainWindow(object):
         files = os.listdir("choice/")
         num_png = len(files)
         # load model
-        decoder_ = keras.models.load_model('decoders/decoder1.h5')
+        decoder_ = keras.models.load_model('decoders/decoder.h5')
         encoded_son = np.load('encoded_ag.npy')
         encoded_choice = np.load('encoded_choix.npy')
         if num_png == 4:
             files = os.listdir("choice/")
+<<<<<<< HEAD
             count = 0
+=======
+            num_png = len(files)
+            num_p = []
+            for i in files:
+                num_p.append(int(i[0]) - 1)
+
+            n = 4
+            encoded_father = [None] * n
+            encoded_ag = []
+            encoded_cross = []
+            encoded_mut = []
+            for i in range(n):
+                if files[i][1] == 'f':
+                    print("father :"+files[i])
+                    encoded_father[i] = encoded_choice[num_p[i]]
+                    for m in range(3):
+                        #encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
+                        encoded_mut.append(ag.mutation_pixels(encoded_choice[num_p[i]], 0.5))
+                else:
+                    encoded_father[i] = encoded_son[num_p[i]]
+                    encoded_cross.append(encoded_father[i])
+            encoded_cross2 = ag.crossover_pixels(encoded_cross, 1)
+            for k in range(len(encoded_mut)):
+                encoded_ag.append(encoded_mut[k].tolist())
+            for j in range(len(encoded_cross2)):
+                res = encoded_cross2[j]
+                encoded_ag.append(res)
+
+            # Algo genetique1 : crossover
+            # np.save('encoded_choix', encoded_choix)
+            # encoded_ag = ag.crossover_pixels(encoded_father, 0.3)
+            # print(len(encoded_ag))
+            # print(len(encoded_ag[0]))
+            # print(type(encoded_ag))
+            # print(type(encoded_ag[0]))
+            decoded_ag = decoder_.predict(encoded_ag)
+            nn.save_reconstruction(9, decoded_ag)
+            np.save('encoded_choix', encoded_father)
+            np.save('encoded_ag', encoded_ag)
+            files = os.listdir("choice/")
+            #Delete the photos from the old father folder and put the photos from the choices into it
+            rmtree('father/')
+            os.mkdir('father/')
+            for i in files:
+                fil = os.listdir("father/")
+                source = "choice/" + i
+                destination = "father/" + str(len(fil) + 1) + ".png"
+                copyfile(source, destination)
+            QtWidgets.QApplication.processEvents()
+            self.photo_c1.setPixmap(QtGui.QPixmap())
+            self.photo_c2.setPixmap(QtGui.QPixmap())
+            self.photo_c3.setPixmap(QtGui.QPixmap())
+            self.photo_c4.setPixmap(QtGui.QPixmap())
+            self.photo_1.setPixmap(QtGui.QPixmap())
+            self.photo_2.setPixmap(QtGui.QPixmap())
+            self.photo_3.setPixmap(QtGui.QPixmap())
+            self.photo_4.setPixmap(QtGui.QPixmap())
+            self.photo_5.setPixmap(QtGui.QPixmap())
+            self.photo_6.setPixmap(QtGui.QPixmap())
+            #self.photo_7.setPixmap(QtGui.QPixmap())
+            #self.photo_8.setPixmap(QtGui.QPixmap())
+<<<<<<< HEAD
+            #self.photo_9.setPixmap(QtGui.QPixmap())
+=======
+            #sself.photo_9.setPixmap(QtGui.QPixmap())
+>>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
+            names = []
+>>>>>>> refs/remotes/origin/main
             for i in files:
                 if i[1] == "f":
                     count +=1

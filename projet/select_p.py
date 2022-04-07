@@ -244,21 +244,33 @@ class Ui_MainWindow(object):
         ## dict
         if dict == att_cluster1 :
             encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+            decoder_ = keras.models.load_model('decoders/decoder1.h5')
         elif dict == att_cluster2 :
             encoded_imgs = np.load('clusters/encoded_imgs2.npy')
+            decoder_ = keras.models.load_model('decoders/decoder2.h5')
         elif dict == att_cluster3 :
             encoded_imgs = np.load('clusters/encoded_imgs3.npy')
+            decoder_ = keras.models.load_model('decoders/decoder3.h5')
         elif dict == att_cluster4 :
             encoded_imgs = np.load('clusters/encoded_imgs4.npy')
+            decoder_ = keras.models.load_model('decoders/decoder4.h5')
         elif dict == att_cluster5 :
             encoded_imgs = np.load('clusters/encoded_imgs5.npy')
+            decoder_ = keras.models.load_model('decoders/decoder5.h5')
         elif dict == att_cluster6 :
             encoded_imgs = np.load('clusters/encoded_imgs6.npy')
+            decoder_ = keras.models.load_model('decoders/decoder6.h5')
         elif dict == att_cluster7 :
             encoded_imgs = np.load('clusters/encoded_imgs7.npy')
+            decoder_ = keras.models.load_model('decoders/decoder7.h5')
         elif dict == att_cluster8 :
             encoded_imgs = np.load('clusters/encoded_imgs8.npy')
+<<<<<<< HEAD
+            decoder_ = keras.models.load_model('decoders/decoder8.h5')
+        elif dict == att_cluster9 :
+=======
         elif dic == att_cluster9 :
+>>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
             encoded1=np.load('clusters/encoded_imgs8.npy')
             encoded2=np.load('clusters/encoded_imgs3.npy')
             encoded_imgs = encoded1[0]+encoded2[0]
@@ -306,6 +318,27 @@ class Ui_MainWindow(object):
             encoded23=np.load('clusters/encoded_imgs5.npy')
             encoded24=np.load('clusters/encoded_imgs6.npy')
             encoded_imgs = encoded23[0]+encoded24[0]
+<<<<<<< HEAD
+        elif dict == att_clusters21 :
+            encoded25=np.load('clusters/encoded_imgs1.npy')
+            encoded26=np.load('clusters/encoded-imgs8.npy')
+            encoded_imgs = encoded25[0]+encoded26[0]
+        #np.save('encoded', encoded_imgs)
+        decoder_.save('decoders/decoder.h5')
+        # load model
+
+        # decoder_ = keras.Sequential()
+
+        # load encoded_imgs
+        #encoded_imgs = np.load('encoded.npy')
+
+        # Choix aléatoire des premières photos
+        mylist = list(range(0, 500, 1))
+        n = 9
+        index = random.sample(mylist, n)
+        # ag.randomly_choose_photos(index,n)
+=======
+>>>>>>> 7200456819518709844cf7d2a383d1ac1ac41508
 
         np.save('encoded', encoded_imgs)
 

@@ -290,7 +290,7 @@ class Ui_MainWindow(object):
         print(files)
         num_png = len(files)
         # load model
-        decoder_ = keras.models.load_model('decoders/decoder1.h5')
+        decoder_ = keras.models.load_model('decoders/decoder.h5')
         encoded_img = np.load('clusters/encoded_first.npy')
         if num_png == 4:
             # Choix de l'utilisateur :
