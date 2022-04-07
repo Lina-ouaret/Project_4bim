@@ -34,7 +34,7 @@ import pandas as pd
 from PIL.Image import *
 import os
 import glob
-
+import background
 
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  #Convert back to current page method
@@ -257,9 +257,9 @@ class Ui_MainWindow(object):
         self.suspect4.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
-        self.suspect7.clicked.connect(self.saveChoice)
-        self.suspect8.clicked.connect(self.saveChoice)
-        self.suspect9.clicked.connect(self.saveChoice)
+        # self.suspect7.clicked.connect(self.saveChoice)
+        # self.suspect8.clicked.connect(self.saveChoice)
+        # self.suspect9.clicked.connect(self.saveChoice)
         self.suspect1_f.clicked.connect(self.saveChoice_f)
         self.suspect2_f.clicked.connect(self.saveChoice_f)
         self.suspect3_f.clicked.connect(self.saveChoice_f)
@@ -498,9 +498,9 @@ class Ui_MainWindow(object):
             self.photo_4.setPixmap(QtGui.QPixmap())
             self.photo_5.setPixmap(QtGui.QPixmap())
             self.photo_6.setPixmap(QtGui.QPixmap())
-            self.photo_7.setPixmap(QtGui.QPixmap())
-            self.photo_8.setPixmap(QtGui.QPixmap())
-            self.photo_9.setPixmap(QtGui.QPixmap())
+            #self.photo_7.setPixmap(QtGui.QPixmap())
+            #self.photo_8.setPixmap(QtGui.QPixmap())
+            #sself.photo_9.setPixmap(QtGui.QPixmap())
             names = []
             for i in files:
                 names.append("choice/" + i)
