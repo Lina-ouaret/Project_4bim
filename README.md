@@ -29,10 +29,20 @@ The folder tutorials contains two jupyther notebooks that can help you train wit
 The folder docs contains all the files needed to create the software's documentation. 
 
 ### Methodologies Description
-Our project is based on 3 main lines  
-1) Neural Algorithm : The objective is to reduce and find how to manipulate the encoded data with the annotations which represent the physical traits of faces and create a 'new' database with only the pictures that match the description of the criminal. So we decided to create clusters to reduce the database we noticed that the use of the 3 attributes (Male,Straight Hair,Young) greatly reduced the database. So we made several combinations of our 3 attributes, and  we arrived at the creation of 8 distinct clusters. So we were able to train our neural network on much smaller databases, which makes it possible to have an improvement in the quality of the photos obtained 
-2) Genetic Algorithm : The purpose of the genetic algorithm is to reshape the suspect’s image using the various photo choices made by the victim that most closely resembles the suspect. The victim must have the choice of attributes in the genetic algorithm method. The algorithm must take into account the choice of the victim before making the next photo proposal. We used the methods of mutations and crossing over to reconstruct the suspect’s image according to the victim’s choices 
-3) GIU : The GIU will display the suspect image based on the victim's choice.     
+Our project is based on 3 methodologies.
+
+1.  *Neural Network*
+
+A Neural Network Algorithm is used to reduce the size of all the dataset images for the software to modify them faster. It contains and encoder that encodes the images and a decoder that decodes them to latter being able to display them. 
+
+The database used to create the software has more than 200,000 photos. With the aim of not having to train our Neural Network model on all the dataset every time the software was runned, we decided to create 8 clusters of the dataset based on all the possible combinations of 3 attributes (Hairstyle, Gender and Age) that we consider reduced significantly the size of the database. Each cluster has a specific encoder and decoder and all these files needed for the Neural Network to run were created in advance. The only image kept in memory at run time are the ones that are being displayed. 
+
+2. *Genetic Algorithm*
+
+A Genetic algorithm is used to generate a high-quality solution to the search of the criminal's face by the witness. It relies on two biological inspired operators: a mutation and a crossover. The idea is to include the witness's successive photo choices and use that information to generate new photos that contain some of the traits selected. 
+
+3. *Graphical User Interface*
+In order to present a user friendly software, a Graphical User Interface was created with buttoms that allow the witness to select different photos, stop and restart the program. It also displays all the photos selected in the previous steps of the software. 
 
 ### Technologies
 ***
