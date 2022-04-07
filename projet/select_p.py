@@ -33,7 +33,7 @@ import pandas as pd
 import os
 import glob
 
-
+choose = [0,0,0]
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal() #Convert to suspect selection page2 method
 
@@ -75,10 +75,10 @@ class Ui_MainWindow(object):
         self.Straight_Hair_F.setMaximumSize(QtCore.QSize(16777215, 32))
         self.Straight_Hair_F.setObjectName("Straight_Hair_F")
         self.verticalLayout.addWidget(self.Straight_Hair_F)
-        self.hair_nc = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.hair_nc.setMaximumSize(QtCore.QSize(16777215, 32))
-        self.hair_nc.setObjectName("hair_nc")
-        self.verticalLayout.addWidget(self.hair_nc)
+        self.Straight_Hair_0 = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.Straight_Hair_0.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.Straight_Hair_0.setObjectName("Straight_Hair_0")
+        self.verticalLayout.addWidget(self.Straight_Hair_0)
         self.Ph_age = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_age.setEnabled(True)
         self.Ph_age.setMaximumSize(QtCore.QSize(16777215, 200))
@@ -163,7 +163,7 @@ class Ui_MainWindow(object):
         self.male_F.clicked.connect(self.press)
         self.male_0.clicked.connect(self.press)
         self.young_0.clicked.connect(self.press)
-        self.hair_nc.clicked.connect(self.press2)
+        self.Straight_Hair_0.clicked.connect(self.press)
         self.next.clicked.connect(self.press3)
 
         self.retranslateUi(MainWindow)
@@ -183,7 +183,7 @@ class Ui_MainWindow(object):
         self.skin_color.setText(_translate("MainWindow", "hair style"))
         self.Straight_Hair_T.setText(_translate("MainWindow", "stright"))
         self.Straight_Hair_F.setText(_translate("MainWindow", "wavy"))
-        self.hair_nc.setText(_translate("MainWindow", "no clue"))
+        self.Straight_Hair_0.setText(_translate("MainWindow", "no clue"))
         self.skin_color_4.setText(_translate("MainWindow", "age"))
         self.young_T.setText(_translate("MainWindow", "young"))
         self.young_F.setText(_translate("MainWindow", "old"))
@@ -204,203 +204,216 @@ class Ui_MainWindow(object):
         with open('select.txt', 'r') as file:
             rd = file.read()
         dict1 = eval(rd)
+        dict2 = {"Straight_Hair":0,"young":1,"male":2}
+        global choose
         if button_name[-1] == "T":
             dict1.update({button_name[:l]: 1})
+            choose[dict2[button_name[:l]]] = 1
         elif button_name[-1] == "F":
             dict1.update({button_name[:l]: -1})
+            choose[dict2[button_name[:l]]] = 1
         elif button_name[-1] == "0":
-            del dict1[button_name[:l]]
+            choose[dict2[button_name[:l]]] = 1
+            if button_name[:l] in dict1:
+                del dict1[button_name[:l]]
         with open('select.txt', 'w') as file:
             file.write(str(dict1))
 
-    def press2(self):
-        """
-        Delete button corresponding to the hair style option
-        """
-        with open('select.txt', 'r') as file:
-            rd = file.read()
-        dict1 = eval(rd)
-        del dict1["Wavy_Hair"]
-        del dict1["Straight_Hair"]
-        with open('select.txt', 'w') as file:
-            file.write(str(dict1))
+    # def press2(self):
+    #     """
+    #     Delete button corresponding to the hair style option
+    #     """
+    #     with open('select.txt', 'r') as file:
+    #         rd = file.read()
+    #     dict1 = eval(rd)
+    #     del dict1["Wavy_Hair"]
+    #     del dict1["Straight_Hair"]
+    #     with open('select.txt', 'w') as file:
+    #         file.write(str(dict1))
 
     def press3(self):
         """
         Display the selection results and initialise the choice and jump to the suspect picture selection page1
         """
-        with open('select.txt', 'r') as file:
-            rd = file.read()
-        QtWidgets.QMessageBox.critical(self, "error", rd)
-        if os.path.exists('choice/'):
-            rmtree('choice/')
-            os.mkdir('choice/')
-        #Clusters:
-        att_cluster1 = {"male":-1,"Straight_Hair":-1,"young":-1}
-        att_cluster2= {"male":-1,"Straight_Hair":-1,"young":1}
-        att_cluster3 = {"male":-1,"Straight_Hair":1,"young":1}
-        att_cluster4 = {"male":1,"Straight_Hair":1,"young":-1}
-        att_cluster5 = {"male":1,"Straight_Hair":-1,"young":1}
-        att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
-        att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
-        att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
-        ## clusters avec un attribut nul
-        att_cluster9 = {"Straight_Hair":1,"young":1}
-        att_cluster10 = {"Straight_Hair":-1,"young":-1}
-        att_cluster11 = {"Straight_Hair":1,"young":-1}
-        att_cluster12 = {"Straight_Hair":-1,"young":1}
-        att_cluster13 = {"male":1,"young":1}
-        att_cluster14 = {"male":-1,"young":-1}
-        att_cluster15 = {"male":1,"young":-1}
-        att_cluster16 = {"male":-1,"young":1}
-        att_cluster17 = {"male":1,"Straight_Hair":1}
-        att_cluster18 = {"male":-1,"Straight_Hair":-1}
-        att_cluster19 = {"male":-1,"Straight_Hair":1}
-        att_cluster20 = {"male":1,"Straight_Hair":-1}
+        global choose
+        if not(choose==[1,1,1]):
+            print(choose)
+            QtWidgets.QMessageBox.critical(self, "error", "you haven't select all of 3 charatersitics")
+            choose =[0,0,0]
+        else:
+            with open('select.txt', 'r') as file:
+                rd = file.read()
+            QtWidgets.QMessageBox.critical(self, "error", rd)
+            if os.path.exists('choice/'):
+                rmtree('choice/')
+                os.mkdir('choice/')
+            #Clusters:
+            att_cluster1 = {"male":-1,"Straight_Hair":-1,"young":-1}
+            att_cluster2= {"male":-1,"Straight_Hair":-1,"young":1}
+            att_cluster3 = {"male":-1,"Straight_Hair":1,"young":1}
+            att_cluster4 = {"male":1,"Straight_Hair":1,"young":-1}
+            att_cluster5 = {"male":1,"Straight_Hair":-1,"young":1}
+            att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
+            att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
+            att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
+            ## clusters avec un attribut nul
+            att_cluster9 = {"Straight_Hair":1,"young":1}
+            att_cluster10 = {"Straight_Hair":-1,"young":-1}
+            att_cluster11 = {"Straight_Hair":1,"young":-1}
+            att_cluster12 = {"Straight_Hair":-1,"young":1}
+            att_cluster13 = {"male":1,"young":1}
+            att_cluster14 = {"male":-1,"young":-1}
+            att_cluster15 = {"male":1,"young":-1}
+            att_cluster16 = {"male":-1,"young":1}
+            att_cluster17 = {"male":1,"Straight_Hair":1}
+            att_cluster18 = {"male":-1,"Straight_Hair":-1}
+            att_cluster19 = {"male":-1,"Straight_Hair":1}
+            att_cluster20 = {"male":1,"Straight_Hair":-1}
 
 
 
-        dict = eval(rd)
-        print(dict)
+            dict = eval(rd)
+            print(dict)
 
-        ## dict
-        if dict == att_cluster1 :
-            encoded_imgs = np.load('clusters/encoded_imgs1.npy')
-            decoder_ = keras.models.load_model('decoders/decoder1.h5')
-        elif dict == att_cluster2 :
-            encoded_imgs = np.load('clusters/encoded_imgs2.npy')
-            decoder_ = keras.models.load_model('decoders/decoder2.h5')
-        elif dict == att_cluster3 :
-            encoded_imgs = np.load('clusters/encoded_imgs3.npy')
-            decoder_ = keras.models.load_model('decoders/decoder3.h5')
-        elif dict == att_cluster4 :
-            encoded_imgs = np.load('clusters/encoded_imgs4.npy')
-            decoder_ = keras.models.load_model('decoders/decoder4.h5')
-        elif dict == att_cluster5 :
-            encoded_imgs = np.load('clusters/encoded_imgs5.npy')
-            decoder_ = keras.models.load_model('decoders/decoder5.h5')
-        elif dict == att_cluster6 :
-            encoded_imgs = np.load('clusters/encoded_imgs6.npy')
-            decoder_ = keras.models.load_model('decoders/decoder6.h5')
-        elif dict == att_cluster7 :
-            encoded_imgs = np.load('clusters/encoded_imgs7.npy')
-            decoder_ = keras.models.load_model('decoders/decoder7.h5')
-        elif dict == att_cluster8 :
-            encoded_imgs = np.load('clusters/encoded_imgs8.npy')
-            decoder_ = keras.models.load_model('decoders/decoder8.h5')
-        elif dict == att_cluster9 :
-            encoded1=np.load('clusters/encoded_imgs8.npy')
-            encoded2=np.load('clusters/encoded_imgs3.npy')
-            encoded_imgs = encoded1[0]+encoded2[0]
-        elif dic == att_cluster9 :
-            encoded1=np.load('clusters/encoded_imgs8.npy')
-            encoded2=np.load('clusters/encoded_imgs3.npy')
-            encoded_imgs = encoded1[0]+encoded2[0]
-        elif dic == att_cluster10 :
-            encoded3=np.load('clusters/encoded_imgs1.npy')
-            encoded4=np.load('clusters/encoded_imgs6.npy')
-            encoded_imgs = encoded3[0]+encoded4[0]
-        elif dic == att_cluster11 :
-            encoded5=np.load('clusters/encoded_imgs4.npy')
-            encoded6=np.load('clusters/encoded_imgs7.npy')
-            encoded_imgs = encoded5[0]+encoded6[0]
-        elif dic == att_cluster12 :
-            encoded7=np.load('clusters/encoded_imgs2.npy')
-            encoded8=np.load('clusters/encoded_imgs5.npy')
-            encoded_imgs = encoded7[0]+encoded8[0]
-        elif dic == att_cluster13 :
-            encoded9=np.load('clusters/encoded_imgs5.npy')
-            encoded10=np.load('clusters/encoded_imgs8.npy')
-            encoded_imgs = encoded9[0]+encoded10[0]
-        elif dic == att_cluster14 :
-            encoded11=np.load('clusters/encoded_imgs5.npy')
-            encoded12=np.load('clusters/encoded_imgs1.npy')
-            encoded_imgs = encoded11[0]+encoded12[0]
-        elif dic == att_cluster15 :
-            encoded13=np.load('clusters/encoded_imgs4.npy')
-            encoded14=np.load('clusters/encoded_imgs7.npy')
-            encoded_imgs = encoded13[0]+encoded14[0]
-        elif dic == att_cluster16 :
-            encoded15=np.load('clusters/encoded_imgs5.npy')
-            encoded16=np.load('clusters/encoded_imgs2.npy')
-            encoded_imgs = encoded15[0]+encoded16[0]
-        elif dic == att_cluster17 :
-            encoded17=np.load('clusters/encoded_imgs4.npy')
-            encoded18=np.load('clusters/encoded_imgs8.npy')
-            encoded_imgs = encoded17[0]+encoded18[0]
-        elif dic == att_cluster18 :
-            encoded19=np.load('clusters/encoded_imgs1.npy')
-            encoded20=np.load('clusters/encoded_imgs2.npy')
-            encoded_imgs = encoded19[0]+encoded20[0]
-        elif dic == att_cluster19 :
-            encoded21=np.load('clusters/encoded_imgs7.npy')
-            encoded22=np.load('clusters/encoded_imgs3.npy')
-            encoded_imgs = encoded21[0]+encoded22[0]
-        elif dic == att_cluster20 :
-            encoded23=np.load('clusters/encoded_imgs5.npy')
-            encoded24=np.load('clusters/encoded_imgs6.npy')
-            encoded_imgs = encoded23[0]+encoded24[0]
-        elif dict == att_clusters21 :
-            encoded25=np.load('clusters/encoded_imgs1.npy')
-            encoded26=np.load('clusters/encoded-imgs8.npy')
-            encoded_imgs = encoded25[0]+encoded26[0]
-        #np.save('encoded', encoded_imgs)
-        decoder_.save('decoders/decoder.h5')
-        # load model
+            ## dict
+            if dict == att_cluster1 :
+                encoded_imgs = np.load('clusters/encoded_imgs1.npy')
+                decoder_ = keras.models.load_model('decoders/decoder1.h5')
+            elif dict == att_cluster2 :
+                encoded_imgs = np.load('clusters/encoded_imgs2.npy')
+                decoder_ = keras.models.load_model('decoders/decoder2.h5')
+            elif dict == att_cluster3 :
+                encoded_imgs = np.load('clusters/encoded_imgs3.npy')
+                decoder_ = keras.models.load_model('decoders/decoder3.h5')
+            elif dict == att_cluster4 :
+                encoded_imgs = np.load('clusters/encoded_imgs4.npy')
+                decoder_ = keras.models.load_model('decoders/decoder4.h5')
+            elif dict == att_cluster5 :
+                encoded_imgs = np.load('clusters/encoded_imgs5.npy')
+                decoder_ = keras.models.load_model('decoders/decoder5.h5')
+            elif dict == att_cluster6 :
+                encoded_imgs = np.load('clusters/encoded_imgs6.npy')
+                decoder_ = keras.models.load_model('decoders/decoder6.h5')
+            elif dict == att_cluster7 :
+                encoded_imgs = np.load('clusters/encoded_imgs7.npy')
+                decoder_ = keras.models.load_model('decoders/decoder7.h5')
+            elif dict == att_cluster8 :
+                encoded_imgs = np.load('clusters/encoded_imgs8.npy')
+                decoder_ = keras.models.load_model('decoders/decoder8.h5')
+            elif dict == att_cluster9 :
+                encoded1=np.load('clusters/encoded_imgs8.npy')
+                encoded2=np.load('clusters/encoded_imgs3.npy')
+                encoded_imgs = encoded1[0]+encoded2[0]
+            elif dic == att_cluster9 :
+                encoded1=np.load('clusters/encoded_imgs8.npy')
+                encoded2=np.load('clusters/encoded_imgs3.npy')
+                encoded_imgs = encoded1[0]+encoded2[0]
+            elif dic == att_cluster10 :
+                encoded3=np.load('clusters/encoded_imgs1.npy')
+                encoded4=np.load('clusters/encoded_imgs6.npy')
+                encoded_imgs = encoded3[0]+encoded4[0]
+            elif dic == att_cluster11 :
+                encoded5=np.load('clusters/encoded_imgs4.npy')
+                encoded6=np.load('clusters/encoded_imgs7.npy')
+                encoded_imgs = encoded5[0]+encoded6[0]
+            elif dic == att_cluster12 :
+                encoded7=np.load('clusters/encoded_imgs2.npy')
+                encoded8=np.load('clusters/encoded_imgs5.npy')
+                encoded_imgs = encoded7[0]+encoded8[0]
+            elif dic == att_cluster13 :
+                encoded9=np.load('clusters/encoded_imgs5.npy')
+                encoded10=np.load('clusters/encoded_imgs8.npy')
+                encoded_imgs = encoded9[0]+encoded10[0]
+            elif dic == att_cluster14 :
+                encoded11=np.load('clusters/encoded_imgs5.npy')
+                encoded12=np.load('clusters/encoded_imgs1.npy')
+                encoded_imgs = encoded11[0]+encoded12[0]
+            elif dic == att_cluster15 :
+                encoded13=np.load('clusters/encoded_imgs4.npy')
+                encoded14=np.load('clusters/encoded_imgs7.npy')
+                encoded_imgs = encoded13[0]+encoded14[0]
+            elif dic == att_cluster16 :
+                encoded15=np.load('clusters/encoded_imgs5.npy')
+                encoded16=np.load('clusters/encoded_imgs2.npy')
+                encoded_imgs = encoded15[0]+encoded16[0]
+            elif dic == att_cluster17 :
+                encoded17=np.load('clusters/encoded_imgs4.npy')
+                encoded18=np.load('clusters/encoded_imgs8.npy')
+                encoded_imgs = encoded17[0]+encoded18[0]
+            elif dic == att_cluster18 :
+                encoded19=np.load('clusters/encoded_imgs1.npy')
+                encoded20=np.load('clusters/encoded_imgs2.npy')
+                encoded_imgs = encoded19[0]+encoded20[0]
+            elif dic == att_cluster19 :
+                encoded21=np.load('clusters/encoded_imgs7.npy')
+                encoded22=np.load('clusters/encoded_imgs3.npy')
+                encoded_imgs = encoded21[0]+encoded22[0]
+            elif dic == att_cluster20 :
+                encoded23=np.load('clusters/encoded_imgs5.npy')
+                encoded24=np.load('clusters/encoded_imgs6.npy')
+                encoded_imgs = encoded23[0]+encoded24[0]
+            elif dict == att_clusters21 :
+                encoded25=np.load('clusters/encoded_imgs1.npy')
+                encoded26=np.load('clusters/encoded-imgs8.npy')
+                encoded_imgs = encoded25[0]+encoded26[0]
+            #np.save('encoded', encoded_imgs)
+            decoder_.save('decoders/decoder.h5')
+            # load model
 
-        # decoder_ = keras.Sequential()
+            # decoder_ = keras.Sequential()
 
-        # load encoded_imgs
-        #encoded_imgs = np.load('encoded.npy')
+            # load encoded_imgs
+            # encoded_imgs = np.load('encoded.npy')
 
-        # Choix aléatoire des premières photos
-        #mylist = list(range(0, 500, 1))
-        #n = 9
-        #index = random.sample(mylist, n)
-        #ag.randomly_choose_photos(index,n)
-        # load model
-        #decoder_ = keras.models.load_model('decoders/decoder.h5')
-        # decoder_ = keras.Sequential()
+            # Choix aléatoire des premières photos
+            #mylist = list(range(0, 500, 1))
+            #n = 9
+            #index = random.sample(mylist, n)
+            #ag.randomly_choose_photos(index,n)
+            # load model
+            #decoder_ = keras.models.load_model('decoders/decoder.h5')
+            # decoder_ = keras.Sequential()
 
-        # load encoded_imgs
-        #encoded_imgs = np.load('clusters/encoded.npy')
-        #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
-        # encoded_imgs.tolist()
+            # load encoded_imgs
+            #encoded_imgs = np.load('clusters/encoded.npy')
+            #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
+            # encoded_imgs.tolist()
 
-        # # Upload photos
-        # from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
-        #
-        # dataset = fetch_olivetti_faces()
-        # df = dataset["data"]
-        # attribut = dataset["target"]
+            # # Upload photos
+            # from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
+            #
+            # dataset = fetch_olivetti_faces()
+            # df = dataset["data"]
+            # attribut = dataset["target"]
 
-        # Reduction matrice
-        # pas besoin pour olivetti*
-        # cf.matrix_reduction(df, attributs)
+            # Reduction matrice
+            # pas besoin pour olivetti*
+            # cf.matrix_reduction(df, attributs)
 
-        #from PIL.Image import *
+            #from PIL.Image import *
 
-        # Choix aléatoire des premières photos
-        mylist = list(range(0, 700, 1))
-        n = 9
-        index = random.sample(mylist, n)
-        # ag.randomly_choose_photos(index,n)
+            # Choix aléatoire des premières photos
+            print(choose)
+            mylist = list(range(0, 700, 1))
+            n = 9
+            index = random.sample(mylist, n)
+            # ag.randomly_choose_photos(index,n)
 
-        # Afficher images
-        decoded_imgs = decoder_.predict(encoded_imgs)
-        decoded = [None] * n
-        encoded = [None] * n
-        for i in range(n):
-            decoded[i] = decoded_imgs[index[i]]
-            encoded[i] = encoded_imgs[index[i]]
-        nn.save_reconstruction(n, decoded)  # dans /son
+            # Afficher images
+            decoded_imgs = decoder_.predict(encoded_imgs)
+            decoded = [None] * n
+            encoded = [None] * n
+            for i in range(n):
+                decoded[i] = decoded_imgs[index[i]]
+                encoded[i] = encoded_imgs[index[i]]
+            nn.save_reconstruction(n, decoded)  # dans /son
 
-        np.save('clusters/encoded_first', encoded)
-
-
-
-
-        #np.save('clusters/encoded', encoded_imgs)
+            np.save('clusters/encoded_first', encoded)
 
 
-        self.switch_window.emit()
+
+
+            np.save('clusters/encoded', encoded_imgs)
+
+
+            self.switch_window.emit()
