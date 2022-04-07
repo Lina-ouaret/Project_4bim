@@ -257,9 +257,9 @@ class Ui_MainWindow(object):
         self.suspect4.clicked.connect(self.saveChoice)
         self.suspect5.clicked.connect(self.saveChoice)
         self.suspect6.clicked.connect(self.saveChoice)
-        self.suspect7.clicked.connect(self.saveChoice)
-        self.suspect8.clicked.connect(self.saveChoice)
-        self.suspect9.clicked.connect(self.saveChoice)
+        #self.suspect7.clicked.connect(self.saveChoice)
+        #self.suspect8.clicked.connect(self.saveChoice)
+        #self.suspect9.clicked.connect(self.saveChoice)
         self.suspect1_f.clicked.connect(self.saveChoice_f)
         self.suspect2_f.clicked.connect(self.saveChoice_f)
         self.suspect3_f.clicked.connect(self.saveChoice_f)
@@ -433,7 +433,7 @@ class Ui_MainWindow(object):
         files = os.listdir("choice/")
         num_png = len(files)
         # load model
-        decoder_ = keras.models.load_model('decoders/decoder1.h5')
+        decoder_ = keras.models.load_model('decoders/decoder.h5')
         encoded_son = np.load('encoded_ag.npy')
         encoded_choice = np.load('encoded_choix.npy')
         if num_png == 4:
@@ -498,9 +498,9 @@ class Ui_MainWindow(object):
             self.photo_4.setPixmap(QtGui.QPixmap())
             self.photo_5.setPixmap(QtGui.QPixmap())
             self.photo_6.setPixmap(QtGui.QPixmap())
-            self.photo_7.setPixmap(QtGui.QPixmap())
-            self.photo_8.setPixmap(QtGui.QPixmap())
-            self.photo_9.setPixmap(QtGui.QPixmap())
+            #self.photo_7.setPixmap(QtGui.QPixmap())
+            #self.photo_8.setPixmap(QtGui.QPixmap())
+            #self.photo_9.setPixmap(QtGui.QPixmap())
             names = []
             for i in files:
                 names.append("choice/" + i)
