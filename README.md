@@ -42,6 +42,7 @@ The database used to create the software has more than 200,000 photos. With the 
 A Genetic algorithm is used to generate a high-quality solution to the search of the criminal's face by the witness. It relies on two biological inspired operators: a mutation and a crossover. The idea is to include the witness's successive photo choices and use that information to generate new photos that contain some of the traits selected. 
 
 3. *Graphical User Interface*
+
 In order to present a user friendly software, a Graphical User Interface was created with buttoms that allow the witness to select different photos, stop and restart the program. It also displays all the photos selected in the previous steps of the software. 
 
 ### Technologies
