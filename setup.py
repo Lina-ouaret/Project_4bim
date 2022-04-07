@@ -4,9 +4,9 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="packageGrp5",
+    name="Portrait_Robot_G5",
     version = "0.0.1",
-    author = "Group 5",
+    author = "Canjura, Loisel, Ouaret, Gaun, Valente",
     author_email = "maceovalente@gmail.com",
     description = "4BIM project by group 5",
     long_description=long_description,
