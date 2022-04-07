@@ -242,6 +242,7 @@ class Ui_MainWindow(object):
         elif dict == att_cluster8 :
             encoded_imgs = np.load('clusters/encoded_imgs8.npy')
 
+
         np.save('encoded', encoded_imgs)
 
 
