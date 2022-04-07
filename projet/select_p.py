@@ -526,5 +526,7 @@ class Ui_MainWindow(object):
 
             np.save('clusters/encoded_first', encoded)
 
+            np.save('clusters/encoded', encoded_imgs)
+
 
             self.switch_window.emit()

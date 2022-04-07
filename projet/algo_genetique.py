@@ -117,7 +117,7 @@ def mutation_pixels(parent,pm):
     # return muted_parent
 
     mutated_parent = parent
-    parentbase = np.load("clusters/encoded_imgs1.npy")
+    parentbase = np.load("clusters/encoded.npy")
     p = random.choice(range(len(parentbase)))
     mutated_parent = parentbase[p]
     return mutated_parent
