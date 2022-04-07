@@ -151,6 +151,9 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        with open('select.txt', 'w') as file:
+            file.write('{}')
+
         #Connect the buttons to the corresponding functions
         self.Straight_Hair_T.clicked.connect(self.press)
         self.Straight_Hair_F.clicked.connect(self.press)
