@@ -74,8 +74,27 @@ You can download the project on github but you can't collaborate directly on the
 
 ### Tutoriel 
 ***
+First, select an initial set of physical traits for the search. Click on the options and then click on next. 
 <img src="1.png" alt="1" width="400"/>
 
+Then, 9 photos that correspond to the initial selected traits will be displayed. Select 4 of them and click on next.
+<img src="2.png" alt="1" width="400"/>
+
+Then, 6 new created photos will be displayed. In the top right part of the window you can check your previous selected photos. 
+You have two possibilities: 
+1. Select one photo from the left buttom and 3 from the right side
+2. Select 4 photos from the right side
+
+Note that at anytime you can restart the software by clicking on restart.
+<img src="3.png" alt="1" width="400"/>
+
+All your choices will be displayed on the bottom left side of the window. 
+<img src="4.png" alt="1" width="400"/>
+
+When you think you've found the best portrait, click on the I found suspect and then select the corresponding image. 
+<img src="5.png" alt="1" width="400"/>
+
+Finally, confirm your choice by clicking yes. 
 
 ## FAQs
 ***

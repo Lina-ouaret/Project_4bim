@@ -42,21 +42,27 @@ def matrix_reduction(df,fixed_att):
     attributes = list(fixed_att.keys())
     values = list(fixed_att.values())
     for i in range(len(attributes)):
-        df.drop(df.index[df[attributes[i]]!= values[i]],inplace=True)
+        new_df.drop(df.index[df[attributes[i]]!= values[i]],inplace=True)
     list_index = new_df.index.tolist()
+    int_index=list(map(int,list_index))
+    for index in int_index :
+        index+=1
+    list_index=list(map(str,int_index))
     new_list_index = []
     for i in range(len(list_index)):
-        new_list_index.append(str(list_index[i]))
-        if len(new_list_index[i])==1:
+        new_list_index.append(list_index[i])
+        print(list_index[i])
+        if len(new_list_index[i]) ==1:
             new_list_index[i] = '00000' + new_list_index[i]
-        if len(new_list_index[i])==2:
+        if len(new_list_index[i]) ==2:
             new_list_index[i] = '0000' + new_list_index[i]
-        if len(new_list_index[i])==3:
+        if len(new_list_index[i]) ==3:
             new_list_index[i] = '000' + new_list_index[i]
-        if len(new_list_index[i])==4:
+        if len(new_list_index[i]) ==4:
             new_list_index[i] = '00' + new_list_index[i]
-        if len(new_list_index[i])==5:
+        if len(new_list_index[i]) ==5:
             new_list_index[i] = '0' + new_list_index[i]
+
 
     return new_list_index
 
