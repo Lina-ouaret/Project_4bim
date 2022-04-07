@@ -34,7 +34,7 @@ import pandas as pd
 from PIL.Image import *
 import os
 import glob
-
+import background
 
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  # Convert to suspect selection page2 method
@@ -48,6 +48,8 @@ class Ui_MainWindow(object):
         """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/Blue-Gradient-Blur-Background-For-Free.jpeg)}");
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label1 = QtWidgets.QLabel(self.centralwidget)

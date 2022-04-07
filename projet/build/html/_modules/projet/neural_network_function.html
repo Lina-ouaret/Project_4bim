@@ -84,16 +84,23 @@
 <span class="sd">  Split the dataset into train and test, in order to train the neural network</span>
 
 <span class="sd">  Args :</span>
-<span class="sd">    pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)</span>
+<span class="sd">    dataset (array) : photo list</span>
 <span class="sd">    attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc</span>
 
 <span class="sd">  Returns :</span>
-<span class="sd">    X_train (array) : portion of the db used to train the neural network - input</span>
-<span class="sd">    X_test (array) : portion of the db used to test the neural network - output</span>
-<span class="sd">    Y_train (array) : portion of the db used to train the neural network - input</span>
-<span class="sd">    Y_test (array) : portion of the db used to test the neural network - output</span>
+<span class="sd">    X_train (array) : portion of the db used to train the neural network</span>
+<span class="sd">    X_test (array) : portion of the db used to test the neural network</span>
+<span class="sd">    Y_train (array) : portion of the db used to train the neural network</span>
+<span class="sd">    Y_test (array) : portion of the db used to test the neural network</span>
 
-<span class="sd">  &gt;&gt;&gt; run the program code &quot;testunitairedataplit&quot;</span>
+<span class="sd">  &gt;&gt;&gt; dataX = np.zeros(1000)</span>
+<span class="sd">  &gt;&gt;&gt; dataY = np.ones(1000)</span>
+<span class="sd">  &gt;&gt;&gt; (X_TR, X_TE, Y_TR, Y_TE) = split_dataset(dataX,dataY)</span>
+<span class="sd">  &gt;&gt;&gt; X_TR.size == Y_TR.size == 1000*0.8</span>
+<span class="sd">  True</span>
+
+<span class="sd">  &gt;&gt;&gt; X_TE.size == Y_TE.size == 1000*0.2</span>
+<span class="sd">  True</span>
 
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">attribut</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -121,7 +128,7 @@
 <span class="sd">                break</span>
 <span class="sd">      for i in range(len(history[&#39;loss&#39;])):</span>
 <span class="sd">            if history[&#39;loss&#39;][i]==0:</span>
-<span class="sd">                print(&quot;test failed&quot;)</span>
+<span class="sd">                print(&quot;test failed&quot;)&gt;&gt;&gt;</span>
 <span class="sd">                break</span>
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="c1"># &quot;encoded&quot; is the encoded representation of the input</span>
@@ -167,12 +174,32 @@
 <span class="sd">  Save the input images and their reconstruction after being decoded</span>
 
 <span class="sd">  Args :</span>
-<span class="sd">    decoded (array)</span>
+<span class="sd">    decoded (array) :</span>
 <span class="sd">    n (int) : number of faces we will display</span>
 <span class="sd">  Returns :</span>
 <span class="sd">    None</span>
 
-<span class="sd">  &gt;&gt;&gt; run the program code &quot;testunitairecontrolplot&quot;</span>
+
+
+<span class="sd">  &gt;&gt;&gt; import pathlib</span>
+<span class="sd">  &gt;&gt;&gt; from pathlib import Path</span>
+<span class="sd">  &gt;&gt;&gt; home = Path.home()</span>
+<span class="sd">  print(home)</span>
+<span class="sd">  cwd = Path.cwd()</span>
+<span class="sd">  cwd</span>
+<span class="sd">  target_dir = cwd / &quot;test&quot;</span>
+<span class="sd">  initial_count=0</span>
+<span class="sd">  for file in target_dir.iterdir():</span>
+<span class="sd">    if file.suffix == &quot;.png&quot; :</span>
+<span class="sd">        initial_count+=1</span>
+<span class="sd">    #print(file)</span>
+<span class="sd">  print(initial_count)</span>
+
+<span class="sd">  wave = Path(&quot;test&quot;)</span>
+<span class="sd">  initial_count = 0</span>
+<span class="sd">  for nb in Path(&quot;test&quot;).glob(&quot;*.PNG&quot;):</span>
+<span class="sd">    initial_count += 1</span>
+<span class="sd">  print(initial_count)</span>
 
 <span class="sd">  &#39;&#39;&#39;</span>
   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
