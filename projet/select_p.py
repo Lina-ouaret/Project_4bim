@@ -272,11 +272,25 @@ class Ui_MainWindow(object):
             att_cluster18 = {"male":-1,"Straight_Hair":-1}
             att_cluster19 = {"male":-1,"Straight_Hair":1}
             att_cluster20 = {"male":1,"Straight_Hair":-1}
-
+            ## clusters avec deux attributs nuls
+            att_cluster21 = {"Straight_Hair":1}
+            att_cluster22 = {"Straight_Hair":-1}
+            att_cluster23 = {"young":-1}
+            att_cluster24 = {"young":1}
+            att_cluster25 = {"male":1}
+            att_cluster26 = {"male":-1}
+            ## clusters avec aucun attribut
+            att_cluster27 = {}
 
 
             dict = eval(rd)
             print(dict)
+
+            proba=np.random.random()
+
+            list_proba = list(range(0, 4, 1))
+            proba_ = random.sample(list_proba, 1)[0]
+            print(proba_)
 
             ## dict
             if dict == att_cluster1 :
@@ -303,156 +317,156 @@ class Ui_MainWindow(object):
             elif dict == att_cluster8 :
                 encoded_imgs = np.load('clusters/encoded_imgs8.npy')
                 decoder_ = keras.models.load_model('decoders/decoder8.h5')
-            # elif dict == att_cluster9 :
-            #     encoded1=np.load('clusters/encoded_imgs8.npy')
-            #     encoded2=np.load('clusters/encoded_imgs3.npy')
-            #     encoded_imgs = encoded1[0]+encoded2[0]
-            # elif dict == att_cluster9 :
-            #     encoded1=np.load('clusters/encoded_imgs8.npy')
-            #     encoded2=np.load('clusters/encoded_imgs3.npy')
-            #     encoded_imgs = encoded1[0]+encoded2[0]
-            # elif dict == att_cluster10 :
-            #     encoded3=np.load('clusters/encoded_imgs1.npy')
-            #     encoded4=np.load('clusters/encoded_imgs6.npy')
-            #     encoded_imgs = encoded3[0]+encoded4[0]
-            # elif dict == att_cluster11 :
-            #     encoded5=np.load('clusters/encoded_imgs4.npy')
-            #     encoded6=np.load('clusters/encoded_imgs7.npy')
-            #     encoded_imgs = encoded5[0]+encoded6[0]
-            # elif dict == att_cluster12 :
-            #     encoded7=np.load('clusters/encoded_imgs2.npy')
-            #     encoded8=np.load('clusters/encoded_imgs5.npy')
-            #     encoded_imgs = encoded7[0]+encoded8[0]
-            # elif dict == att_cluster13 :
-            #     encoded9=np.load('clusters/encoded_imgs5.npy')
-            #     encoded10=np.load('clusters/encoded_imgs8.npy')
-            #     encoded_imgs = encoded9[0]+encoded10[0]
-            # elif dict == att_cluster14 :
-            #     encoded11=np.load('clusters/encoded_imgs5.npy')
-            #     encoded12=np.load('clusters/encoded_imgs1.npy')
-            #     encoded_imgs = encoded11[0]+encoded12[0]
-            # elif dict == att_cluster15 :
-            #     encoded13=np.load('clusters/encoded_imgs4.npy')
-            #     encoded14=np.load('clusters/encoded_imgs7.npy')
-            #     encoded_imgs = encoded13[0]+encoded14[0]
-            # elif dict == att_cluster16 :
-            #     encoded15=np.load('clusters/encoded_imgs5.npy')
-            #     encoded16=np.load('clusters/    # elif dict == att_cluster9 :
-            #     encoded1=np.load('clusters/encoded_imgs8.npy')
-            #     encoded2=np.load('clusters/encoded_imgs3.npy')
-            #     encoded_imgs = encoded1[0]+encoded2[0]
-            # elif dict == att_cluster9 :
-            #     encoded1=np.load('clusters/encoded_imgs8.npy')
-            #     encoded2=np.load('clusters/encoded_imgs3.npy')
-            #     encoded_imgs = encoded1[0]+encoded2[0]
-            # elif dict == att_cluster10 :
-            #     encoded3=np.load('clusters/encoded_imgs1.npy')
-            #     encoded4=np.load('clusters/encoded_imgs6.npy')
-            #     encoded_imgs = encoded3[0]+encoded4[0]
-            # elif dict == att_cluster11 :
-            #     encoded5=np.load('clusters/encoded_imgs4.npy')
-            #     encoded6=np.load('clusters/encoded_imgs7.npy')
-            #     encoded_imgs = encoded5[0]+encoded6[0]
-            # elif dict == att_cluster12 :
-            #     encoded7=np.load('clusters/encoded_imgs2.npy')
-            #     encoded8=np.load('clusters/encoded_imgs5.npy')
-            #     encoded_imgs = encoded7[0]+encoded8[0]
-            # elif dict == att_cluster13 :
-            #     encoded9=np.load('clusters/encoded_imgs5.npy')
-            #     encoded10=np.load('clusters/encoded_imgs8.npy')
-            #     encoded_imgs = encoded9[0]+encoded10[0]
-            # elif dict == att_cluster14 :
-            #     encoded11=np.load('clusters/encoded_imgs5.npy')
-            #     encoded12=np.load('clusters/encoded_imgs1.npy')
-            #     encoded_imgs = encoded11[0]+encoded12[0]
-            # elif dict == att_cluster15 :
-            #     encoded13=np.load('clusters/encoded_imgs4.npy')
-            #     encoded14=np.load('clusters/encoded_imgs7.npy')
-            #     encoded_imgs = encoded13[0]+encoded14[0]
-            # elif dict == att_cluster16 :
-            #     encoded15=np.load('clusters/encoded_imgs5.npy')
-            #     encoded16=np.load('clusters/encoded_imgs2.npy')
-            #     encoded_imgs = encoded15[0]+encoded16[0]
-            # elif dict == att_cluster17 :
-            #     encoded17=np.load('clusters/encoded_imgs4.npy')
-            #     encoded18=np.load('clusters/encoded_imgs8.npy')
-            #     encoded_imgs = encoded17[0]+encoded18[0]
-            # elif dict == att_cluster18 :
-            #     encoded19=np.load('clusters/encoded_imgs1.npy')
-            #     encoded20=np.load('clusters/encoded_imgs2.npy')
-            #     encoded_imgs = encoded19[0]+encoded20[0]
-            # elif dict == att_cluster19 :
-            #     encoded21=np.load('clusters/encoded_imgs7.npy')
-            #     encoded22=np.load('clusters/encoded_imgs3.npy')
-            #     encoded_imgs = encoded21[0]+encoded22[0]
-            # elif dict == att_cluster20 :
-            #     encoded23=np.load('clusters/encoded_imgs5.npy')
-            #     encoded24=np.load('clusters/encoded_imgs6.npy')
-            #     encoded_imgs = encoded23[0]+encoded24[0]
-            # elif dict == att_clusters21 :
-            #     encoded25=np.load('clusters/encoded_imgs1.npy')
-            #     encoded26=np.load('clusters/encoded-imgs8.npy')
-            #     encoded_imgs = encoded25[0]+encoded26[0]encoded_imgs2.npy')
-            #     encoded_imgs = encoded15[0]+encoded16[0]
-            # elif dict == att_cluster17 :
-            #     encoded17=np.load('clusters/encoded_imgs4.npy')
-            #     encoded18=np.load('clusters/encoded_imgs8.npy')
-            #     encoded_imgs = encoded17[0]+encoded18[0]
-            # elif dict == att_cluster18 :
-            #     encoded19=np.load('clusters/encoded_imgs1.npy')
-            #     encoded20=np.load('clusters/encoded_imgs2.npy')
-            #     encoded_imgs = encoded19[0]+encoded20[0]
-            # elif dict == att_cluster19 :
-            #     encoded21=np.load('clusters/encoded_imgs7.npy')
-            #     encoded22=np.load('clusters/encoded_imgs3.npy')
-            #     encoded_imgs = encoded21[0]+encoded22[0]
-            # elif dict == att_cluster20 :
-            #     encoded23=np.load('clusters/encoded_imgs5.npy')
-            #     encoded24=np.load('clusters/encoded_imgs6.npy')
-            #     encoded_imgs = encoded23[0]+encoded24[0]
-            # elif dict == att_clusters21 :
-            #     encoded25=np.load('clusters/encoded_imgs1.npy')
-            #     encoded26=np.load('clusters/encoded-imgs8.npy')
-            #     encoded_imgs = encoded25[0]+encoded26[0]
-            #np.save('encoded', encoded_imgs)
+
+            # cluster avec 2 attibuts nuls
+            elif dict == att_cluster21 :
+                if proba_ == 0 : dict.update(att_cluster9)
+                elif proba_ == 1 : dict.update(att_cluster11)
+                elif proba_ == 2 : dict.update(att_cluster17)
+                elif proba_ == 3 : dict.update(att_cluster19)
+
+
+            elif dict == att_cluster22 :
+                if proba_ == 0 : dict.update(att_cluster10)
+                elif proba_ == 1 : dict.update(att_cluster12)
+                elif proba_ == 2 : dict.update(att_cluster18)
+                elif proba_ == 3 : dict.update(att_cluster20)
+
+
+            elif dict == att_cluster23 :
+                if proba_ == 0 : dict.update(att_cluster10)
+                elif proba_ == 1 : dict.update(att_cluster11)
+                elif proba_ == 2 : dict.update(att_cluster14)
+                elif proba_ == 3 : dict.update(att_cluster15)
+
+
+            elif dict == att_cluster24 :
+                if proba_ == 0 : dict.update(att_cluster9)
+                elif proba_ == 1 : dict.update(att_cluster12)
+                elif proba_ == 2 : dict.update(att_cluster13)
+                elif proba_ == 3 : dict.update(att_cluster16)
+
+
+            elif dict == att_cluster25 :
+                if proba_ == 0 : dict.update(att_cluster13)
+                elif proba_ == 1 : dict.update(att_cluster15)
+                elif proba_ == 2 : dict.update(att_cluster17)
+                elif proba_ == 3 : dict.update(att_cluster20)
+
+
+            elif dict == att_cluster26 :
+                if proba_ == 0 : dict.update(att_cluster14)
+                elif proba_ == 1 : dict.update(att_cluster16)
+                elif proba_ == 2 : dict.update(att_cluster18)
+                elif proba_ == 3 : dict.update(att_cluster19)
+
+
+
+
+            # cluster avec attribut nul
+            if dict == att_cluster9 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs8.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder8.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs3.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder3.h5')
+            elif dict == att_cluster10 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs1.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder1.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs6.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder6.h5')
+            elif dict == att_cluster11 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs4.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder4.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs7.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder7.h5')
+            elif dict == att_cluster12 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs2.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder2.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs5.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder5.h5')
+            elif dict == att_cluster13 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs5.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder5.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs8.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder8.h5')
+            elif dict == att_cluster14 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs5.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder5.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs1.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder1.h5')
+            elif dict == att_cluster15 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs4.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder4.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs7.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder7.h5')
+            elif dict == att_cluster16 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs5.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder5.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs2.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder2.h5')
+            elif dict == att_cluster17 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs4.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder4.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs8.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder8.h5')
+            elif dict == att_cluster18 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs1.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder1.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs2.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder2.h5')
+            elif dict == att_cluster19 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs7.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder7.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs3.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder3.h5')
+            elif dict == att_cluster20 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs5.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder5.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs6.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder6.h5')
+
+
+            # cluster avec aucun attribut
+            elif dict == att_cluster27 :
+                if proba >= 0.5 :
+                    encoded_imgs=np.load('clusters/encoded_imgs1.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder1.h5')
+                else :
+                    encoded_imgs=np.load('clusters/encoded_imgs8.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder8.h5')
+
+            # Save model and cluster chosen
+            np.save('encoded', encoded_imgs)
             decoder_.save('decoders/decoder.h5')
-            # load model
-
-            # decoder_ = keras.Sequential()
-
-            # load encoded_imgs
-            #encoded_imgs = np.load('encoded.npy')
-
-            # Choix aléatoire des premières photos
-            #mylist = list(range(0, 500, 1))
-            #n = 9
-            #index = random.sample(mylist, n)
-            #ag.randomly_choose_photos(index,n)
-            # load model
-            #decoder_ = keras.models.load_model('decoders/decoder.h5')
-            # decoder_ = keras.Sequential()
-
-            # load encoded_imgs
-            #encoded_imgs = np.load('clusters/encoded.npy')
-            #decoded_imgs = np.load('clusters/decoded_imgs1.npy')
-            # encoded_imgs.tolist()
-
-            # # Upl
-            # dataset = fetch_olivetti_faces()
-            # df = dataset["data"]
-            # attribut = dataset["target"]
-
-            # Reduction matrice
-            # pas besoin pour olivetti*
-            # cf.matrix_reduction(df, attributs)
-
-            #from PIL.Image import *
 
             # Choix aléatoire des premières photos
             mylist = list(range(0, 700, 1))
             n = 9
             index = random.sample(mylist, n)
-            # ag.randomly_choose_photos(index,n)
 
             # Afficher images
             decoded_imgs = decoder_.predict(encoded_imgs)
@@ -464,25 +478,9 @@ class Ui_MainWindow(object):
             nn.save_reconstruction(n, decoded)  # dans /son
 
             np.save('clusters/encoded_first', encoded)
-
-
-
-
-            #np.save('clusters/encoded', encoded_imgs)
 
 
             self.switch_window.emit()
-            # from sklearn.datasets import fetch_olivetti_faces  # Olivetti faces dataset
-            #
-            # dataset = fetch_olivetti_faces()
-            # df = dataset["data"]
-            # attribut = dataset["target"]
-
-            # Reduction matrice
-            # pas besoin pour olivetti*
-            # cf.matrix_reduction(df, attributs)
-
-            #from PIL.Image import *
 
             # Choix aléatoire des premières photos
             mylist = list(range(0, 700, 1))
@@ -501,13 +499,8 @@ class Ui_MainWindow(object):
 
             np.save('clusters/encoded_first', encoded)
 
-
-
-
-            #np.save('clusters/encoded', encoded_imgs)
-
             index = random.sample(mylist, n)
-            # ag.randomly_choose_photos(index,n)
+
 
             # Afficher images
             decoded_imgs = decoder_.predict(encoded_imgs)
@@ -520,14 +513,7 @@ class Ui_MainWindow(object):
 
             np.save('clusters/encoded_first', encoded)
 
-
-
-
-            #np.save('clusters/encoded', encoded_imgs)
-
-
             index = random.sample(mylist, n)
-            # ag.randomly_choose_photos(index,n)
 
             # Afficher images
             decoded_imgs = decoder_.predict(encoded_imgs)
@@ -539,11 +525,6 @@ class Ui_MainWindow(object):
             nn.save_reconstruction(n, decoded)  # dans /son
 
             np.save('clusters/encoded_first', encoded)
-
-
-
-
-            #np.save('clusters/encoded', encoded_imgs)
 
 
             self.switch_window.emit()
