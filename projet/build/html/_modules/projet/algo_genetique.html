@@ -68,6 +68,7 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">common_functions</span> <span class="k">as</span> <span class="nn">cf</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">permutations</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations</span>
 
 <div class="viewcode-block" id="randomly_choose_photos"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.randomly_choose_photos">[docs]</a><span class="k">def</span> <span class="nf">randomly_choose_photos</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -118,13 +119,19 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">index_parents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)))</span>
-    <span class="n">p_combinations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">permutations</span><span class="p">(</span><span class="n">index_parents</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">p_combinations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">index_parents</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
     <span class="n">offsprings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;début&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p_combinations</span><span class="p">)):</span>
         <span class="n">parent_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="n">p_combinations</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">parent_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="n">p_combinations</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="o">*</span><span class="n">pc</span><span class="p">)</span>  <span class="c1">#proportion pc from parent1</span>
-        <span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">parent_1</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">parent_2</span><span class="p">,</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="n">k</span><span class="p">))</span>
+        <span class="n">offsprings_temp</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_1</span><span class="p">))</span> <span class="p">:</span>
+            <span class="n">offsprings_temp</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">parent_2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offsprings_temp</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taille enfant :&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">offsprings_temp</span><span class="p">))</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">offsprings</span><span class="p">))</span><span class="o">&lt;</span><span class="mi">13</span><span class="p">:</span>
+        <span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offsprings</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">offsprings</span></div>
 
 <div class="viewcode-block" id="mutation_pixels"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.mutation_pixels">[docs]</a><span class="k">def</span> <span class="nf">mutation_pixels</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">pm</span><span class="p">):</span>
@@ -152,8 +159,8 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent</span><span class="p">)):</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">pm</span> <span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">muted_parent</span><span class="p">)</span>
-            <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span> <span class="mf">0.01</span>
+            <span class="c1">#print(muted_parent)</span>
+            <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span> <span class="mf">2.5</span>
     <span class="k">return</span> <span class="n">muted_parent</span></div>
 
 <span class="c1">#################</span>

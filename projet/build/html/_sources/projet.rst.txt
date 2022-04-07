@@ -29,6 +29,31 @@ projet.neural\_network\_function module
     :undoc-members:
     :show-inheritance:
 
+projet.select\_p module
+---------------------------------------
+
+.. automodule:: projet.select_p
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+projet.suspect\_p1
+---------------------------------------
+
+.. automodule:: projet.suspect_p1
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+projet.suspect\_p2
+---------------------------------------
+
+.. automodule:: projet.suspect_p2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 

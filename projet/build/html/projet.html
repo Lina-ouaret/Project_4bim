@@ -43,6 +43,9 @@
 <li><a class="reference internal" href="#module-projet.common_functions">projet.common_functions module</a></li>
 <li><a class="reference internal" href="#module-projet.algo_genetique">projet.algo_genetique module</a></li>
 <li><a class="reference internal" href="#module-projet.neural_network_function">projet.neural_network_function module</a></li>
+<li><a class="reference internal" href="#module-projet.select_p">projet.select_p module</a></li>
+<li><a class="reference internal" href="#module-projet.suspect_p1">projet.suspect_p1</a></li>
+<li><a class="reference internal" href="#module-projet.suspect_p2">projet.suspect_p2</a></li>
 <li><a class="reference internal" href="#module-projet">Module contents</a></li>
 </ul>
 </li>
@@ -277,7 +280,7 @@ autoencoder (keras.engine.functional.Functional) :</div></blockquote>
 <span class="go">              break</span>
 <span class="go">    for i in range(len(history[&#39;loss&#39;])):</span>
 <span class="go">          if history[&#39;loss&#39;][i]==0:</span>
-<span class="go">              print(&quot;test failed&quot;)</span>
+<span class="go">              print(&quot;test failed&quot;)&gt;&gt;&gt;</span>
 <span class="go">              break</span>
 </pre></div>
 </div>
@@ -289,14 +292,32 @@ autoencoder (keras.engine.functional.Functional) :</div></blockquote>
 <dd><p>Save the input images and their reconstruction after being decoded</p>
 <dl class="docutils">
 <dt>Args :</dt>
-<dd>decoded (array)
+<dd>decoded (array) :
 n (int) : number of faces we will display</dd>
 <dt>Returns :</dt>
 <dd>None</dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">run</span> <span class="n">the</span> <span class="n">program</span> <span class="n">code</span> <span class="s2">&quot;testunitairecontrolplot&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">home</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
+<span class="go">print(home)</span>
+<span class="go">cwd = Path.cwd()</span>
+<span class="go">cwd</span>
+<span class="go">target_dir = cwd / &quot;test&quot;</span>
+<span class="go">initial_count=0</span>
+<span class="go">for file in target_dir.iterdir():</span>
+<span class="go">  if file.suffix == &quot;.png&quot; :</span>
+<span class="go">      initial_count+=1</span>
+<span class="go">  #print(file)</span>
+<span class="go">print(initial_count)</span>
 </pre></div>
 </div>
+<p>wave = Path(“test”)
+initial_count = 0
+for nb in Path(“test”).glob(“<a href="#id1"><span class="problematic" id="id2">*</span></a>.PNG”):</p>
+<blockquote>
+<div>initial_count += 1</div></blockquote>
+<p>print(initial_count)</p>
 </dd></dl>
 
 <dl class="function">
@@ -305,17 +326,193 @@ n (int) : number of faces we will display</dd>
 <dd><p>Split the dataset into train and test, in order to train the neural network</p>
 <dl class="docutils">
 <dt>Args :</dt>
-<dd>pixel (array) : X, the photo represented by a 64x64 matrix, each element containing 3 values (a RGB-coded pixel)
+<dd>dataset (array) : photo list
 attributs (array) : Y, case Olivetti db : name of the photo, ex : 00000 ; 11111 ; 22222 etc</dd>
 <dt>Returns :</dt>
-<dd>X_train (array) : portion of the db used to train the neural network - input
-X_test (array) : portion of the db used to test the neural network - output
-Y_train (array) : portion of the db used to train the neural network - input
-Y_test (array) : portion of the db used to test the neural network - output</dd>
+<dd>X_train (array) : portion of the db used to train the neural network
+X_test (array) : portion of the db used to test the neural network
+Y_train (array) : portion of the db used to train the neural network
+Y_test (array) : portion of the db used to test the neural network</dd>
 </dl>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">run</span> <span class="n">the</span> <span class="n">program</span> <span class="n">code</span> <span class="s2">&quot;testunitairedataplit&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">X_TR</span><span class="p">,</span> <span class="n">X_TE</span><span class="p">,</span> <span class="n">Y_TR</span><span class="p">,</span> <span class="n">Y_TE</span><span class="p">)</span> <span class="o">=</span> <span class="n">split_dataset</span><span class="p">(</span><span class="n">dataX</span><span class="p">,</span><span class="n">dataY</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_TR</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">Y_TR</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1000</span><span class="o">*</span><span class="mf">0.8</span>
+<span class="go">True</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_TE</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">Y_TE</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1000</span><span class="o">*</span><span class="mf">0.2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-projet.select_p">
+<span id="projet-select-p-module"></span><h2>projet.select_p module<a class="headerlink" href="#module-projet.select_p" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="projet.select_p.Ui_MainWindow">
+<em class="property">class </em><code class="descclassname">projet.select_p.</code><code class="descname">Ui_MainWindow</code><a class="reference internal" href="_modules/projet/select_p.html#Ui_MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.select_p.Ui_MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="projet.select_p.Ui_MainWindow.press">
+<code class="descname">press</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/select_p.html#Ui_MainWindow.press"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.select_p.Ui_MainWindow.press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the button and write the corresponding function in select.txt</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.select_p.Ui_MainWindow.press2">
+<code class="descname">press2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/select_p.html#Ui_MainWindow.press2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.select_p.Ui_MainWindow.press2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete button corresponding to the hair style option</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.select_p.Ui_MainWindow.press3">
+<code class="descname">press3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/select_p.html#Ui_MainWindow.press3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.select_p.Ui_MainWindow.press3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the selection results and initialise the choice and jump to the suspect picture selection page1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.select_p.Ui_MainWindow.retranslateUi">
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/select_p.html#Ui_MainWindow.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.select_p.Ui_MainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Text display on buttons and labels</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>MainWindow : principal window displaying the program</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.select_p.Ui_MainWindow.setupUi">
+<code class="descname">setupUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/select_p.html#Ui_MainWindow.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.select_p.Ui_MainWindow.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Label, button position, size setting</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>MainWindow : principal window displaying the program</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="projet.select_p.Ui_MainWindow.switch_window">
+<code class="descname">switch_window</code><a class="headerlink" href="#projet.select_p.Ui_MainWindow.switch_window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projet.suspect_p1">
+<span id="projet-suspect-p1"></span><h2>projet.suspect_p1<a class="headerlink" href="#module-projet.suspect_p1" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="projet.suspect_p1.Ui_MainWindow">
+<em class="property">class </em><code class="descclassname">projet.suspect_p1.</code><code class="descname">Ui_MainWindow</code><a class="reference internal" href="_modules/projet/suspect_p1.html#Ui_MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p1.Ui_MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="projet.suspect_p1.Ui_MainWindow.retranslateUi">
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p1.html#Ui_MainWindow.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p1.Ui_MainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Text display on buttons and labels</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>MainWindow : principal window displaying the program</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p1.Ui_MainWindow.saveChoice">
+<code class="descname">saveChoice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p1.html#Ui_MainWindow.saveChoice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p1.Ui_MainWindow.saveChoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put the selected photos into the choices folder and show in the choices box that the selection cannot be greater
+than 4, clear the selection if it is greater.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p1.Ui_MainWindow.setupUi2">
+<code class="descname">setupUi2</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p1.html#Ui_MainWindow.setupUi2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p1.Ui_MainWindow.setupUi2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Label, button position, size setting， show photos</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>MainWindow : principal window displaying the program</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p1.Ui_MainWindow.swich">
+<code class="descname">swich</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p1.html#Ui_MainWindow.swich"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p1.Ui_MainWindow.swich" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the selection is 4, skip to the next page and generate the offspring photo by AI</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="projet.suspect_p1.Ui_MainWindow.switch_window">
+<code class="descname">switch_window</code><a class="headerlink" href="#projet.suspect_p1.Ui_MainWindow.switch_window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projet.suspect_p2">
+<span id="projet-suspect-p2"></span><h2>projet.suspect_p2<a class="headerlink" href="#module-projet.suspect_p2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="projet.suspect_p2.Ui_MainWindow">
+<em class="property">class </em><code class="descclassname">projet.suspect_p2.</code><code class="descname">Ui_MainWindow</code><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="projet.suspect_p2.Ui_MainWindow.b_stop">
+<code class="descname">b_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow.b_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.b_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suspect has been found, set stopGUI to True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p2.Ui_MainWindow.nextf">
+<code class="descname">nextf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow.nextf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.nextf" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the selection is 4, skip to the next page and generate the offspring photo by AI</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p2.Ui_MainWindow.retranslateUi">
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Text display on buttons and labels</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>MainWindow : principal window displaying the program</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p2.Ui_MainWindow.saveChoice">
+<code class="descname">saveChoice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow.saveChoice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.saveChoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>same as saveChoice_f(), but in son’s frame, save it to choice/ folder</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p2.Ui_MainWindow.saveChoice_f">
+<code class="descname">saveChoice_f</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow.saveChoice_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.saveChoice_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put the selected photos from fathers into the choices folder and show in the choices box that the selection cannot be greater
+than 4, clear the selection if it is greater. But when we have found the suspect we jump to the show suspects page</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projet.suspect_p2.Ui_MainWindow.setupUi">
+<code class="descname">setupUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/projet/suspect_p2.html#Ui_MainWindow.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Label, button position, size setting</p>
+<dl class="docutils">
+<dt>Args :</dt>
+<dd>MainWindow : principal window displaying the program</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="projet.suspect_p2.Ui_MainWindow.stopGUI">
+<code class="descname">stopGUI</code><em class="property"> = False</em><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.stopGUI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="projet.suspect_p2.Ui_MainWindow.switch_window">
+<code class="descname">switch_window</code><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.switch_window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="projet.suspect_p2.Ui_MainWindow.switch_window2">
+<code class="descname">switch_window2</code><a class="headerlink" href="#projet.suspect_p2.Ui_MainWindow.switch_window2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
