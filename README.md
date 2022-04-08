@@ -25,8 +25,6 @@ The folder projet contains all the folders that define the software structure. T
 - in the selectionimage, son, father, choice and final_choice folders, all photos saved during the main execution.
 - in  build/html/index.html, a link that takes to an index where you can easily find all the function's docstrings. 
 
-All the software's functions documentation can be found in : 
-
 The folder Tutoriel contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
 
 ### Methodologies Description
