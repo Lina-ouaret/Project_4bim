@@ -18,10 +18,10 @@ The software contains a user friendly Graphical User Interface and the algorithm
 
 ### Repository Organization
 *** 
-The folder portrait_robot contains all the folders that define the software structure. In the folder portrait_robot there are 3 main folders:
-Genetic_Algorithm, contains all the python, numpy and csv files needed for the genetic algorithm. 
-Neural_Network, contains all the python, and numpy files needed for the neural network algorithm. 
-Graphical_Inteface, contains all the the python, numpy, and png files needed for the graphical interface. This folder contains the main python file that defines the software execution. 
+The folder projet contains all the folders that define the software structure. This folder projet contains the main python file that defines the software execution. It also contains :
+- in the clusters folder, all numpy and csv files needed for the genetic algorithm and neural network algorithm. 
+- in the decoders folder, all decoder files .h5 needed for the photo decoding in the main. 
+- in the selectionimage, son, father, choice and final_choice folders, all photos saved during the main execution.
 
 The folder tutorials contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
 
