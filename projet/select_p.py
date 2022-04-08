@@ -223,17 +223,7 @@ class Ui_MainWindow(object):
         with open('select.txt', 'w') as file:
             file.write(str(dict1))
 
-    # def press2(self):
-    #     """
-    #     Delete button corresponding to the hair style option
-    #     """
-    #     with open('select.txt', 'r') as file:
-    #         rd = file.read()
-    #     dict1 = eval(rd)
-    #     del dict1["Wavy_Hair"]
-    #     del dict1["Straight_Hair"]
-    #     with open('select.txt', 'w') as file:
-    #         file.write(str(dict1))
+
 
     def press3(self):
         """
@@ -475,54 +465,54 @@ class Ui_MainWindow(object):
             for i in range(n):
                 decoded[i] = decoded_imgs[index[i]]
                 encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # dans /son
+            nn.save_reconstruction(n, decoded)  # in /son
 
             np.save('clusters/encoded_first', encoded)
 
 
             self.switch_window.emit()
 
-            # Choix aléatoire des premières photos
+            # Random selection of first photos
             mylist = list(range(0, 700, 1))
             n = 9
             index = random.sample(mylist, n)
             # ag.randomly_choose_photos(index,n)
 
-            # Afficher images
+            # Pin up the pictures
             decoded_imgs = decoder_.predict(encoded_imgs)
             decoded = [None] * n
             encoded = [None] * n
             for i in range(n):
                 decoded[i] = decoded_imgs[index[i]]
                 encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # dans /son
+            nn.save_reconstruction(n, decoded)  # in /son
 
             np.save('clusters/encoded_first', encoded)
 
             index = random.sample(mylist, n)
 
 
-            # Afficher images
+            # Pin up the pictures
             decoded_imgs = decoder_.predict(encoded_imgs)
             decoded = [None] * n
             encoded = [None] * n
             for i in range(n):
                 decoded[i] = decoded_imgs[index[i]]
                 encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # dans /son
+            nn.save_reconstruction(n, decoded)  # in /son
 
             np.save('clusters/encoded_first', encoded)
 
             index = random.sample(mylist, n)
 
-            # Afficher images
+            # Pin up the pictures
             decoded_imgs = decoder_.predict(encoded_imgs)
             decoded = [None] * n
             encoded = [None] * n
             for i in range(n):
                 decoded[i] = decoded_imgs[index[i]]
                 encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # dans /son
+            nn.save_reconstruction(n, decoded)  # in /son
 
             np.save('clusters/encoded_first', encoded)
 
