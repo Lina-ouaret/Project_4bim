@@ -265,8 +265,6 @@ class Ui_MainWindow(object):
 
             if ("man" in txt)==False:
                 txt+="guy."
-            else:
-
 
 
 
