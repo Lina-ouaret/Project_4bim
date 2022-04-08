@@ -236,7 +236,7 @@ class Ui_MainWindow(object):
         else:
             with open('select.txt', 'r') as file:
                 rd = file.read()
-            QtWidgets.QMessageBox.critical(self, "error", rd)
+            QtWidgets.QMessageBox.critical(self, "your choice", rd)
             if os.path.exists('choice/'):
                 rmtree('choice/')
                 os.mkdir('choice/')
