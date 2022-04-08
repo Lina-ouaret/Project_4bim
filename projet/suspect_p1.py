@@ -36,6 +36,7 @@ import os
 import glob
 import background
 
+
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  # Convert to suspect selection page2 method
 
@@ -287,6 +288,7 @@ class Ui_MainWindow(object):
         """
         If the selection is 4, skip to the next page and generate the offspring photo by AI
         """
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         files = os.listdir("choice/")
         num_png = len(files)
         # load model
@@ -314,6 +316,7 @@ class Ui_MainWindow(object):
             np.save('encoded_choix', encoded_choix)
             np.save('encoded_ag', encoded_ag)
             files = os.listdir("choice/")
+
 
             rmtree('father/')
             os.mkdir('father/')

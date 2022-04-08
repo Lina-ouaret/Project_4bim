@@ -33,6 +33,7 @@ import pandas as pd
 import os
 import glob
 
+
 choose = [0,0,0]
 
 class Ui_MainWindow(object):
@@ -184,7 +185,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Please select an initial set of physical traits for the search: \n"
                                                     ""))
         self.skin_color.setText(_translate("MainWindow", "hair style"))
-        self.Straight_Hair_T.setText(_translate("MainWindow", "stright"))
+        self.Straight_Hair_T.setText(_translate("MainWindow", "straight"))
         self.Straight_Hair_F.setText(_translate("MainWindow", "wavy"))
         self.Straight_Hair_0.setText(_translate("MainWindow", "no clue"))
         self.skin_color_4.setText(_translate("MainWindow", "age"))
@@ -241,7 +242,7 @@ class Ui_MainWindow(object):
             for key in dict1.keys():
                 if key == "Straight_Hair":
                     if dict1[key] == 1:
-                        lis.append("stright hair ")
+                        lis.append("straight hair ")
                     elif dict1[key] == -1:
                         lis.append("wavy hair ")
                 elif key == "young":
@@ -317,6 +318,8 @@ class Ui_MainWindow(object):
             # Proba to choose a cluster when all traits missing
             list_proba_bis = list(range(1, 9, 1))
             proba_bis = random.sample(list_proba_bis, 1)[0]
+
+            os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
             # cluster without attributs
             if dict == att_cluster27 :

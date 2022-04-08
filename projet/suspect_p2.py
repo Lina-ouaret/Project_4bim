@@ -36,6 +36,8 @@ import os
 import glob
 import background
 
+
+
 class Ui_MainWindow(object):
     switch_window = QtCore.pyqtSignal()  #Convert back to current page method
     switch_window2 = QtCore.pyqtSignal() #Convert to Checkout page method
@@ -369,6 +371,7 @@ class Ui_MainWindow(object):
         """
         same as saveChoice_f(), but in son's frame, save it to choice/ folder
         """
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         button_name = QtWidgets.QWidget().sender().objectName()
         source = "son/" + button_name[-1] + ".png"
         destination = "choice/" + button_name[-1] + ".png"
@@ -408,6 +411,7 @@ class Ui_MainWindow(object):
         """b_stop
         If the selection is 4, skip to the next page and generate the offspring photo by AI
         """
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         files = os.listdir("choice/")
         num_png = len(files)
         # load model
@@ -459,6 +463,7 @@ class Ui_MainWindow(object):
                     encoded_ag.append(res)
 
                 decoded_ag = decoder_.predict(encoded_ag)
+
                 nn.save_reconstruction(9, decoded_ag)
                 np.save('encoded_choix', encoded_father)
                 np.save('encoded_ag', encoded_ag)

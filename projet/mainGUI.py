@@ -26,6 +26,12 @@ import pandas as pd
 import os
 import glob
 
+import logging
+
+logging.disable(logging.WARNING)
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
+
 #Suspect screening page initialisation
 class mywindow(QtWidgets.QMainWindow, Ui1):
     def __init__(self):
@@ -96,6 +102,7 @@ class Controller():
 
 if __name__ == "__main__":
 
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
     #Page initialisation
     cycle = 0
