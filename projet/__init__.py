@@ -7,7 +7,7 @@ Data-driven methods. Pre-processing and evaluation methods are also included.
 """
 __author__ = "Group5 4BIM : Sonia Canjura, Pujian GUAN, Charlotte LOISEL, Lina OUARET, Macéo VALENTE"
 __copyright__ = "Copyright 2019, The GReNaDIne Project"
-__license__ = "MIT License"
+__license__ = "GNU General Public License"
 __version__ = "0.0.1"
 __maintainer__ = "Group5 4BIM"
 __email__ = "sonia-elizabeth.canjura-rodriguez@insa-lyon.fr ; charlotte.loisel@insa-lyon.fr"
