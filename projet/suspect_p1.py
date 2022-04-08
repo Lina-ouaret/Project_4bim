@@ -308,7 +308,7 @@ class Ui_MainWindow(object):
                 encoded_choix[i] = encoded_img[num_p[i]]
 
             np.save('encoded_choix', encoded_choix)
-            encoded_ag = ag.crossover_pixels(encoded_choix, 1)
+            encoded_ag = ag.crossover_pixels(encoded_choix)
             decoded_ag = decoder_.predict(encoded_ag)
             nn.save_reconstruction(12, decoded_ag)
             np.save('encoded_choix', encoded_choix)
