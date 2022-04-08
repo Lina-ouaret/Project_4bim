@@ -6,14 +6,13 @@ from itertools import combinations
 
 def crossover_pixels(parents):
     """
-    Function that crosses the vectors of pixels from n parents to make an offspring.
-    For all possible combinations of two parents, it creates an offspring taking a proportion pc of the pixels from one parent and 1-pc from the other
-    and another one taking the inverse proportions.
-
+    Function that crosses the vectors corresponding to encoded photos, from n parents to make an offspring.
+    For all possible combinations of two parents, we create the offspring by computing the mean between each element of the parents vectors.
+    
     Args :
-        parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover
+        parents (list(np.array)) : list of np.array representing the reduced pixel matrix (a simple vector) of the parents we will use for the crossover
     Returns :
-        offsprings (list(lists)) : offspring of 2 previous parents/photos
+        offsprings (list(np.array)) : offspring of the given previous generation
 
     >>> encoded_imgs_test = np.load('clusters/encoded_imgs_test.npy')
     >>> offsprings = crossover_pixels(encoded_imgs_test)
@@ -25,12 +24,12 @@ def crossover_pixels(parents):
     p_combinations = list(combinations(index_parents,2))
     offsprings = []
     for i in range(len(p_combinations)):
-        #
+        #Goes through every possible combinations between the parents (without taking care of the order) 
         parent_1 = (parents[p_combinations[i][0]]).tolist()
         parent_2 = (parents[p_combinations[i][1]]).tolist()
         offsprings_temp=[]
         for j in range(len(parent_1)) :
-            #
+            #Goes trough every element of the vector (encoded photo) and computes the mean to create offspring
             offsprings_temp.append((parent_1[j]+parent_2[j])/2)
         offsprings.append(offsprings_temp)
     while(len(offsprings))<13:
