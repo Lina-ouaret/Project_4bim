@@ -15,7 +15,7 @@ def convert_attributes_into_pandas(filename):
     Returns :
         df_attributes (pandas.array) :  matrix of attributes that will be reduced to choose photos
 
-    >>> type(convert_attributes_into_pandas("test_attributes.csv"))
+    >>> type(convert_attributes_into_pandas("clusters/test_attributes.csv"))
     <class 'pandas.core.frame.DataFrame'>
 
     """
@@ -33,7 +33,7 @@ def matrix_reduction(df,fixed_att):
     Returns :
         list_names : return a list of strings with all the ids from the photos that containe the fixed_att attributes
 
-    >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
+    >>> df_test = convert_attributes_into_pandas("clusters/test_attributes.csv")
     >>> fixed_attributes_test = {"Pale_Skin":-1,"Young":1,"Male":1,"Attractive":1,"Bags_Under_Eyes":1}
     >>> df_test_list = matrix_reduction(df_test,fixed_attributes_test)
     >>> matrix_reduction(df_test,fixed_attributes_test)

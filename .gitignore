@@ -1,8 +1,8 @@
 *.pyc
-projet/son/
-projet/father/
+projet/son/*
+projet/father/*
 projet/select.txt
-projet/clusters/
-projet/decoders/
+projet/clusters/*
+projet/decoders/*
 projet/encoded_ag.npy
 projet/encoded_choix.npy

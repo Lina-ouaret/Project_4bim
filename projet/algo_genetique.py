@@ -25,10 +25,12 @@ def crossover_pixels(parents):
     p_combinations = list(combinations(index_parents,2))
     offsprings = []
     for i in range(len(p_combinations)):
+        #
         parent_1 = (parents[p_combinations[i][0]]).tolist()
         parent_2 = (parents[p_combinations[i][1]]).tolist()
         offsprings_temp=[]
         for j in range(len(parent_1)) :
+            #
             offsprings_temp.append((parent_1[j]+parent_2[j])/2)
         offsprings.append(offsprings_temp)
     while(len(offsprings))<13:
