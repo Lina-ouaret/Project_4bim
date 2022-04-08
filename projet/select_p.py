@@ -249,7 +249,7 @@ class Ui_MainWindow(object):
             att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
             att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
             att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
-            ## clusters avec un attribut nul
+            ## clusters with 1 nul attribut
             att_cluster9 = {"Straight_Hair":1,"young":1}
             att_cluster10 = {"Straight_Hair":-1,"young":-1}
             att_cluster11 = {"Straight_Hair":1,"young":-1}
@@ -262,24 +262,34 @@ class Ui_MainWindow(object):
             att_cluster18 = {"male":-1,"Straight_Hair":-1}
             att_cluster19 = {"male":-1,"Straight_Hair":1}
             att_cluster20 = {"male":1,"Straight_Hair":-1}
-            ## clusters avec deux attributs nuls
+            ## clusters with 2 nul attributs
             att_cluster21 = {"Straight_Hair":1}
             att_cluster22 = {"Straight_Hair":-1}
             att_cluster23 = {"young":-1}
             att_cluster24 = {"young":1}
             att_cluster25 = {"male":1}
             att_cluster26 = {"male":-1}
-            ## clusters avec aucun attribut
+            ## clusters without attributs
             att_cluster27 = {}
 
-
+            # Catch specific traits in a dictionnaire
             dict = eval(rd)
 
-
+            # Proba to choose a cluster when 1 trait missing
             proba=np.random.random()
 
+            # Proba to choose a cluster when 2 traits missing
             list_proba = list(range(0, 4, 1))
             proba_ = random.sample(list_proba, 1)[0]
+
+            # Proba to choose a cluster when all traits missing
+            list_proba_bis = list(range(1, 9, 1))
+            proba_bis = random.sample(list_proba_bis, 1)[0]
+
+            # cluster without attributs
+            if dict == att_cluster27 :
+                encoded_imgs = np.load('clusters/encoded_imgs'+str(proba_bis)+'.npy')
+                decoder_ = keras.models.load_model('decoders/decoder'+str(proba_bis)+'.h5')
 
             ## dict
             if dict == att_cluster1 :
@@ -352,7 +362,7 @@ class Ui_MainWindow(object):
 
 
 
-            # cluster avec attribut nul
+            # cluster with nul attribut
             if dict == att_cluster9 :
                 if proba >= 0.5 :
                     encoded_imgs=np.load('clusters/encoded_imgs8.npy')
@@ -439,17 +449,8 @@ class Ui_MainWindow(object):
                     decoder_ = keras.models.load_model('decoders/decoder6.h5')
 
 
-            # cluster avec aucun attribut
-            elif dict == att_cluster27 :
-                if proba >= 0.5 :
-                    encoded_imgs=np.load('clusters/encoded_imgs1.npy')
-                    decoder_ = keras.models.load_model('decoders/decoder1.h5')
-                else :
-                    encoded_imgs=np.load('clusters/encoded_imgs8.npy')
-                    decoder_ = keras.models.load_model('decoders/decoder8.h5')
-
             # Save model and cluster chosen
-            np.save('encoded', encoded_imgs)
+            np.save('clusters/encoded', encoded_imgs)
             decoder_.save('decoders/decoder.h5')
 
             # Random selection of first photo
@@ -466,12 +467,10 @@ class Ui_MainWindow(object):
                 encoded[i] = encoded_imgs[index[i]]
             nn.save_reconstruction(n, decoded)  # in /son
 
+            # Save first random pictures
             np.save('clusters/encoded_first', encoded)
 
 
-
-
-            np.save('clusters/encoded', encoded_imgs)
 
 
             self.switch_window.emit()

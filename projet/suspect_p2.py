@@ -430,7 +430,7 @@ class Ui_MainWindow(object):
                 self.photo_c3.setPixmap(QtGui.QPixmap())
                 self.photo_c4.setPixmap(QtGui.QPixmap())
             else:
-                # Choix de l'utilisateur :
+                # User Choices :
                 files = os.listdir("choice/")
                 num_png = len(files)
                 num_p = []
@@ -447,12 +447,11 @@ class Ui_MainWindow(object):
 
                         encoded_father[i] = encoded_choice[num_p[i]]
                         for m in range(3):
-                            #encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
-                            encoded_mut.append(ag.mutation_pixels(encoded_choice[num_p[i]], 0.5))
+                            encoded_mut.append(ag.mutation_pixels())
                     else:
                         encoded_father[i] = encoded_son[num_p[i]]
                         encoded_cross.append(encoded_father[i])
-                encoded_cross2 = ag.crossover_pixels(encoded_cross, 1)
+                encoded_cross2 = ag.crossover_pixels(encoded_cross)
                 for k in range(len(encoded_mut)):
                     encoded_ag.append(encoded_mut[k].tolist())
                 for j in range(len(encoded_cross2)):
