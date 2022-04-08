@@ -7,8 +7,9 @@
 4. [Tutoriel](#tutoriel)
 5. [Installation](#technologies)
 6. [Technologies](#installation)
-7. [Collaboration](#collaboration)
-8. [FAQs](#faqs)
+7. [Limits and Improvements](#limits-and-improvements)
+8. [Collaboration](#collaboration)
+9. [FAQs](#faqs)
 
 ### Software Description
 ***
@@ -88,6 +89,9 @@ Then, 6 new created photos will be displayed. In the top right part of the windo
 You have two possibilities: 
 
 1. Select one photo from the left buttom and 3 from the right side
+
+or
+
 2. Select 4 photos from the right side
 
 Note that at anytime you can restart the software by clicking on restart.
@@ -104,6 +108,14 @@ When you think you've found the best portrait, click on the I found suspect and 
 <img src="images_tutorial/5.png" alt="1" width="400"/>
 </p>
 Finally, confirm your choice by clicking yes. 
+
+### Limits and Improvements
+
+1. The software doesn't have a maximum number of iterations and there is no convergence criteria.  
+2. The software has no Home Page that presents the context in which the program can be used. 
+3. The quality of the images could definitely be improved by changing the database or the using additional programming languages. 
+4. The graphical interface buttons don't change color when they are selected, implementing this feature could make the program more user interactive. 
+
 
 ## FAQs
 ***
