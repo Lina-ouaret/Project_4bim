@@ -121,6 +121,6 @@ Finally, confirm your choice by clicking yes.
 ***
 A list of frequently asked questions
 1. **Are the images created during the previous executions saved in a folder?**
-No, the folder that contains the final portrait from a previous execution is cleaned everytime the program is run. 
+The images created during previous executions are kept in memory until a new execution is done. A final portrait is kept in a folder until a new exeution's final portrait is chosen. 
 
 
