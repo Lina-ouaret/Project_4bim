@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(704, 600)
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/Blue-Gradient-Blur-Background-For-Free.jpeg)}");
+        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/grey.jpeg)}");
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -86,7 +86,7 @@ class Ui_MainWindow(object):
         self.Ph_age.setEnabled(True)
         self.Ph_age.setMaximumSize(QtCore.QSize(16777215, 200))
         self.Ph_age.setText("")
-        self.Ph_age.setPixmap(QtGui.QPixmap("hairstyle.png"))
+        self.Ph_age.setPixmap(QtGui.QPixmap("selectionImage/hairstyle.png"))
         self.Ph_age.setObjectName("Ph_age")
         self.verticalLayout.addWidget(self.Ph_age)
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -112,7 +112,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.young_0)
         self.Ph_skin = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_skin.setText("")
-        self.Ph_skin.setPixmap(QtGui.QPixmap("age.png"))
+        self.Ph_skin.setPixmap(QtGui.QPixmap("selectionImage/age.png"))
         self.Ph_skin.setObjectName("Ph_skin")
         self.verticalLayout_2.addWidget(self.Ph_skin)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -137,7 +137,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.male_0)
         self.Ph_gender = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_gender.setText("")
-        self.Ph_gender.setPixmap(QtGui.QPixmap("gender.png"))
+        self.Ph_gender.setPixmap(QtGui.QPixmap("selectionImage/gender.png"))
         self.Ph_gender.setObjectName("Ph_gender")
         self.verticalLayout_4.addWidget(self.Ph_gender)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
@@ -236,7 +236,7 @@ class Ui_MainWindow(object):
         else:
             with open('select.txt', 'r') as file:
                 rd = file.read()
-            QtWidgets.QMessageBox.critical(self, "error", rd)
+            QtWidgets.QMessageBox.critical(self, "your choice", rd)
             if os.path.exists('choice/'):
                 rmtree('choice/')
                 os.mkdir('choice/')
@@ -249,7 +249,7 @@ class Ui_MainWindow(object):
             att_cluster6 = {"male":1,"Straight_Hair":-1,"young":-1}
             att_cluster7 = {"male":-1,"Straight_Hair":1,"young":-1}
             att_cluster8 = {"male":1,"Straight_Hair":1,"young":1}
-            ## clusters avec un attribut nul
+            ## clusters with 1 nul attribut
             att_cluster9 = {"Straight_Hair":1,"young":1}
             att_cluster10 = {"Straight_Hair":-1,"young":-1}
             att_cluster11 = {"Straight_Hair":1,"young":-1}
@@ -262,25 +262,34 @@ class Ui_MainWindow(object):
             att_cluster18 = {"male":-1,"Straight_Hair":-1}
             att_cluster19 = {"male":-1,"Straight_Hair":1}
             att_cluster20 = {"male":1,"Straight_Hair":-1}
-            ## clusters avec deux attributs nuls
+            ## clusters with 2 nul attributs
             att_cluster21 = {"Straight_Hair":1}
             att_cluster22 = {"Straight_Hair":-1}
             att_cluster23 = {"young":-1}
             att_cluster24 = {"young":1}
             att_cluster25 = {"male":1}
             att_cluster26 = {"male":-1}
-            ## clusters avec aucun attribut
+            ## clusters without attributs
             att_cluster27 = {}
 
-
+            # Catch specific traits in a dictionnaire
             dict = eval(rd)
-            print(dict)
 
+            # Proba to choose a cluster when 1 trait missing
             proba=np.random.random()
 
+            # Proba to choose a cluster when 2 traits missing
             list_proba = list(range(0, 4, 1))
             proba_ = random.sample(list_proba, 1)[0]
-            print(proba_)
+
+            # Proba to choose a cluster when all traits missing
+            list_proba_bis = list(range(1, 9, 1))
+            proba_bis = random.sample(list_proba_bis, 1)[0]
+
+            # cluster without attributs
+            if dict == att_cluster27 :
+                encoded_imgs = np.load('clusters/encoded_imgs'+str(proba_bis)+'.npy')
+                decoder_ = keras.models.load_model('decoders/decoder'+str(proba_bis)+'.h5')
 
             ## dict
             if dict == att_cluster1 :
@@ -353,7 +362,7 @@ class Ui_MainWindow(object):
 
 
 
-            # cluster avec attribut nul
+            # cluster with nul attribut
             if dict == att_cluster9 :
                 if proba >= 0.5 :
                     encoded_imgs=np.load('clusters/encoded_imgs8.npy')
@@ -440,25 +449,16 @@ class Ui_MainWindow(object):
                     decoder_ = keras.models.load_model('decoders/decoder6.h5')
 
 
-            # cluster avec aucun attribut
-            elif dict == att_cluster27 :
-                if proba >= 0.5 :
-                    encoded_imgs=np.load('clusters/encoded_imgs1.npy')
-                    decoder_ = keras.models.load_model('decoders/decoder1.h5')
-                else :
-                    encoded_imgs=np.load('clusters/encoded_imgs8.npy')
-                    decoder_ = keras.models.load_model('decoders/decoder8.h5')
-
             # Save model and cluster chosen
-            np.save('encoded', encoded_imgs)
+            np.save('clusters/encoded', encoded_imgs)
             decoder_.save('decoders/decoder.h5')
 
-            # Choix aléatoire des premières photos
+            # Random selection of first photo
             mylist = list(range(0, 700, 1))
             n = 9
             index = random.sample(mylist, n)
 
-            # Afficher images
+            # Pin up pictures
             decoded_imgs = decoder_.predict(encoded_imgs)
             decoded = [None] * n
             encoded = [None] * n
@@ -467,56 +467,10 @@ class Ui_MainWindow(object):
                 encoded[i] = encoded_imgs[index[i]]
             nn.save_reconstruction(n, decoded)  # in /son
 
+            # Save first random pictures
             np.save('clusters/encoded_first', encoded)
 
 
-            self.switch_window.emit()
-
-            # Random selection of first photos
-            mylist = list(range(0, 700, 1))
-            n = 9
-            index = random.sample(mylist, n)
-            # ag.randomly_choose_photos(index,n)
-
-            # Pin up the pictures
-            decoded_imgs = decoder_.predict(encoded_imgs)
-            decoded = [None] * n
-            encoded = [None] * n
-            for i in range(n):
-                decoded[i] = decoded_imgs[index[i]]
-                encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # in /son
-
-            np.save('clusters/encoded_first', encoded)
-
-            index = random.sample(mylist, n)
-
-
-            # Pin up the pictures
-            decoded_imgs = decoder_.predict(encoded_imgs)
-            decoded = [None] * n
-            encoded = [None] * n
-            for i in range(n):
-                decoded[i] = decoded_imgs[index[i]]
-                encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # in /son
-
-            np.save('clusters/encoded_first', encoded)
-
-            index = random.sample(mylist, n)
-
-            # Pin up the pictures
-            decoded_imgs = decoder_.predict(encoded_imgs)
-            decoded = [None] * n
-            encoded = [None] * n
-            for i in range(n):
-                decoded[i] = decoded_imgs[index[i]]
-                encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # in /son
-
-            np.save('clusters/encoded_first', encoded)
-
-            np.save('clusters/encoded', encoded_imgs)
 
 
             self.switch_window.emit()

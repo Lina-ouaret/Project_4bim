@@ -67,12 +67,10 @@ def model():
                 break
   '''
   # "encoded" is the encoded representation of the input
-  #input_shape = (128,128,3)
   image_size    = (128,128)
   lx,ly      = image_size
   encoded_dim = 1000
 
-  #input_img = keras.Input(shape=input_shape)
   input_img    = keras.Input(shape=(lx, ly, 3))
   x = keras.layers.Conv2D(32, 3, activation='relu', padding='same')(input_img)
   x = keras.layers.MaxPooling2D((2, 2), padding='same')(x)

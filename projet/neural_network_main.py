@@ -38,7 +38,7 @@ if __name__ == "__main__" :
     # index_cluster8 =cf.matrix_reduction(df_attributes,att_cluster8)
 
 
-    #Upload pictures avec ckuster1
+    #Upload pictures with cluster1
     images=[]
     for k in range(700):
         images.append(glob.glob("/media/cloisel/SAMSUNG/projet4BIM/img_align_celeba/"+index_cluster3[k]+".jpg")[0])
@@ -89,7 +89,6 @@ if __name__ == "__main__" :
                     validation_data=(X_test, X_test))
 
     # Plot reconstruction
-    # encoded_imgs = encoder_.predict(X_test_)
     encoded_imgs = encoder_.predict(X.reshape(-3,128,128,3))
     decoded_imgs = decoder_.predict(encoded_imgs)
     nn.save_reconstruction(1, decoded_imgs)
@@ -98,12 +97,5 @@ if __name__ == "__main__" :
     np.save('encoded_imgs3', encoded_imgs)
     decoder_.save('decoder3.h5')
 
-    # load model
-    #savedDecoder=load_model('decoder1.h5')
-    #savedDecoder.summary()
-
     # Plot the learning curve to test the model
     nn.loss_test(autoencoder_)
-
-
-    #a2 = np.load('encoded_imgs.npy')
