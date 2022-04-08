@@ -32,17 +32,18 @@ Our project is based on 3 methodologies.
 
 1.  *Neural Network*
 
-A Neural Network Algorithm is used to reduce the size of all the dataset images for the software to modify them faster. It contains and encoder that encodes the images and a decoder that decodes them to latter being able to display them. 
+A Neural Network Algorithm is used to reduce the size of all the dataset images for the software to modify them faster. It contains an encoder that compresses the images and a decoder that decompresses them later in order to display them.
 
-The database used to create the software has more than 200,000 photos. With the aim of not having to train our Neural Network model on all the dataset every time the software was runned, we decided to create 8 clusters of the dataset based on all the possible combinations of 3 attributes (Hairstyle, Gender and Age) that we consider reduced significantly the size of the database. Each cluster has a specific encoder and decoder and all these files needed for the Neural Network to run were created in advance. The only image kept in memory at run time are the ones that are being displayed. 
+The database used to create the software has more than 200,000 photos. With the aim of not having to train our Neural Network model on all the dataset every time the software was run, we decided to create 8 clusters of the dataset based on all the possible combinations of 3 attributes (Hairstyle, Gender and Age) that we consider reduced significantly the size of the database. Each cluster has a specific encoder and decoder and all these files needed for the Neural Network to run were created in advance. The only image kept in memory at run time are the ones that are being displayed.
 
 2. *Genetic Algorithm*
 
-A Genetic algorithm is used to generate a high-quality solution to the search of the criminal's face by the witness. It relies on two biological inspired operators: a mutation and a crossover. The idea is to include the witness's successive photo choices and use that information to generate new photos that contain some of the traits selected. 
+A Genetic algorithm is used to generate a high-quality solution to the search of the criminal's face by the witness. It relies on two biological inspired operators: a mutation and a crossover. The idea is to include the witness's successive photo choices and use that information to generate new photos that contain some of the traits selected.
+
 
 3. *Graphical User Interface*
 
-In order to present a user friendly software, a Graphical User Interface was created with buttoms that allow the witness to select different photos, stop and restart the program. It also displays all the photos selected in the previous steps of the software. 
+In order to present a user friendly software, a Graphical User Interface was created with buttons that allow the witness to select different photos, stop and restart the program. It also displays all the photos selected in the previous steps of the software.
 
 ### Technologies
 ***
