@@ -264,10 +264,9 @@ class Ui_MainWindow(object):
             txt += (sex)
 
             if ("man" in txt)==False:
-                print("no")
                 txt+="guy."
             else:
-                print("yes")
+
 
 
 
