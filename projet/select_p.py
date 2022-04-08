@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(704, 600)
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/Blue-Gradient-Blur-Background-For-Free.jpeg)}");
+        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/grey.jpeg)}");
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -86,7 +86,7 @@ class Ui_MainWindow(object):
         self.Ph_age.setEnabled(True)
         self.Ph_age.setMaximumSize(QtCore.QSize(16777215, 200))
         self.Ph_age.setText("")
-        self.Ph_age.setPixmap(QtGui.QPixmap("hairstyle.png"))
+        self.Ph_age.setPixmap(QtGui.QPixmap("selectionImage/hairstyle.png"))
         self.Ph_age.setObjectName("Ph_age")
         self.verticalLayout.addWidget(self.Ph_age)
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -112,7 +112,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.young_0)
         self.Ph_skin = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_skin.setText("")
-        self.Ph_skin.setPixmap(QtGui.QPixmap("age.png"))
+        self.Ph_skin.setPixmap(QtGui.QPixmap("selectionImage/age.png"))
         self.Ph_skin.setObjectName("Ph_skin")
         self.verticalLayout_2.addWidget(self.Ph_skin)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -137,7 +137,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.male_0)
         self.Ph_gender = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.Ph_gender.setText("")
-        self.Ph_gender.setPixmap(QtGui.QPixmap("gender.png"))
+        self.Ph_gender.setPixmap(QtGui.QPixmap("selectionImage/gender.png"))
         self.Ph_gender.setObjectName("Ph_gender")
         self.verticalLayout_4.addWidget(self.Ph_gender)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
@@ -236,7 +236,7 @@ class Ui_MainWindow(object):
         else:
             with open('select.txt', 'r') as file:
                 rd = file.read()
-            QtWidgets.QMessageBox.critical(self, "error", rd)
+            QtWidgets.QMessageBox.critical(self, "your choice", rd)
             if os.path.exists('choice/'):
                 rmtree('choice/')
                 os.mkdir('choice/')

@@ -49,7 +49,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 755)
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/Blue-Gradient-Blur-Background-For-Free.jpeg)}");
+        MainWindow.setStyleSheet("#MainWindow{background-image: url(:/background/background/grey.jpeg)}");
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label1 = QtWidgets.QLabel(self.centralwidget)
