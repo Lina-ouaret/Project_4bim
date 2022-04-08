@@ -23,10 +23,11 @@ The folder projet contains all the folders that define the software structure. T
 - in the clusters folder, all numpy and csv files needed for the genetic algorithm and neural network algorithm. 
 - in the decoders folder, all decoder files .h5 needed for the photo decoding in the main. 
 - in the selectionimage, son, father, choice and final_choice folders, all photos saved during the main execution.
+- in  build/html/index.html, a link that takes to an index where you can easily find all the function's docstrings. 
 
-The folder tutorials contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
+All the software's functions documentation can be found in : 
 
-The folder docs contains all the files needed to create the software's documentation. 
+The folder Tutoriel contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
 
 ### Methodologies Description
 Our project is based on 3 methodologies.
