@@ -18,10 +18,10 @@ The software contains a user friendly Graphical User Interface and the algorithm
 
 ### Repository Organization
 *** 
-The folder portrait_robot contains all the folders that define the software structure. In the folder portrait_robot there are 3 main folders:
-Genetic_Algorithm, contains all the python, numpy and csv files needed for the genetic algorithm. 
-Neural_Network, contains all the python, and numpy files needed for the neural network algorithm. 
-Graphical_Inteface, contains all the the python, numpy, and png files needed for the graphical interface. This folder contains the main python file that defines the software execution. 
+The folder projet contains all the folders that define the software structure. This folder projet contains the main python file that defines the software execution. It also contains :
+- in the clusters folder, all numpy and csv files needed for the genetic algorithm and neural network algorithm. 
+- in the decoders folder, all decoder files .h5 needed for the photo decoding in the main. 
+- in the selectionimage, son, father, choice and final_choice folders, all photos saved during the main execution.
 
 The folder tutorials contains two jupyther notebooks that can help you train with the Genetic Algorithm and the Neural Network Algorithm. 
 
@@ -76,12 +76,12 @@ You can download the project on github but you can't collaborate directly on the
 ***
 First, select an initial set of physical traits for the search. Click on the options and then click on next. 
 <p align="center">
-<img src="1.png" alt="1" width="400"/>
+<img src="images_tutorial/1.png" alt="1" width="400"/>
 </p>
 
 Then, 9 photos that correspond to the initial selected traits will be displayed. Select 4 of them and click on next.
 <p align="center">
-<img src="2.png" alt="1" width="400"/>
+<img src="images_tutorial/2.png" alt="1" width="400"/>
 </p>
 
 Then, 6 new created photos will be displayed. In the top right part of the window you can check your previous selected photos. 
@@ -92,16 +92,16 @@ You have two possibilities:
 
 Note that at anytime you can restart the software by clicking on restart.
 <p align="center">
-<img src="3.png" alt="1" width="400"/>
+<img src="images_tutorial/3.png" alt="1" width="400"/>
 </p> 
 
 All your choices will be displayed on the bottom left side of the window. 
 <p align="center">
-<img src="4.png" alt="1" width="400"/>
+<img src="images_tutorial/4.png" alt="1" width="400"/>
 </p>
 When you think you've found the best portrait, click on the I found suspect and then select the corresponding image. 
 <p align="center">
-<img src="5.png" alt="1" width="400"/>
+<img src="images_tutorial/5.png" alt="1" width="400"/>
 </p>
 Finally, confirm your choice by clicking yes. 
 
