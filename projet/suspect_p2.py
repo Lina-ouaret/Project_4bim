@@ -430,7 +430,7 @@ class Ui_MainWindow(object):
                 self.photo_c3.setPixmap(QtGui.QPixmap())
                 self.photo_c4.setPixmap(QtGui.QPixmap())
             else:
-                # Choix de l'utilisateur :
+                # User Choices :
                 files = os.listdir("choice/")
                 num_png = len(files)
                 num_p = []
