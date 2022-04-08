@@ -1,5 +1,4 @@
 *.pyc
-data/*
 projet/son/
 projet/father/
 projet/select.txt
