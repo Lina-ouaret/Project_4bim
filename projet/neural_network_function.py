@@ -115,7 +115,7 @@ def save_reconstruction(n,decoded):
     None
     >>> img_.width == 128
     >>> img_.height == 128
-    <TRUE>
+    True
 
   '''
   for i in range(n):

@@ -7,6 +7,7 @@ from itertools import combinations
 def convert_attributes_into_pandas(filename):
     """
     Converts a csv file to a pandas.array matrix. The matrix contains all attributes as columns, and each photo ID and their corresponding attributes values in rows.
+    Function used to build the clusters of photos.
 
     Args :
         filename (str) : path to csv file
@@ -23,6 +24,7 @@ def convert_attributes_into_pandas(filename):
 def matrix_reduction(df,fixed_att):
     """
     Reduces the matrix based on the traits specified by the witness and deletes all columns corresponding to the specified traits. The function returns a list of all the chosen photos id's as strings.
+    Function used to build the clusters of photos.
 
     Args :
         df (pandas.array) : attributes matrix to reduce
@@ -51,7 +53,6 @@ def matrix_reduction(df,fixed_att):
     new_list_index = []
     for i in range(len(list_index)):
         new_list_index.append(list_index[i])
-        print(list_index[i])
         if len(new_list_index[i]) ==1:
             new_list_index[i] = '00000' + new_list_index[i]
         if len(new_list_index[i]) ==2:
@@ -62,51 +63,7 @@ def matrix_reduction(df,fixed_att):
             new_list_index[i] = '00' + new_list_index[i]
         if len(new_list_index[i]) ==5:
             new_list_index[i] = '0' + new_list_index[i]
-
-
     return new_list_index
-
-def get_attributes_from_ID(df,photo_id):
-    """
-    Get the corresponding array with all the attributes from the specified string photo name.
-
-    Args :
-        df (panda.array) : attributes matrix with all photos
-        photo_id (str) : XXXXXX.png name of the photo
-
-    Returns :
-        photo_attributes (pandas.array) :
-
-    >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
-    >>> type(get_attributes_from_ID(df_test,'000018.jpg'))
-    <class 'pandas.core.frame.DataFrame'>
-
-    """
-    return pd.DataFrame(df.loc[df['ID'] == photo_id])
-
-def delete_photos(df,photos_ids_list):
-    """
-    Function that deletes photos from the database attribute matrix containing all the photos.
-
-    Args :
-        df (panda.array) : attributes matrix with all photos
-        photo_ids list((str)) : list of photos names that look like [ 'XXXXXX.png' , 'YYYYYY.png' , ...]
-
-    Returns :
-        reduced_df_attributes (panda.array) : same matrix as the arg one but without lines matching the photo_ids_list elements.
-
-    >>> df_test = convert_attributes_into_pandas("test_attributes.csv")
-    >>> list_id = ['000018.jpg','000066.jpg']
-    >>> len(delete_photos(df_test,list_id))
-    96
-
-    # = len(df_test)-len(list_id)
-
-    """
-    new_df = df
-    for i in range(len(photos_ids_list)):
-        df.drop(df[df.ID == str(photos_ids_list[i])].index,inplace=True)
-    return new_df
 
 #################
 #TESTS UNITAIRES#
