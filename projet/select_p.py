@@ -255,7 +255,7 @@ class Ui_MainWindow(object):
                         lis.append("man.")
                     elif dict1[key] == -1:
                         lis.append("woman.")
-            txt = "the suspspect is a "
+            txt = "the suspect is a "
             sex = ""
             for i in lis:
                 if i == "man." or i == "woman.":
@@ -445,8 +445,8 @@ class Ui_MainWindow(object):
                     encoded_imgs=np.load('clusters/encoded_imgs4.npy')
                     decoder_ = keras.models.load_model('decoders/decoder4.h5')
                 else :
-                    encoded_imgs=np.load('clusters/encoded_imgs7.npy')
-                    decoder_ = keras.models.load_model('decoders/decoder7.h5')
+                    encoded_imgs=np.load('clusters/encoded_imgs6.npy')
+                    decoder_ = keras.models.load_model('decoders/decoder6.h5')
             elif dict == att_cluster16 :
                 if proba >= 0.5 :
                     encoded_imgs=np.load('clusters/encoded_imgs5.npy')
