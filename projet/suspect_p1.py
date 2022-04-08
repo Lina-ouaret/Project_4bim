@@ -288,20 +288,18 @@ class Ui_MainWindow(object):
         If the selection is 4, skip to the next page and generate the offspring photo by AI
         """
         files = os.listdir("choice/")
-        print(files)
         num_png = len(files)
         # load model
         decoder_ = keras.models.load_model('decoders/decoder.h5')
         encoded_img = np.load('clusters/encoded_first.npy')
         if num_png == 4:
-            # Choix de l'utilisateur :
+            # User choices :
             files = os.listdir("choice/")
             num_png = len(files)
             num_p = []
             for i in files:
-                print(i[0])
                 num_p.append(int(i[0]) - 1)
-            print(num_p)
+
 
             # new_index=random.sample(index, n)
             n = 4
@@ -309,9 +307,6 @@ class Ui_MainWindow(object):
             for i in range(n):
                 encoded_choix[i] = encoded_img[num_p[i]]
 
-            # Algo genetique1 : crossover
-            # print(type(encoded_choix))
-            # print(type(encoded_choix[0]))
             np.save('encoded_choix', encoded_choix)
             encoded_ag = ag.crossover_pixels(encoded_choix, 1)
             decoded_ag = decoder_.predict(encoded_ag)

@@ -267,7 +267,7 @@ class Ui_MainWindow(object):
         names = []
         for i in files:
             names.append("father/" + i)
-        print(names)
+
         self.photo_f1.setPixmap(QtGui.QPixmap("father/1.png"))
         self.photo_f2.setPixmap(QtGui.QPixmap("father/2.png"))
         self.photo_f3.setPixmap(QtGui.QPixmap("father/3.png"))
@@ -375,11 +375,9 @@ class Ui_MainWindow(object):
         if self.stopGUI == True:
             rmtree('final_choice/')
             os.mkdir('final_choice/')
-            #print('final_choice/'+ str(int(button_name[-1])) + "f.png")
             copyfile(source, 'final_choice/'+ str(int(button_name[-1])) + "f.png")
             self.switch_window2.emit()
         elif self.stopGUI == False:
-            print("-------------------------------------------------")
             copyfile(source, destination)
             files = os.listdir("choice/")
             num_png = len(files)
@@ -446,7 +444,7 @@ class Ui_MainWindow(object):
                 encoded_mut = []
                 for i in range(n):
                     if files[i][1] == 'f':
-                        print("father :"+files[i])
+
                         encoded_father[i] = encoded_choice[num_p[i]]
                         for m in range(3):
                             #encoded_mut.append(ag.mutation_pixels(encoded_father[i], 2))
@@ -461,13 +459,6 @@ class Ui_MainWindow(object):
                     res = encoded_cross2[j]
                     encoded_ag.append(res)
 
-                # Algo genetique1 : crossover
-                # np.save('encoded_choix', encoded_choix)
-                # encoded_ag = ag.crossover_pixels(encoded_fatfiles = os.listdir("choice/")her, 0.3)
-                # print(len(encoded_ag))
-                # print(len(encoded_ag[0]))
-                # print(type(encoded_ag))
-                # print(type(encoded_ag[0]))
                 decoded_ag = decoder_.predict(encoded_ag)
                 nn.save_reconstruction(9, decoded_ag)
                 np.save('encoded_choix', encoded_father)

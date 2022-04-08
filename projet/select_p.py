@@ -274,13 +274,12 @@ class Ui_MainWindow(object):
 
 
             dict = eval(rd)
-            print(dict)
+
 
             proba=np.random.random()
 
             list_proba = list(range(0, 4, 1))
             proba_ = random.sample(list_proba, 1)[0]
-            print(proba_)
 
             ## dict
             if dict == att_cluster1 :
@@ -453,12 +452,12 @@ class Ui_MainWindow(object):
             np.save('encoded', encoded_imgs)
             decoder_.save('decoders/decoder.h5')
 
-            # Choix aléatoire des premières photos
+            # Random selection of first photo
             mylist = list(range(0, 700, 1))
             n = 9
             index = random.sample(mylist, n)
 
-            # Afficher images
+            # Pin up pictures
             decoded_imgs = decoder_.predict(encoded_imgs)
             decoded = [None] * n
             encoded = [None] * n
@@ -470,51 +469,7 @@ class Ui_MainWindow(object):
             np.save('clusters/encoded_first', encoded)
 
 
-            self.switch_window.emit()
 
-            # Random selection of first photos
-            mylist = list(range(0, 700, 1))
-            n = 9
-            index = random.sample(mylist, n)
-            # ag.randomly_choose_photos(index,n)
-
-            # Pin up the pictures
-            decoded_imgs = decoder_.predict(encoded_imgs)
-            decoded = [None] * n
-            encoded = [None] * n
-            for i in range(n):
-                decoded[i] = decoded_imgs[index[i]]
-                encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # in /son
-
-            np.save('clusters/encoded_first', encoded)
-
-            index = random.sample(mylist, n)
-
-
-            # Pin up the pictures
-            decoded_imgs = decoder_.predict(encoded_imgs)
-            decoded = [None] * n
-            encoded = [None] * n
-            for i in range(n):
-                decoded[i] = decoded_imgs[index[i]]
-                encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # in /son
-
-            np.save('clusters/encoded_first', encoded)
-
-            index = random.sample(mylist, n)
-
-            # Pin up the pictures
-            decoded_imgs = decoder_.predict(encoded_imgs)
-            decoded = [None] * n
-            encoded = [None] * n
-            for i in range(n):
-                decoded[i] = decoded_imgs[index[i]]
-                encoded[i] = encoded_imgs[index[i]]
-            nn.save_reconstruction(n, decoded)  # in /son
-
-            np.save('clusters/encoded_first', encoded)
 
             np.save('clusters/encoded', encoded_imgs)
 

@@ -51,7 +51,6 @@ def matrix_reduction(df,fixed_att):
     new_list_index = []
     for i in range(len(list_index)):
         new_list_index.append(list_index[i])
-        print(list_index[i])
         if len(new_list_index[i]) ==1:
             new_list_index[i] = '00000' + new_list_index[i]
         if len(new_list_index[i]) ==2:
