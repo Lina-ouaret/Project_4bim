@@ -449,7 +449,7 @@ class Ui_MainWindow(object):
                     decoder_ = keras.models.load_model('decoders/decoder8.h5')
 
             # Save model and cluster chosen
-            np.save('encoded', encoded_imgs)
+            np.save('clusters/encoded', encoded_imgs)
             decoder_.save('decoders/decoder.h5')
 
             # Random selection of first photo
@@ -466,12 +466,10 @@ class Ui_MainWindow(object):
                 encoded[i] = encoded_imgs[index[i]]
             nn.save_reconstruction(n, decoded)  # in /son
 
+            # Save first random pictures
             np.save('clusters/encoded_first', encoded)
 
 
-
-
-            np.save('clusters/encoded', encoded_imgs)
 
 
             self.switch_window.emit()
