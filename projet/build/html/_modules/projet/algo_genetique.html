@@ -67,101 +67,58 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">common_functions</span> <span class="k">as</span> <span class="nn">cf</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">permutations</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">combinations</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
 
-<div class="viewcode-block" id="randomly_choose_photos"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.randomly_choose_photos">[docs]</a><span class="k">def</span> <span class="nf">randomly_choose_photos</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+<div class="viewcode-block" id="crossover_pixels"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.crossover_pixels">[docs]</a><span class="k">def</span> <span class="nf">crossover_pixels</span><span class="p">(</span><span class="n">parents</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that randomly chooses n photos from the current reduced matrix, in order to display them so one or two can be selected by the witness</span>
-
+<span class="sd">    Function that crosses the vectors corresponding to encoded photos, from n parents to make an offspring.</span>
+<span class="sd">    For all possible combinations of two parents, we create the offspring by computing the mean between each element of the parents vectors.</span>
+<span class="sd">    </span>
 <span class="sd">    Args :</span>
-<span class="sd">        number_photos (int) : number of photo to be selected</span>
-<span class="sd">        df (pandas.array) : database from where the photo are selected</span>
+<span class="sd">        parents (list(np.array)) : list of np.array representing the reduced pixel matrix (a simple vector) of the parents we will use for the crossover</span>
 <span class="sd">    Returns :</span>
-<span class="sd">        photos_names (list(str)) :  list of photo names looking like XXXXXX.png</span>
+<span class="sd">        offsprings (list(np.array)) : offspring of the given previous generation</span>
 
-<span class="sd">    &gt;&gt;&gt; df_test = cf.convert_attributes_into_pandas(&quot;test_attributes.csv&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; fixed_attributes_test = {&quot;Male&quot;:1,&quot;Young&quot;:-1}</span>
-<span class="sd">    &gt;&gt;&gt; df_test_list = cf.matrix_reduction(df_test,fixed_attributes_test)</span>
-<span class="sd">    &gt;&gt;&gt; random.seed(2)</span>
-<span class="sd">    &gt;&gt;&gt; randomly_choose_photos(df_test_list,6)</span>
-<span class="sd">    [78, 14, 20, 68, 50, 29]</span>
-
-<span class="sd">    &gt;&gt;&gt; random.seed(3)</span>
-<span class="sd">    &gt;&gt;&gt; len(randomly_choose_photos(df_test_list,10))</span>
-<span class="sd">    10</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">n</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="crossover_pixels"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.crossover_pixels">[docs]</a><span class="k">def</span> <span class="nf">crossover_pixels</span><span class="p">(</span><span class="n">parents</span><span class="p">,</span><span class="n">pc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that crosses the vectors of pixels from n parents to make an offspring.</span>
-<span class="sd">    For all possible combinations of two parents, it creates an offspring taking a proportion pc of the pixels from one parent and 1-pc from the other</span>
-<span class="sd">    and another one taking the inverse proportions.</span>
-
-<span class="sd">    Args :</span>
-<span class="sd">        parents (list(list)) : list of lists representing the reduced pixel matrix of the parents we will use for the crossover</span>
-<span class="sd">        pc (float) : proportion of attributes taken from parent1 (1-pc being prop. of attributes taken from parent2)</span>
-<span class="sd">    Returns :</span>
-<span class="sd">        offsprings (list(lists)) : offspring of 2 previous parents/photos</span>
-
-<span class="sd">    &gt;&gt;&gt; encoded_imgs_test = np.load(&#39;encoded_imgs_test.npy&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; random.seed(1)</span>
-<span class="sd">    &gt;&gt;&gt; offsprings = crossover_pixels(encoded_imgs_test,0.3)</span>
+<span class="sd">    &gt;&gt;&gt; encoded_imgs_test = np.load(&#39;clusters/encoded_imgs_test.npy&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; offsprings = crossover_pixels(encoded_imgs_test)</span>
 <span class="sd">    &gt;&gt;&gt; offsprings[0][:10]</span>
-<span class="sd">    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.843132019042969, 2.2844715118408203]</span>
-
-<span class="sd">    &gt;&gt;&gt; random.seed(5)</span>
-<span class="sd">    &gt;&gt;&gt; offsprings2 = crossover_pixels(encoded_imgs_test,0.5)</span>
-<span class="sd">    &gt;&gt;&gt; offsprings2[0][:10]</span>
-<span class="sd">    [0.358284056186676, 0.0, 2.050474166870117, 0.0, 0.0, 0.5806276202201843, 0.0, 0.23518957197666168, 0.0, 0.0]</span>
-
+<span class="sd">    [0.3932449519634247, 0.0, 1.1216704845428467, 1.4052040576934814, 0.228857159614563, 0.0, 1.2136073112487793, 1.3344969749450684, 0.0, 0.0]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">index_parents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)))</span>
     <span class="n">p_combinations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">index_parents</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
     <span class="n">offsprings</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;début&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p_combinations</span><span class="p">)):</span>
+        <span class="c1">#Goes through every possible combinations between the parents (without taking care of the order) </span>
         <span class="n">parent_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="n">p_combinations</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">parent_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="n">p_combinations</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">offsprings_temp</span><span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent_1</span><span class="p">))</span> <span class="p">:</span>
+            <span class="c1">#Goes trough every element of the vector (encoded photo) and computes the mean to create offspring</span>
             <span class="n">offsprings_temp</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="n">parent_2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offsprings_temp</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taille enfant :&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">offsprings_temp</span><span class="p">))</span>
     <span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">offsprings</span><span class="p">))</span><span class="o">&lt;</span><span class="mi">13</span><span class="p">:</span>
         <span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offsprings</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">offsprings</span></div>
 
-<div class="viewcode-block" id="mutation_pixels"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.mutation_pixels">[docs]</a><span class="k">def</span> <span class="nf">mutation_pixels</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">pm</span><span class="p">):</span>
+<div class="viewcode-block" id="mutation_pixels"><a class="viewcode-back" href="../../projet.html#projet.algo_genetique.mutation_pixels">[docs]</a><span class="k">def</span> <span class="nf">mutation_pixels</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function that mutates one parent by adding a fixed value to randoms elements of the list</span>
-<span class="sd">    representing the encoded photo.</span>
+<span class="sd">    Function that mutates a parent by replacing it by another encoded photo from the same cluster.</span>
 
 <span class="sd">    Args :</span>
-<span class="sd">        parent (np.array) : array representing the encoded photo, has to mutate</span>
-<span class="sd">        pm (float) : chances that one element of the np array (parent) gets the mutation</span>
 <span class="sd">    Returns :</span>
-<span class="sd">        muted_parent (np.array) : same array but with mutation, ready to be decoded and displayed</span>
+<span class="sd">        mutated_parent (np.array) : new array representing an encoded photo, ready to be decoded and displayed</span>
 
-<span class="sd">    &gt;&gt;&gt; encoded_imgs_test = np.load(&#39;encoded_imgs_test.npy&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; encoded_imgs_test = np.load(&#39;clusters/encoded_imgs_test.npy&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; random.seed(4)</span>
-<span class="sd">    &gt;&gt;&gt; new_parents = mutation_pixels(encoded_imgs_test,0.5)</span>
-<span class="sd">    &gt;&gt;&gt; print(new_parents[0][:10])</span>
-<span class="sd">    [ 52.   0.  46. 205.   0.  30. 184.  88.   0.  13.]</span>
-
-<span class="sd">    &gt;&gt;&gt; encoded_imgs_test.shape == new_parents.shape</span>
-<span class="sd">    True</span>
-
+<span class="sd">    &gt;&gt;&gt; new_parents = mutation_pixels()</span>
+<span class="sd">    &gt;&gt;&gt; print(new_parents[:10])</span>
+<span class="sd">    [0.33924556 0.5726387  0.7653752  0.12993433 1.230257   0.</span>
+<span class="sd">     0.20445274 0.03274947 0.2659498  0.5143205 ]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">muted_parent</span> <span class="o">=</span> <span class="n">parent</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parent</span><span class="p">)):</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">pm</span> <span class="p">:</span>
-            <span class="c1">#print(muted_parent)</span>
-            <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">muted_parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span> <span class="mf">2.5</span>
-    <span class="k">return</span> <span class="n">muted_parent</span></div>
+    <span class="n">parentbase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;clusters/encoded.npy&quot;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parentbase</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">parentbase</span><span class="p">[</span><span class="n">p</span><span class="p">]</span></div>
 
 <span class="c1">#################</span>
 <span class="c1">#TESTS UNITAIRES#</span>
