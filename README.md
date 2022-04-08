@@ -60,7 +60,7 @@ A list of technologies used within the project:
 ### Installation
 ***
 To use the application you need a python environnement and you have to verify the versions of python and modules.
-In addition to use the followwing instructions you need a linux terminal.  
+In addition to use the following instructions you need a linux terminal.  
 ```
 $ git clone https://example.com
 $ cd ../path/to/the/file
