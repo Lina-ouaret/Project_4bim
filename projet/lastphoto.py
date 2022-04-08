@@ -29,7 +29,8 @@ class Ui_MainWindow(object):
         for i in files:
             names.append("final_choice/" + i)
         for i in range(len(names)):
-            print(str(i) + names[i])
+            print('')
+            #print(str(i) + names[i])
         self.label.setPixmap(QtGui.QPixmap(names[0]))
         self.label.setObjectName("label")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -65,7 +66,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "cancel"))
 
     def yes(self):
-        print("yes")
+        #print("yes")
         self.switch_window.emit()
 
     def no(self):
@@ -77,7 +78,8 @@ class Ui_MainWindow(object):
         for i in files:
             names.append("choice/" + i)
         for i in range(len(names)):
-            print(str(i) + names[i])
+            print('')
+            #print(str(i) + names[i])
         self.switch_window2.emit()
 
 
