@@ -91,7 +91,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.Ph_age)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_2.setContentsMargins(3, 0, 0, 0)
+        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.skin_color_4 = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.skin_color_4.setEnabled(False)
@@ -236,7 +236,42 @@ class Ui_MainWindow(object):
         else:
             with open('select.txt', 'r') as file:
                 rd = file.read()
-            QtWidgets.QMessageBox.critical(self, "your choice", rd)
+            dict1 = eval(rd)
+            lis = []
+            for key in dict1.keys():
+                if key == "Straight_Hair":
+                    if dict1[key] == 1:
+                        lis.append("stright hair ")
+                    elif dict1[key] == -1:
+                        lis.append("wavy hair ")
+                elif key == "young":
+                    if dict1[key] == 1:
+                        lis.append("young ")
+                    elif dict1[key] == -1:
+                        lis.append("old ")
+                elif key == "male":
+                    if dict1[key] == 1:
+                        lis.append("man.")
+                    elif dict1[key] == -1:
+                        lis.append("woman.")
+            txt = "the suspspect is a "
+            sex = ""
+            for i in lis:
+                if i == "man." or i == "woman.":
+                    sex+= i
+                else:
+                    txt+=i
+            txt += (sex)
+
+            if ("man" in txt)==False:
+                print("no")
+                txt+="guy."
+            else:
+                print("yes")
+
+
+
+            QtWidgets.QMessageBox.critical(self, "your choice", txt)
             if os.path.exists('choice/'):
                 rmtree('choice/')
                 os.mkdir('choice/')
