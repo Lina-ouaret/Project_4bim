@@ -51,10 +51,10 @@ A list of technologies used within the project:
 * [python3](https://www.python.org/downloads/): Version 3.7.3
 * [Library keras](https://keras.io/about/): Version 2.8.0
 * [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
-* [Library cv2](https://pypi.org/project/opencv-python/):Version 4.3.0
-  $ pip3 install opencv-python
-* [Library scikit-image](https://scikit-image.org/):Version 0.19.2
-  $ pip3 install scikit-image
+* [Library cv2](https://pypi.org/project/opencv-python/): Version 4.3.0
+$ pip3 install opencv-python
+* [Library scikit-image](https://scikit-image.org/): Version 0.19.2
+$ pip3 install scikit-image
 * [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
 
 ### Installation
@@ -63,8 +63,7 @@ To use the application you need a python environnement and you have to verify th
 In addition to use the following instructions you need a linux terminal.  
 ```
 $ git clone https://example.com
-$ cd ../path/to/the/file
-$ pip3 install keras
+$ cd projet
 $ python3 mainGUI.py
 Then follow the intructions of the graphic interface.
 ```
