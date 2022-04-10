@@ -113,8 +113,8 @@ Finally, confirm your choice by clicking yes.
 
 1. The software doesn't have a maximum number of iterations and there is no convergence criteria.  
 2. The software has no Home Page that presents the context in which the program can be used. 
-3. The quality of the images could definitely be improved by changing the database or the using additional programming languages. 
-4. The graphical interface buttons don't change color when they are selected, implementing this feature could make the program more user interactive. 
+3. The quality of the images could definitely be improved by changing the database or by implementing other AI methodologies.
+4. The graphical interface buttons don't change color when they are selected, so the user cannot visually confirm its choices. Implementing this feature could make the program more user interactive. 
 
 
 ## FAQs
