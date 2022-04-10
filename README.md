@@ -62,8 +62,10 @@ $ pip3 install scikit-image
 To use the application you need a python environnement and you have to verify the versions of python and modules.
 In addition to use the following instructions you need a linux terminal.  
 ```
-$ git clone https://example.com
-$ cd projet
+$ git clone cle_SSH
+$ cd Project_4BIM/projet
+$ mkdir choice
+$ mkdir final_choice
 $ python3 mainGUI.py
 Then follow the intructions of the graphic interface.
 ```
