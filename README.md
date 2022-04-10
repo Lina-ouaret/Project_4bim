@@ -51,10 +51,10 @@ A list of technologies used within the project:
 * [python3](https://www.python.org/downloads/): Version 3.7.3
 * [Library keras](https://keras.io/about/): Version 2.8.0
 * [Library tensorflow](https://www.tensorflow.org/api_docs/python/tf): Version 2.8.0
-* [Library cv2](https://pypi.org/project/opencv-python/):Version 4.3.0
-  $ pip3 install opencv-python
-* [Library scikit-image](https://scikit-image.org/):Version 0.19.2
-  $ pip3 install scikit-image
+* [Library cv2](https://pypi.org/project/opencv-python/): Version 4.3.0
+$ pip3 install opencv-python
+* [Library scikit-image](https://scikit-image.org/): Version 0.19.2
+$ pip3 install scikit-image
 * [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
 
 ### Installation
@@ -62,9 +62,10 @@ A list of technologies used within the project:
 To use the application you need a python environnement and you have to verify the versions of python and modules.
 In addition to use the following instructions you need a linux terminal.  
 ```
-$ git clone https://example.com
-$ cd ../path/to/the/file
-$ pip3 install keras
+$ git clone cle_SSH
+$ cd Project_4BIM/projet
+$ mkdir choice
+$ mkdir final_choice
 $ python3 mainGUI.py
 Then follow the intructions of the graphic interface.
 ```
@@ -112,8 +113,8 @@ Finally, confirm your choice by clicking yes.
 
 1. The software doesn't have a maximum number of iterations and there is no convergence criteria.  
 2. The software has no Home Page that presents the context in which the program can be used. 
-3. The quality of the images could definitely be improved by changing the database or the using additional programming languages. 
-4. The graphical interface buttons don't change color when they are selected, implementing this feature could make the program more user interactive. 
+3. The quality of the images could definitely be improved by changing the database or by implementing other AI methodologies.
+4. The graphical interface buttons don't change color when they are selected, so the user cannot visually confirm its choices. Implementing this feature could make the program more user interactive. 
 
 
 ## FAQs
