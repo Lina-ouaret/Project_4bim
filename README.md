@@ -59,13 +59,11 @@ $ pip3 install scikit-image
 
 ### Installation
 ***
-To use the application you need a python environnement and you have to verify the versions of python and modules.
+To use the application you need a python environnement and you have to verify the versions of python and modules. You also have to follow this link : https://github.com/Lina-ouaret/Project_4bim, and copy the SSH key.
 In addition to use the following instructions you need a linux terminal.  
 ```
 $ git clone cle_SSH
 $ cd Project_4BIM/projet
-$ mkdir choice
-$ mkdir final_choice
 $ python3 mainGUI.py
 Then follow the intructions of the graphic interface.
 ```
